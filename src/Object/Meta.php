@@ -12,6 +12,8 @@ namespace Slick\JSONAPI\Object;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JsonSerializable;
+use Slick\JSONAPI\Exception\InvalidMemberName;
+use Slick\JSONAPI\Validator\JsonApiValidator;
 
 /**
  * Meta
@@ -65,12 +67,12 @@ final class Meta implements JsonSerializable
         $copy->data = new ArrayCollection($this->data->toArray());
 
         if (!is_array($nameOrArray)) {
-            $copy->data->set($nameOrArray, $value);
+            $copy->data->set($this->validateName($nameOrArray), $value);
             return $copy;
         }
 
         foreach ($nameOrArray as $key => $value) {
-            $copy->data->set($key, $value);
+            $copy->data->set($this->validateName($key), $value);
         }
         return $copy;
     }
@@ -81,5 +83,20 @@ final class Meta implements JsonSerializable
     public function jsonSerialize()
     {
         return $this->data->toArray();
+    }
+
+    /**
+     * validateName
+     *
+     * @param string $memberName
+     * @return string
+     * @throws InvalidMemberName when provided member name does not apply JSON:API member name specification
+     */
+    private function validateName(string $memberName): string
+    {
+        if (!JsonApiValidator::instance()->isValid($memberName, JsonApiValidator::VALIDATE_MEMBER_NAME)) {
+            throw new InvalidMemberName("'$memberName' is not a valid JSON:API member name.");
+        }
+        return $memberName;
     }
 }

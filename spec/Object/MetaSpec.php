@@ -9,6 +9,7 @@
 
 namespace spec\Slick\JSONAPI\Object;
 
+use Slick\JSONAPI\Exception\InvalidMemberName;
 use Slick\JSONAPI\Object\Meta;
 use PhpSpec\ObjectBehavior;
 
@@ -77,5 +78,11 @@ class MetaSpec extends ObjectBehavior
                 "Tyler Kellen"
             ]
         ]);
+    }
+
+    function it_validates_member_names()
+    {
+        $this->shouldThrow(InvalidMemberName::class)
+            ->during('with', ['some:bad%name', 'test']);
     }
 }

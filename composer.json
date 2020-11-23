@@ -1,0 +1,49 @@
+{
+    "name": "slick/json-api",
+    "description": "JSON:API specification library, providing content negotiation, error handling and pagination, as well as fetching, creation, updating and deleting resources",
+    "type": "library",
+    "license": "MIT",
+    "version": "v0.1.0",
+    "minimum-stability": "dev",
+    "homepage": "https://github.com/slickframework/json-api",
+    "authors": [
+        {
+            "name": "fetching, creation, updating and deleting resourcesFilipe Silva",
+            "email": "silvam.filipe@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Slick\\JSONAPI\\": "src"
+        }
+    },
+    "require-dev": {
+        "phpspec/phpspec": "6.3.x-dev",
+        "squizlabs/php_codesniffer": "4.0.x-dev"
+    },
+    "require": {
+        "php": ">=7.2",
+        "ext-json": "*",
+        "doctrine/collections": "9999999-dev",
+        "slick/http": "3.1.x-dev"
+    },
+    "scripts": {
+        "test": "phpspec run --format=dot",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.0-dev",
+            "dev-develop": "0.1-dev"
+        }
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}

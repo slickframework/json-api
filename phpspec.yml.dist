@@ -1,0 +1,4 @@
+suites:
+  slick_event_suite:
+    namespace: Slick\JSONAPI
+    psr4_prefix: Slick\JSONAPI

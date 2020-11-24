@@ -22,11 +22,13 @@ final class JsonApiValidator implements Validator
 
     const VALIDATE_MEMBER_NAME = 0;
     const VALIDATE_LINK_REL    = self::VALIDATE_MEMBER_NAME + 1;
+    const VALIDATE_HREF_LANG   = self::VALIDATE_LINK_REL + 1;
 
     /** @var array<int, string> */
     private static $map = [
         self::VALIDATE_MEMBER_NAME => MemberName::class,
-        self::VALIDATE_LINK_REL => LinkRelation::class
+        self::VALIDATE_LINK_REL => LinkRelation::class,
+        self::VALIDATE_HREF_LANG => LinkHrefLang::class
     ];
 
     /** @var array<Validator> */

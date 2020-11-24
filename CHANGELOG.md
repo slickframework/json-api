@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Member name validation
+- Member name validator
 - JsonApi object JSON serialization
 - Link relation validator
+- Link HREF language validator
 
 ## [v0.1.0] 2020-11-22
 ### Added

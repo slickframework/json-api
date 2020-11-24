@@ -17,14 +17,16 @@ use Slick\JSONAPI\Validator;
  *
  * @package Slick\JSONAPI\Validator
  */
-class JsonApiValidator implements Validator
+final class JsonApiValidator implements Validator
 {
 
     const VALIDATE_MEMBER_NAME = 0;
+    const VALIDATE_LINK_REL    = self::VALIDATE_MEMBER_NAME + 1;
 
     /** @var array<int, string> */
     private static $map = [
-        self::VALIDATE_MEMBER_NAME => MemberName::class
+        self::VALIDATE_MEMBER_NAME => MemberName::class,
+        self::VALIDATE_LINK_REL => LinkRelation::class
     ];
 
     /** @var array<Validator> */
@@ -72,13 +74,31 @@ class JsonApiValidator implements Validator
      */
     private function validator($context): Validator
     {
+        $className = $this->inferClassName($context);
+
+        if (array_key_exists($className, self::$instances)) {
+            return self::$instances[$className];
+        }
+
+        $validator = new $className();
+        self::$instances[$className] = $validator;
+        return $validator;
+    }
+
+    /**
+     * Infer class name from context
+     *
+     * @param mixed $context
+     * @return string
+     */
+    private function inferClassName($context): string
+    {
         if (array_key_exists($context, self::$map)) {
-            $className = self::$map[$context];
-            return new $className();
+            return self::$map[$context];
         }
 
         if (class_exists($context) && in_array(Validator::class, class_implements($context))) {
-            return new $context();
+            return $context;
         }
 
         throw new UnknownValidator(

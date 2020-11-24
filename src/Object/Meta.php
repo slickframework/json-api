@@ -31,7 +31,7 @@ final class Meta implements JsonSerializable
      *
      * @param array|null $values A key/value pair of meta information
      */
-    public function __construct(?array $values = [])
+    public function __construct(array $values = [])
     {
         $this->data = new ArrayCollection($values);
     }

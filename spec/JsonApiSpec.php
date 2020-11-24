@@ -137,4 +137,31 @@ class JsonApiSpec extends ObjectBehavior
         $this->meta()->shouldBe(null);
         $copy->meta()->shouldBe($meta);
     }
+
+    function it_can_be_converted_to_json()
+    {
+        $this->shouldBeAnInstanceOf(\JsonSerializable::class);
+        $this->jsonSerialize()->shouldBe([
+            'version' => JsonApi::JSON_API_11
+        ]);
+    }
+
+    function it_only_outputs_json_when_there_are_data()
+    {
+        $uri = new Uri('http://api.example.com/extensions/atomic');
+        $uri1 = new Uri('http://api.example.com/profiles/timestamp');
+        $meta = new Meta(['author' => 'John Doe']);
+        $this->beConstructedWith(
+            JsonApi::JSON_API_11,
+            ['atomic' => $uri],
+            ['timestamp' => $uri1],
+            $meta
+        );
+        $this->jsonSerialize()->shouldBe([
+            'version' => JsonApi::JSON_API_11,
+            'ext' => [(string) $uri],
+            'profile' => [(string) $uri1],
+            'meta' => $meta
+        ]);
+    }
 }

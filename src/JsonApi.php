@@ -11,6 +11,7 @@ namespace Slick\JSONAPI;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use JsonSerializable;
 use Psr\Http\Message\UriInterface;
 use Slick\JSONAPI\Exception\UnsupportedFeature;
 use Slick\JSONAPI\Object\Meta;
@@ -22,7 +23,7 @@ use Slick\JSONAPI\Object\Meta;
  *
  * @see https://jsonapi.org/format/#document-jsonapi-object
  */
-final class JsonApi
+final class JsonApi implements JsonSerializable
 {
     public const JSON_API_10 = '1.0';
     public const JSON_API_11 = '1.1';
@@ -41,19 +42,27 @@ final class JsonApi
     private $profiles;
 
     /** @var Meta|null */
-    private $meta = null;
+    private $meta;
 
     /**
      * Creates a JsonApi object
      *
      * @param string $version
+     * @param array $extensions
+     * @param array $profiles
+     * @param Meta|null $meta
      * @see https://jsonapi.org/format/#document-jsonapi-object
      */
-    public function __construct(string $version = self::JSON_API_10)
-    {
+    public function __construct(
+        string $version = self::JSON_API_10,
+        array $extensions = [],
+        array $profiles = [],
+        ?Meta $meta = null
+    ) {
         $this->version = $version;
-        $this->extensions = new ArrayCollection();
-        $this->profiles = new ArrayCollection();
+        $this->extensions = new ArrayCollection($extensions);
+        $this->profiles = new ArrayCollection($profiles);
+        $this->meta = $meta;
     }
 
     /**
@@ -222,7 +231,29 @@ final class JsonApi
             throw new UnsupportedFeature(self::META_SUPPORT_ERROR);
         }
     }
-}
-/*
 
-*/
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        $data = ['version' => $this->version];
+        if (!$this->extensions->isEmpty()) {
+            foreach ($this->extensions() as $uri) {
+                $data['ext'][] = (string) $uri;
+            }
+        }
+
+        if (!$this->profiles->isEmpty()) {
+            foreach ($this->profiles as $profile) {
+                $data['profile'][] = (string) $profile;
+            }
+        }
+
+        if ($this->meta) {
+            $data['meta'] = $this->meta;
+        }
+
+        return $data;
+    }
+}

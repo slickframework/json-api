@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi object JSON serialization
 - Link relation validator
 - Link HREF language validator
+- Link Object
 
 ## [v0.1.0] 2020-11-22
 ### Added

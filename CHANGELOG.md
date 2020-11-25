@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Link relation validator
 - Link HREF language validator
 - Link Object
+- Links member
 
 ## [v0.1.0] 2020-11-22
 ### Added

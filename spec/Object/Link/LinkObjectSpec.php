@@ -74,6 +74,16 @@ class LinkObjectSpec extends ObjectBehavior
         $this->describedBy()->shouldBe($this->describedBy);
     }
 
+    function it_can_change_href()
+    {
+        $href = '/some/new/href';
+        $copy = $this->withHref($href);
+        $this->href()->shouldBe($this->href);
+        $copy->shouldBeAnInstanceOf(LinkObject::class);
+        $copy->shouldNotBe($this->getWrappedObject());
+        $copy->href()->shouldBe($href);
+    }
+
     function it_can_change_its_title()
     {
         $title = 'some title';

@@ -120,6 +120,22 @@ final class LinkObject implements JsonSerializable
     }
 
     /**
+     * Returns a link with the given href
+     *
+     * This method will ALWAYS return a new copy (clone) of the Link object
+     * maintaining object immutability.
+     *
+     * @param string $href
+     * @return LinkObject
+     */
+    public function withHref(string $href): LinkObject
+    {
+        $copy = clone $this;
+        $copy->href = $href;
+        return $copy;
+    }
+
+    /**
      * Returns a link with a given title
      *
      * This method will ALWAYS return a new copy (clone) of the Link object
@@ -259,5 +275,4 @@ final class LinkObject implements JsonSerializable
 
         return count($data) === 1 ? $this->href : $data;
     }
-
 }

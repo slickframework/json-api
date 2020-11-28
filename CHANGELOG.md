@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Link HREF language validator
 - Link Object
 - Links member
+- Relationships: ToOne and ToMany relationships
+- Resource object interface: Resource identifier
 
 ## [v0.1.0] 2020-11-22
 ### Added

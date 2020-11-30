@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Member name validator
 - JsonApi object JSON serialization
-- Link relation validator
-- Link HREF language validator
-- Link Object
-- Links member
+- Validators: Link relation validator and Link HREF language validator
+- Links member and Link Object
 - Relationships: ToOne and ToMany relationships
-- Resource object interface: Resource identifier
+- Resource object interface: Resource identifier, Resource Object and Resource Collection
+- Documents: ResourceDocument, MetaDocument and ResourceCompound
+- JSON converter (convert Document to JSON string): PHPJsonConverter
 
 ## [v0.1.0] 2020-11-22
 ### Added

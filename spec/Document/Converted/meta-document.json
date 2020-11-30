@@ -1,0 +1,24 @@
+{
+    "jsonapi": {
+        "version": "1.1",
+        "ext": [
+            "https://jsonapi.org/ext/atomic"
+        ],
+        "profile": [
+            "http://example.com/profiles/flexible-pagination",
+            "http://example.com/profiles/resource-versioning"
+        ]
+    },
+    "meta": {
+        "copyright": "Copyright 2015 Example Corp.",
+        "authors": [
+            "Yehuda Katz",
+            "Steve Klabnik",
+            "Dan Gebhardt",
+            "Tyler Kellen"
+        ]
+    },
+    "links": {
+        "about": "/about"
+    }
+}

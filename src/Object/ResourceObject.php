@@ -14,7 +14,7 @@ namespace Slick\JSONAPI\Object;
  *
  * @package Slick\JSONAPI\Object
  */
-final class ResourceObject implements Resource
+class ResourceObject implements Resource
 {
     /**
      * @var ResourceIdentifier
@@ -102,7 +102,7 @@ final class ResourceObject implements Resource
     /**
      * relationships
      *
-     * @return Relationships|null
+     * @return Relationships|Relationship[]|null
      */
     public function relationships(): ?Relationships
     {
@@ -138,7 +138,7 @@ final class ResourceObject implements Resource
             'type' => $this->type(),
             'id' => $this->identifier()
         ];
-        $map = ['attributes', 'relationships', 'links', 'meta'];
+        $map = ['attributes', 'links', 'relationships', 'meta'];
         foreach ($map as $property) {
             if (property_exists($this, $property) && $this->$property) {
                 $data[$property] = $this->$property;

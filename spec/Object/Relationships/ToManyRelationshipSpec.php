@@ -41,7 +41,7 @@ class ToManyRelationshipSpec extends ObjectBehavior
         $this->resource = new ResourceIdentifier('people', '1');
         $resource = new ResourceIdentifier('people', '1');
         $this->meta = new Meta(['foo' => 'bar']);
-        $this->data = new ResourceCollection([$this->resource, $resource]);
+        $this->data = new ResourceCollection('people', [$this->resource, $resource]);
         $this->beConstructedWith($this->data, $this->links, $this->meta);
     }
 

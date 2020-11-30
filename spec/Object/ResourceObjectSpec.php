@@ -157,8 +157,8 @@ class ResourceObjectSpec extends ObjectBehavior
             'type' => $this->type,
             'id' => $this->identifier,
             'attributes' => $this->attributes,
-            'relationships' => $this->relationships,
             'links' => $this->links,
+            'relationships' => $this->relationships,
             'meta' => $this->meta
         ]);
     }

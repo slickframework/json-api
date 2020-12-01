@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Member name validator
+- JsonApi object JSON serialization
+- Validators: Link relation validator and Link HREF language validator
+- Links member and Link Object
+- Relationships: ToOne and ToMany relationships
+- Resource object interface: Resource identifier, Resource Object and Resource Collection
+- Documents: ResourceDocument, MetaDocument, ErrorDocument and ResourceCompound
+- JSON converter (convert Document to JSON string): PHPJsonConverter
 
 ## [v0.1.0] 2020-11-22
 ### Added

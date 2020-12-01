@@ -66,8 +66,12 @@ final class ErrorObject implements Resource
      * @param ErrorSource|null $source
      * @param string|null $status
      */
-    public function __construct(?string $title = null, ?string $detail = null, ?ErrorSource $source = null, ?string $status = null)
-    {
+    public function __construct(
+        ?string $title = null,
+        ?string $detail = null,
+        ?ErrorSource $source = null,
+        ?string $status = null
+    ) {
         $this->title = $title;
         $this->detail = $detail;
         $this->source = $source;

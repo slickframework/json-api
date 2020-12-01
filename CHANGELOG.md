@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Member name validator
+- Resource schema and mapped schema discovery
+
+## [v0.2.0] 2020-11-30
+### Added
 - JsonApi object JSON serialization
+- Member name validator
 - Validators: Link relation validator and Link HREF language validator
 - Links member and Link Object
 - Relationships: ToOne and ToMany relationships
@@ -21,5 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.2.0...HEAD
+[v0.2.0]: https://github.com/slickframework/json-api/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/slickframework/json-api/compare/51d2e9...v0.1.0

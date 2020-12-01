@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Slick\JSONAPI\Document\Converted;
+namespace Slick\JSONAPI\Document\Converter;
 
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentConverter;

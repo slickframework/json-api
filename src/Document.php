@@ -90,5 +90,4 @@ interface Document extends JsonSerializable
      * @return Document
      */
     public function withLinks(Links $links): Document;
-
 }

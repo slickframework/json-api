@@ -28,9 +28,12 @@ final class JsonApi implements JsonSerializable
     public const JSON_API_10 = '1.0';
     public const JSON_API_11 = '1.1';
 
-    private const EXTENSIONS_SUPPORT_ERROR = "Extensions are only supported on JSON:API version 1.1. JsonApi::__construct() was called with version 1.0.";
-    private const PROFILES_SUPPORT_ERROR = "Profiles are only supported on JSON:API version 1.1. JsonApi::__construct() was called with version 1.0.";
-    private const META_SUPPORT_ERROR = "Meta objects are only supported on JSON:API version 1.1. JsonApi::__construct() was called with version 1.0.";
+    private const EXTENSIONS_SUPPORT_ERROR =
+        "Extensions are only supported on JSON:API version 1.1. JsonApi::__construct() was called with version 1.0.";
+    private const PROFILES_SUPPORT_ERROR =
+        "Profiles are only supported on JSON:API version 1.1. JsonApi::__construct() was called with version 1.0.";
+    private const META_SUPPORT_ERROR =
+        "Meta objects are only supported on JSON:API version 1.1. JsonApi::__construct() was called with version 1.0.";
 
     /** @var string */
     private $version;

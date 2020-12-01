@@ -196,7 +196,7 @@ final class LinkObject implements JsonSerializable
     /**
      * A string or an array of strings indicating the language(s) of the link’s target.
      *
-     * @return string|array|null
+     * @return string|null
      */
     public function hreflang()
     {

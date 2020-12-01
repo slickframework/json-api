@@ -38,7 +38,7 @@ final class ErrorSource implements JsonSerializable
      */
     public function __construct(?string $pointer = null, ?string $parameter = null)
     {
-        if (!$pointer && !$parameter) {
+        if ($pointer === null  && $parameter === null) {
             throw new InvalidObjectCreation(
                 "Cannot create error source object without a pointer or a parameter."
             );

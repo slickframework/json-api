@@ -11,11 +11,9 @@ namespace Slick\JSONAPI\Object;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Exception;
 use IteratorAggregate;
 use JsonSerializable;
 use Slick\JSONAPI\Object\Link\LinkObject;
-use Traversable;
 
 /**
  * Links

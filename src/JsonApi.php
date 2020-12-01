@@ -241,22 +241,27 @@ final class JsonApi implements JsonSerializable
     public function jsonSerialize()
     {
         $data = ['version' => $this->version];
-        if (!$this->extensions->isEmpty()) {
-            foreach ($this->extensions() as $uri) {
-                $data['ext'][] = (string) $uri;
-            }
+        $this->parseCollection('ext', $this->extensions, $data);
+        $this->parseCollection('profile', $this->profiles, $data);
+
+        return $this->meta ? array_merge($data, ['meta' => $this->meta]) : $data;
+    }
+
+    /**
+     * Parse a give collection and fetch it to the data holder
+     *
+     * @param string $member
+     * @param Collection $collection
+     * @param array $data
+     */
+    private function parseCollection(string $member, Collection $collection, array &$data): void
+    {
+        if ($collection->isEmpty()) {
+            return;
         }
 
-        if (!$this->profiles->isEmpty()) {
-            foreach ($this->profiles as $profile) {
-                $data['profile'][] = (string) $profile;
-            }
+        foreach ($collection as $item) {
+            $data[$member][] = (string) $item;
         }
-
-        if ($this->meta) {
-            $data['meta'] = $this->meta;
-        }
-
-        return $data;
     }
 }

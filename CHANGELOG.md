@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Links member and Link Object
 - Relationships: ToOne and ToMany relationships
 - Resource object interface: Resource identifier, Resource Object and Resource Collection
-- Documents: ResourceDocument, MetaDocument and ResourceCompound
+- Documents: ResourceDocument, MetaDocument, ErrorDocument and ResourceCompound
 - JSON converter (convert Document to JSON string): PHPJsonConverter
 
 ## [v0.1.0] 2020-11-22

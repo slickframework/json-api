@@ -13,10 +13,12 @@ use Slick\Http\Message\Uri;
 use Slick\JSONAPI\Document\Converted\PHPJson;
 use PhpSpec\ObjectBehavior;
 use Slick\JSONAPI\Document\DocumentConverter;
+use Slick\JSONAPI\Document\ErrorDocument;
 use Slick\JSONAPI\Document\MetaDocument;
 use Slick\JSONAPI\Document\ResourceCompoundDocument;
 use Slick\JSONAPI\Document\ResourceDocument;
 use Slick\JSONAPI\JsonApi;
+use Slick\JSONAPI\Object\ErrorObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Relationships;
@@ -78,6 +80,32 @@ class PHPJsonSpec extends ObjectBehavior
         $linkPrefix = 'http://example.com';
         $collection = new ResourceCollection('articles', [$this->articleResourceObject($linkPrefix)]);
         $doc = new ResourceCompoundDocument($collection);
+        $this->convert($doc)->shouldBe($expected);
+    }
+
+    function it_can_convert_error_documents()
+    {
+        $expected = file_get_contents(__DIR__.'/error-document.json');
+        $doc = new ErrorDocument(
+            new ResourceCollection(
+                'errors',
+                [
+                    new ErrorObject(
+                        'Value is too short',
+                        'First name must contain at least three characters.',
+                        new ErrorObject\ErrorSource('/data/attributes/firstName'),
+                        '400'
+                    ),
+                    new ErrorObject(
+                        'Passwords must contain a letter, number, and punctuation character.',
+                        'The password provided is missing a punctuation character.',
+                        new ErrorObject\ErrorSource('/data/attributes/password'),
+                        '400'
+                    )
+                ]
+            ),
+            new JsonApi()
+        );
         $this->convert($doc)->shouldBe($expected);
     }
 

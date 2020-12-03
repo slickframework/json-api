@@ -30,6 +30,13 @@ interface Document extends JsonSerializable
     public function jsonapi(): ?JsonApi;
 
     /**
+     * Resource data member
+     *
+     * @return Resource|Resource[]|array|null
+     */
+    public function data();
+
+    /**
      * A meta object that contains non-standard meta-information.
      *
      * @return Meta|null

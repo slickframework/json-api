@@ -88,4 +88,12 @@ final class ArraySchema implements ResourceSchema
     {
         return $this->data->get('meta');
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function isCompound(): bool
+    {
+        return (bool) $this->data->get('compound');
+    }
 }

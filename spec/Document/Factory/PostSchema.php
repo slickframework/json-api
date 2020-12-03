@@ -7,50 +7,72 @@
  * file that was distributed with this source code.
  */
 
-namespace Object\SchemaDiscover;
+namespace spec\Slick\JSONAPI\Document\Factory;
 
 use Slick\JSONAPI\Object\ResourceSchema;
 
 /**
- * TestSchema
+ * PostSchema
  *
- * @package Object\SchemaDiscover
+ * @package Document\Factory
  */
-final class TestSchema implements ResourceSchema
+final class PostSchema implements ResourceSchema
 {
+
+    /**
+     * @inheritDoc
+     */
+    public function isCompound(): bool
+    {
+        return true;
+    }
 
     /**
      * @inheritDoc
      */
     public function type($object): string
     {
-        return 'tests';
+        return 'posts';
     }
 
     /**
      * @inheritDoc
+     * @param Post $object
      */
     public function identifier($object): ?string
     {
-        return md5(time());
+        return $object->id();
     }
 
     /**
      * @inheritDoc
+     * @param Post $object
      */
     public function attributes($object): ?array
     {
         return [
-            'foo' => 'bar'
+            'title' => $object->title()
         ];
     }
 
     /**
      * @inheritDoc
+     * @param Post $object
      */
     public function relationships($object): ?array
     {
-        return null;
+        return [
+            'author' => [
+                'links' => [
+                    self::LINK_RELATED => true
+                ],
+                'data' => $object->author()
+            ],
+            'comments' => [
+                'links' => [self::LINK_RELATED => true],
+                'data' => $object->comments()
+            ]
+        ];
     }
 
     /**
@@ -58,7 +80,9 @@ final class TestSchema implements ResourceSchema
      */
     public function links($object): ?array
     {
-        return null;
+        return [
+            'self' => true
+        ];
     }
 
     /**
@@ -67,13 +91,5 @@ final class TestSchema implements ResourceSchema
     public function meta($object): ?array
     {
         return null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function isCompound(): bool
-    {
-        return false;
     }
 }

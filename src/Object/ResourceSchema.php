@@ -21,6 +21,13 @@ interface ResourceSchema
     const LINK_RELATED = 'related';
 
     /**
+     * Should output a compound resource document
+     *
+     * @return bool
+     */
+    public function isCompound(): bool;
+
+    /**
      * Resource type
      *
      * @param mixed $object

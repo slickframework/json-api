@@ -39,6 +39,11 @@ trait DocumentMethods
     protected $links = null;
 
     /**
+     * @var Resource|Resource[]|array|null
+     */
+    protected $data;
+
+    /**
      * @var Resource[]|null
      */
     public $included;
@@ -49,6 +54,14 @@ trait DocumentMethods
     public function jsonapi(): ?JsonApi
     {
         return $this->jsonapi;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function data()
+    {
+        return $this->data;
     }
 
     /**

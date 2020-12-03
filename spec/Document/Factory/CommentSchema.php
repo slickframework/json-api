@@ -7,50 +7,69 @@
  * file that was distributed with this source code.
  */
 
-namespace Object\SchemaDiscover;
+namespace spec\Slick\JSONAPI\Document\Factory;
 
 use Slick\JSONAPI\Object\ResourceSchema;
 
 /**
- * TestSchema
+ * CommentSchema
  *
- * @package Object\SchemaDiscover
+ * @package Document\Factory
  */
-final class TestSchema implements ResourceSchema
+final class CommentSchema implements ResourceSchema
 {
+
+    /**
+     * @inheritDoc
+     */
+    public function isCompound(): bool
+    {
+        return true;
+    }
 
     /**
      * @inheritDoc
      */
     public function type($object): string
     {
-        return 'tests';
+        return 'comments';
     }
 
     /**
      * @inheritDoc
+     * @param Comment $object
      */
     public function identifier($object): ?string
     {
-        return md5(time());
+        return $object->id();
     }
 
     /**
      * @inheritDoc
+     * @param Comment $object
      */
     public function attributes($object): ?array
     {
         return [
-            'foo' => 'bar'
+            'body' => $object->body()
         ];
     }
 
     /**
      * @inheritDoc
+     * @param Comment $object
      */
     public function relationships($object): ?array
     {
-        return null;
+        return [
+            'author' => [
+                'links' => [
+                    self::LINK_SELF => true,
+                    self::LINK_RELATED => true
+                ],
+                'data' => $object->person()
+            ]
+        ];
     }
 
     /**
@@ -58,7 +77,9 @@ final class TestSchema implements ResourceSchema
      */
     public function links($object): ?array
     {
-        return null;
+        return [
+            'self' => true
+        ];
     }
 
     /**
@@ -67,13 +88,5 @@ final class TestSchema implements ResourceSchema
     public function meta($object): ?array
     {
         return null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function isCompound(): bool
-    {
-        return false;
     }
 }

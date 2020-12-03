@@ -14,6 +14,7 @@ use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\ResourceSchema;
+use Slick\JSONAPI\Object\SchemaDiscover;
 
 /**
  * DocumentFactory
@@ -27,9 +28,18 @@ interface DocumentFactory
      * Creates a document for provided resource schema
      *
      * @param ResourceSchema $schema
+     * @param mixed $object
      * @return Document
      */
-    public function createDocument(ResourceSchema $schema): Document;
+    public function createDocument(ResourceSchema $schema, $object): Document;
+
+    /**
+     * Sets schema discover
+     *
+     * @param SchemaDiscover $discover
+     * @return DocumentFactory
+     */
+    public function withSchemaDiscover(SchemaDiscover $discover): DocumentFactory;
 
     /**
      * Sets JSON:API object of the documents created by this factory

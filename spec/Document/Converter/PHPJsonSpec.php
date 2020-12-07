@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace spec\Slick\JSONAPI\Document\Converted;
+namespace spec\Slick\JSONAPI\Document\Converter;
 
 use Slick\Http\Message\Uri;
-use Slick\JSONAPI\Document\Converted\PHPJson;
+use Slick\JSONAPI\Document\Converter\PHPJson;
 use PhpSpec\ObjectBehavior;
 use Slick\JSONAPI\Document\DocumentConverter;
 use Slick\JSONAPI\Document\ErrorDocument;

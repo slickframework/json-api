@@ -71,4 +71,25 @@ final class Relationships implements IteratorAggregate, JsonSerializable
     {
         return $this->relationships->getIterator();
     }
+
+    /**
+     * Check if relations list is empty
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return $this->relationships->isEmpty();
+    }
+
+    /**
+     * Gets the relationship stored under provided name
+     *
+     * @param string $name
+     * @return Relationship|null
+     */
+    public function get(string $name): ?Relationship
+    {
+        return $this->relationships->get($name);
+    }
 }

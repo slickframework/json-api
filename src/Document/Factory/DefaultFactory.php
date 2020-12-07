@@ -130,7 +130,6 @@ final class DefaultFactory implements DocumentFactory
 
     // Creation methods
 
-
     /**
      * createResourceIdentifier
      *

@@ -15,7 +15,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Slick\\JSONAPI\\": "src",
+            "Slick\\JSONAPI\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "spec\\Slick\\JSONAPI\\": "spec"
         }
     },

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.0] 2021-05-01
+### Added
+- Document decoder
+
 ## [v0.3.0] 2020-12-06
 ### Added
 - Resource schema and mapped schema discovery

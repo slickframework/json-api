@@ -9,12 +9,15 @@
 
 namespace Slick\JSONAPI\Object;
 
+use Slick\JSONAPI\LinksAwareObject;
+use Slick\JSONAPI\MetaAwareObject;
+
 /**
  * ResourceObject
  *
  * @package Slick\JSONAPI\Object
  */
-class ResourceObject implements Resource
+class ResourceObject implements Resource, LinksAwareObject, MetaAwareObject
 {
     /**
      * @var ResourceIdentifier
@@ -187,9 +190,9 @@ class ResourceObject implements Resource
      * maintaining object immutability.
      *
      * @param Links $links
-     * @return ResourceObject
+     * @return ResourceObject|LinksAwareObject
      */
-    public function withLinks(Links $links): ResourceObject
+    public function withLinks(Links $links): LinksAwareObject
     {
         $copy = clone $this;
         $copy->links = $links;
@@ -203,9 +206,9 @@ class ResourceObject implements Resource
      * maintaining object immutability.
      *
      * @param Meta $meta
-     * @return ResourceObject
+     * @return ResourceObject|MetaAwareObject
      */
-    public function withMeta(Meta $meta): ResourceObject
+    public function withMeta(Meta $meta): MetaAwareObject
     {
         $copy = clone $this;
         $copy->meta = $meta;

@@ -12,6 +12,8 @@ namespace Slick\JSONAPI\Document;
 use BadMethodCallException;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\JsonApi;
+use Slick\JSONAPI\LinksAwareObject;
+use Slick\JSONAPI\MetaAwareObject;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\ResourceCollection;
@@ -63,7 +65,7 @@ final class ErrorDocument implements Document
     /**
      * @inheritDoc
      */
-    public function withMeta(Meta $meta): Document
+    public function withMeta(Meta $meta): MetaAwareObject
     {
         throw new BadMethodCallException(
             "Error document does not have a meta member."
@@ -81,7 +83,7 @@ final class ErrorDocument implements Document
     /**
      * @inheritDoc
      */
-    public function withLinks(Links $links): Document
+    public function withLinks(Links $links): LinksAwareObject
     {
         throw new BadMethodCallException(
             "Error document does not have a links member."

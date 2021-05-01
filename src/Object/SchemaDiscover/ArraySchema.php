@@ -11,7 +11,9 @@ namespace Slick\JSONAPI\Object\SchemaDiscover;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Exception\DocumentEncoderFailure;
+use Slick\JSONAPI\Exception\InvalidResourceDocument;
 use Slick\JSONAPI\Object\ResourceSchema;
 
 /**
@@ -95,5 +97,21 @@ final class ArraySchema implements ResourceSchema
     public function isCompound(): bool
     {
         return (bool) $this->data->get('compound');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function from($resourceObject)
+    {
+        // TODO: Implement from() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validate(Document $document): void
+    {
+        // TODO: Implement validate() method.
     }
 }

@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use JsonSerializable;
 use Psr\Http\Message\UriInterface;
 use Slick\JSONAPI\Exception\UnsupportedFeature;
+use Slick\JSONAPI\Exception\UnsupportedJsonApiVersion;
 use Slick\JSONAPI\Object\Meta;
 
 /**
@@ -23,10 +24,12 @@ use Slick\JSONAPI\Object\Meta;
  *
  * @see https://jsonapi.org/format/#document-jsonapi-object
  */
-final class JsonApi implements JsonSerializable
+final class JsonApi implements MetaAwareObject, JsonSerializable
 {
     public const JSON_API_10 = '1.0';
     public const JSON_API_11 = '1.1';
+
+    private const ALLOWED_VERSIONS = [self::JSON_API_10, self::JSON_API_11];
 
     private const EXTENSIONS_SUPPORT_ERROR =
         "Extensions are only supported on JSON:API version 1.1. JsonApi::__construct() was called with version 1.0.";
@@ -62,6 +65,10 @@ final class JsonApi implements JsonSerializable
         array $profiles = [],
         ?Meta $meta = null
     ) {
+        if (!in_array($version, self::ALLOWED_VERSIONS)) {
+            throw new UnsupportedJsonApiVersion("Unknown or unsupported JSON:API version.");
+        }
+
         $this->version = $version;
         $this->extensions = new ArrayCollection($extensions);
         $this->profiles = new ArrayCollection($profiles);
@@ -193,7 +200,7 @@ final class JsonApi implements JsonSerializable
      * @return JsonApi
      * @throws UnsupportedFeature when trying to add a meta object to a 1.0 version object
      */
-    public function withMeta(Meta $meta): JsonApi
+    public function withMeta(Meta $meta): MetaAwareObject
     {
         $this->checkMetaUsage();
 

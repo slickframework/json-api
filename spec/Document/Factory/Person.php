@@ -25,16 +25,22 @@ final class Person
      * @var string
      */
     private $id;
+    /**
+     * @var string|null
+     */
+    private $email;
 
     /**
      * Creates a Person
      *
      * @param string $name
+     * @param string|null $email
      */
-    public function __construct(string $name)
+    public function __construct(string $name, ?string $email = null)
     {
         $this->name = $name;
         $this->id = uniqid('user');
+        $this->email = $email;
     }
 
     /**
@@ -55,5 +61,15 @@ final class Person
     public function id(): string
     {
         return $this->id;
+    }
+
+    /**
+     * email
+     *
+     * @return string|null
+     */
+    public function email(): ?string
+    {
+        return $this->email;
     }
 }

@@ -9,8 +9,12 @@
 
 namespace Slick\JSONAPI\Object\Relationships;
 
+use phpDocumentor\Reflection\Types\This;
+use Slick\JSONAPI\LinksAwareObject;
+use Slick\JSONAPI\MetaAwareObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
+use Slick\JSONAPI\Object\Relationship;
 
 /**
  * RelationshipMethods
@@ -44,5 +48,31 @@ trait RelationshipMethods
     public function meta(): ?Meta
     {
         return $this->meta;
+    }
+
+    /**
+     * withLinks
+     *
+     * @param Links $links
+     * @return LinksAwareObject|Relationship
+     */
+    public function withLinks(Links $links): LinksAwareObject
+    {
+        $copy = clone $this;
+        $copy->links = $links;
+        return $copy;
+    }
+
+    /**
+     * withMeta
+     *
+     * @param Meta $meta
+     * @return MetaAwareObject|Relationship
+     */
+    public function withMeta(Meta $meta): MetaAwareObject
+    {
+        $copy = clone $this;
+        $copy->meta = $meta;
+        return $copy;
     }
 }

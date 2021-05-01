@@ -11,6 +11,8 @@ namespace Slick\JSONAPI\Document;
 
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\JsonApi;
+use Slick\JSONAPI\LinksAwareObject;
+use Slick\JSONAPI\MetaAwareObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Resource;
@@ -101,7 +103,7 @@ trait DocumentMethods
     /**
      * @inheritDoc
      */
-    public function withMeta(Meta $meta): Document
+    public function withMeta(Meta $meta): MetaAwareObject
     {
         $copy = clone $this;
         $copy->meta = $meta;
@@ -111,7 +113,7 @@ trait DocumentMethods
     /**
      * @inheritDoc
      */
-    public function withLinks(Links $links): Document
+    public function withLinks(Links $links): LinksAwareObject
     {
         $copy = clone $this;
         $copy->links = $links;

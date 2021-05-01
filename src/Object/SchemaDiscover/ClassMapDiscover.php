@@ -59,15 +59,15 @@ final class ClassMapDiscover implements SchemaDiscover
     }
 
     /**
-     * Sets/Overrides a mp entry
+     * Sets/Overrides a map entry
      *
      * $className can be an array, a callable or a FQCN implementing ResourceSchema
      *
      * @param string $key
      * @param array|string|callable $className
-     * @return ClassMapDiscover
+     * @return ClassMapDiscover|SchemaDiscover
      */
-    public function map(string $key, $className): ClassMapDiscover
+    public function map(string $key, $className): SchemaDiscover
     {
         $this->map->set($key, $className);
         return $this;

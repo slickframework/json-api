@@ -9,6 +9,8 @@
 
 namespace Object\SchemaDiscover;
 
+use Slick\JSONAPI\Document;
+use Slick\JSONAPI\Object\AbstractResourceSchema;
 use Slick\JSONAPI\Object\ResourceSchema;
 
 /**
@@ -16,7 +18,7 @@ use Slick\JSONAPI\Object\ResourceSchema;
  *
  * @package Object\SchemaDiscover
  */
-final class TestSchema implements ResourceSchema
+final class TestSchema extends AbstractResourceSchema implements ResourceSchema
 {
 
     /**
@@ -75,5 +77,13 @@ final class TestSchema implements ResourceSchema
     public function isCompound(): bool
     {
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function from($resourceObject)
+    {
+        return null;
     }
 }

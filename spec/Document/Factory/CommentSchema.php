@@ -9,6 +9,7 @@
 
 namespace spec\Slick\JSONAPI\Document\Factory;
 
+use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Object\ResourceSchema;
 
 /**
@@ -88,5 +89,21 @@ final class CommentSchema implements ResourceSchema
     public function meta($object): ?array
     {
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function from($resourceObject)
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validate(Document $document): void
+    {
+        // TODO: Implement validate() method.
     }
 }

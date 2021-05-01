@@ -1,0 +1,99 @@
+{
+    "jsonapi": {
+        "version": "1.1",
+        "ext": [
+            "https://jsonapi.org/ext/atomic"
+        ],
+        "profile": [
+            "http://example.com/profiles/flexible-pagination",
+            "http://example.com/profiles/resource-versioning"
+        ],
+        "meta": {
+            "copyright": "Example Inc. 2020"
+        }
+    },
+    "meta": {
+        "copyright": "Copyright 2015 Example Corp.",
+        "authors": [
+            "Yehuda Katz",
+            "Steve Klabnik",
+            "Dan Gebhardt",
+            "Tyler Kellen"
+        ]
+    },
+    "data": {
+        "type": "people",
+        "id": "42",
+        "attributes": {
+            "name": "John Doe",
+            "email": "john.doe@example.com"
+        },
+        "links": {
+            "self": "http://example.com/people/42"
+        },
+        "meta": {
+            "description": "This is a person"
+        },
+        "relationships": {
+            "group": {
+                "data": { "type": "groups", "id": "3" },
+                "links": {
+                    "self": "http://example.com/people/42/relationships/group",
+                    "related": "http://example.com/people/42/group"
+                }
+            },
+            "roles": {
+                "data": [
+                    { "type": "roles", "id": "2" },
+                    { "type": "roles", "id": "6" }
+                ],
+                "links": {
+                    "self": "http://example.com/people/42/relationships/roles",
+                    "related": {
+                        "href": "http://example.com/people/42/roles",
+                        "title": "Roles",
+                        "describedby": "http://example.com/schemas/people-roles",
+                        "meta": {
+                            "count": 2
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "links": {
+        "self": "http://example.com/people"
+    },
+    "included": [
+        {
+            "type": "groups",
+            "id": "42",
+            "attributes": {
+                "name": "Administrators"
+            },
+            "links": {
+                "self": "http://example.com/groups/42"
+            }
+        },
+        {
+            "type": "roles",
+            "id": "2",
+            "attributes": {
+                "description": "Administrator"
+            },
+            "links": {
+                "self": "http://example.com/roles/2"
+            }
+        },
+        {
+            "type": "roles",
+            "id": "6",
+            "attributes": {
+                "description": "Editor"
+            },
+            "links": {
+                "self": "http://example.com/roles/6"
+            }
+        }
+    ]
+}

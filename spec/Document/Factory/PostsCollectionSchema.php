@@ -10,6 +10,7 @@
 namespace spec\Slick\JSONAPI\Document\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Slick\JSONAPI\Object\AbstractResourceSchema;
 use Slick\JSONAPI\Object\ResourceCollectionSchema;
 
 /**
@@ -17,7 +18,7 @@ use Slick\JSONAPI\Object\ResourceCollectionSchema;
  *
  * @package Document\Factory
  */
-final class PostsCollectionSchema implements ResourceCollectionSchema
+final class PostsCollectionSchema extends AbstractResourceSchema implements ResourceCollectionSchema
 {
 
     /**
@@ -95,6 +96,14 @@ final class PostsCollectionSchema implements ResourceCollectionSchema
      * @inheritDoc
      */
     public function meta($object): ?array
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function from($resourceObject)
     {
         return null;
     }

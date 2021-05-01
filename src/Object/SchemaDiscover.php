@@ -27,4 +27,15 @@ interface SchemaDiscover
      * @throws DocumentEncoderFailure if a schema cannot be found or initialized
      */
     public function discover($object): ResourceSchema;
+
+    /**
+     * Sets/Overrides a map entry
+     *
+     * $className can be an array, a callable or a FQN implementing ResourceSchema
+     *
+     * @param string $key
+     * @param array|string|callable $className
+     * @return SchemaDiscover
+     */
+    public function map(string $key, $className): SchemaDiscover;
 }

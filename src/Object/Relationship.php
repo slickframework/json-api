@@ -10,13 +10,15 @@
 namespace Slick\JSONAPI\Object;
 
 use JsonSerializable;
+use Slick\JSONAPI\LinksAwareObject;
+use Slick\JSONAPI\MetaAwareObject;
 
 /**
  * Relationship
  *
  * @package Slick\JSONAPI\Object
  */
-interface Relationship extends JsonSerializable
+interface Relationship extends JsonSerializable, LinksAwareObject, MetaAwareObject
 {
 
     /**

@@ -9,6 +9,9 @@
 
 namespace Slick\JSONAPI\Object;
 
+use Slick\JSONAPI\Document;
+use Slick\JSONAPI\Exception\InvalidResourceDocument;
+
 /**
  * ResourceSchema
  *
@@ -84,4 +87,20 @@ interface ResourceSchema
      * @return array|null
      */
     public function meta($object): ?array;
+
+    /**
+     * Creates a resource from provided JSON:API document
+     *
+     * @param ResourceObject|ResourceObject[]|array|null $resourceObject
+     * @return mixed
+     */
+    public function from($resourceObject);
+
+    /**
+     * Validates a given document
+     *
+     * @param Document $document
+     * @throws InvalidResourceDocument when document validation fails
+     */
+    public function validate(Document $document): void;
 }

@@ -58,8 +58,18 @@ final class DefaultEncoder implements DocumentEncoder
      */
     public function encode($object): string
     {
-        $document = $object instanceof Document ? $object :$this->createDocument($object);
+        $document = $object instanceof Document ? $object : $this->documentFor($object);
         return $this->converter->convert($document);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function documentFor($object): Document
+    {
+        $schema = $this->discoverService->discover($object);
+        $document = $this->factory->createDocument($schema, $object);
+        return $document;
     }
 
     /**
@@ -104,18 +114,5 @@ final class DefaultEncoder implements DocumentEncoder
     {
         $this->factory->withLinkPrefix($linkPrefix);
         return $this;
-    }
-
-    /**
-     * createDocument
-     *
-     * @param $object
-     * @return \Slick\JSONAPI\Document
-     */
-    private function createDocument($object): \Slick\JSONAPI\Document
-    {
-        $schema = $this->discoverService->discover($object);
-        $document = $this->factory->createDocument($schema, $object);
-        return $document;
     }
 }

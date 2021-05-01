@@ -9,6 +9,8 @@
 
 namespace spec\Slick\JSONAPI\Document\Factory;
 
+use Slick\JSONAPI\Document;
+use Slick\JSONAPI\Object\AbstractResourceSchema;
 use Slick\JSONAPI\Object\ResourceSchema;
 
 /**
@@ -16,7 +18,7 @@ use Slick\JSONAPI\Object\ResourceSchema;
  *
  * @package Document\Factory
  */
-final class PostSchema implements ResourceSchema
+final class PostSchema extends AbstractResourceSchema implements ResourceSchema
 {
 
     /**
@@ -89,6 +91,14 @@ final class PostSchema implements ResourceSchema
      * @inheritDoc
      */
     public function meta($object): ?array
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function from($resourceObject)
     {
         return null;
     }

@@ -9,6 +9,7 @@
 
 namespace Slick\JSONAPI\Document;
 
+use Slick\JSONAPI\Document;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
@@ -68,4 +69,12 @@ interface DocumentEncoder
      * @return DocumentEncoder
      */
     public function withLinkPrefix(string $linkPrefix): DocumentEncoder;
+
+    /**
+     * Creates a JSON:API document for the given object
+     *
+     * @param mixed $object
+     * @return Document
+     */
+    public function documentFor($object): Document;
 }

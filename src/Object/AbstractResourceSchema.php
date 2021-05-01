@@ -7,18 +7,16 @@
  * file that was distributed with this source code.
  */
 
-namespace spec\Slick\JSONAPI\Document\Factory;
+namespace Slick\JSONAPI\Object;
 
 use Slick\JSONAPI\Document;
-use Slick\JSONAPI\Object\AbstractResourceSchema;
-use Slick\JSONAPI\Object\ResourceSchema;
 
 /**
- * PersonSchema
+ * AbstractResourceSchema
  *
- * @package Document\Factory
+ * @package Slick\JSONAPI\Object
  */
-final class PersonSchema extends AbstractResourceSchema implements ResourceSchema
+abstract class AbstractResourceSchema implements ResourceSchema
 {
 
     /**
@@ -26,35 +24,25 @@ final class PersonSchema extends AbstractResourceSchema implements ResourceSchem
      */
     public function isCompound(): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * @inheritDoc
      */
-    public function type($object): string
-    {
-        return 'people';
-    }
+    abstract public function type($object): string;
 
     /**
      * @inheritDoc
-     * @param Person $object
      */
-    public function identifier($object): ?string
-    {
-        return $object->id();
-    }
+    abstract public function identifier($object): ?string;
 
     /**
      * @inheritDoc
-     * @param Person $object
      */
     public function attributes($object): ?array
     {
-        return [
-            'name' => $object->name()
-        ];
+        return null;
     }
 
     /**
@@ -70,9 +58,7 @@ final class PersonSchema extends AbstractResourceSchema implements ResourceSchem
      */
     public function links($object): ?array
     {
-        return [
-           self::LINK_SELF => true
-        ];
+        return null;
     }
 
     /**
@@ -80,16 +66,24 @@ final class PersonSchema extends AbstractResourceSchema implements ResourceSchem
      */
     public function meta($object): ?array
     {
-        return [
-            'copyright' => 'Test corp. 2020'
-        ];
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @param Resource|Resource[]|array|null $resourceObject
+     */
+    public function from($resourceObject)
+    {
+        return null;
     }
 
     /**
      * @inheritDoc
      */
-    public function from($resourceObject)
+    public function validate(Document $document): void
     {
-        return null;
+        // no validation is performed by default.
     }
 }

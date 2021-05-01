@@ -19,7 +19,7 @@ use Slick\JSONAPI\Object\Resource;
  *
  * @package Slick\JSONAPI
  */
-interface Document extends JsonSerializable
+interface Document extends MetaAwareObject, LinksAwareObject, JsonSerializable
 {
 
     /**
@@ -28,27 +28,6 @@ interface Document extends JsonSerializable
      * @return JsonApi|null
      */
     public function jsonapi(): ?JsonApi;
-
-    /**
-     * Resource data member
-     *
-     * @return Resource|Resource[]|array|null
-     */
-    public function data();
-
-    /**
-     * A meta object that contains non-standard meta-information.
-     *
-     * @return Meta|null
-     */
-    public function meta(): ?Meta;
-
-    /**
-     * A links object related to the primary data.
-     *
-     * @return Links|null
-     */
-    public function links(): ?Links;
 
     /**
      * An array of resource objects that are related to the primary data and/or
@@ -77,24 +56,9 @@ interface Document extends JsonSerializable
     public function withJsonapi(JsonApi $jsonApi): Document;
 
     /**
-     * Returns a new document with provided Meta object
+     * Resource data member
      *
-     * This method will ALWAYS return a new copy (clone) of the document
-     * maintaining object immutability.
-     *
-     * @param Meta $meta
-     * @return Document|self
+     * @return Resource|Resource[]|array|null
      */
-    public function withMeta(Meta $meta): Document;
-
-    /**
-     * Returns a new document with provided Links object
-     *
-     * This method will ALWAYS return a new copy (clone) of the document
-     * maintaining object immutability.
-     *
-     * @param Links $links
-     * @return Document
-     */
-    public function withLinks(Links $links): Document;
+    public function data();
 }

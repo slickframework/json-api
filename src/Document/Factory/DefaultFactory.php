@@ -165,10 +165,14 @@ final class DefaultFactory implements DocumentFactory
      *
      * @param ResourceSchema $schema
      * @param $object
-     * @return Links
+     * @return Links|null
      */
-    private function createResourceLinks(ResourceSchema $schema, $object): Links
+    private function createResourceLinks(ResourceSchema $schema, $object): ?Links
     {
+        if (!$schema->links($object)) {
+            return null;
+        }
+
         $links = new Links($this->linkPrefix);
         foreach ($schema->links($object) as $rel => $href) {
             if ($rel === ResourceSchema::LINK_SELF && $href === true) {
@@ -188,7 +192,7 @@ final class DefaultFactory implements DocumentFactory
      * @param $object
      * @return Relationships|null
      */
-    private function createRelationships(ResourceSchema $schema, $object)
+    private function createRelationships(ResourceSchema $schema, $object): ?Relationships
     {
         $relationshipsData = $schema->relationships($object);
         if ($relationshipsData === null) {

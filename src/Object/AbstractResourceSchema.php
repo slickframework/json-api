@@ -10,6 +10,7 @@
 namespace Slick\JSONAPI\Object;
 
 use Slick\JSONAPI\Document;
+use Slick\JSONAPI\Validator\SchemaDecodeValidator;
 
 /**
  * AbstractResourceSchema
@@ -82,7 +83,7 @@ abstract class AbstractResourceSchema implements ResourceSchema
     /**
      * @inheritDoc
      */
-    public function validate(Document $document): void
+    public function validate($resourceObject, SchemaDecodeValidator $validator): void
     {
         // no validation is performed by default.
     }

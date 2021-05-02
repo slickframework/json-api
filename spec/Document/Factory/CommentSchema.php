@@ -9,8 +9,8 @@
 
 namespace spec\Slick\JSONAPI\Document\Factory;
 
-use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Object\ResourceSchema;
+use Slick\JSONAPI\Validator\SchemaDecodeValidator;
 
 /**
  * CommentSchema
@@ -102,8 +102,8 @@ final class CommentSchema implements ResourceSchema
     /**
      * @inheritDoc
      */
-    public function validate(Document $document): void
+    public function validate($resourceObject, SchemaDecodeValidator $validator): void
     {
-        // TODO: Implement validate() method.
+        // Not applicable
     }
 }

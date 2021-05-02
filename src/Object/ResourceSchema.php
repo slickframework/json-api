@@ -11,6 +11,7 @@ namespace Slick\JSONAPI\Object;
 
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Exception\InvalidResourceDocument;
+use Slick\JSONAPI\Validator\SchemaDecodeValidator;
 
 /**
  * ResourceSchema
@@ -99,8 +100,7 @@ interface ResourceSchema
     /**
      * Validates a given document
      *
-     * @param Document $document
-     * @throws InvalidResourceDocument when document validation fails
+     * @param ResourceObject|ResourceObject[]|array|null $resourceObject
      */
-    public function validate(Document $document): void;
+    public function validate($resourceObject, SchemaDecodeValidator $validator): void;
 }

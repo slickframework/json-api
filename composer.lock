@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19d3360e8bf18b57044209bdcf9a6d5e",
+    "content-hash": "e67311a5cbe4a4174e96bf6c7a356b1b",
     "packages": [
         {
             "name": "doctrine/collections",
-            "version": "1.6.x-dev",
+            "version": "1.7.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "94918256daa6ac99c7e5774720c0e76f01936bda"
+                "reference": "436a4eb4535f141c6c52a3099016cb22ceca05b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/94918256daa6ac99c7e5774720c0e76f01936bda",
-                "reference": "94918256daa6ac99c7e5774720c0e76f01936bda",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/436a4eb4535f141c6c52a3099016cb22ceca05b5",
+                "reference": "436a4eb4535f141c6c52a3099016cb22ceca05b5",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,6 @@
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.1.5",
                 "vimeo/psalm": "^4.2.1"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -72,9 +71,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/collections/issues",
-                "source": "https://github.com/doctrine/collections/tree/1.6.x"
+                "source": "https://github.com/doctrine/collections/tree/1.7.x"
             },
-            "time": "2021-02-10T21:24:47+00:00"
+            "time": "2021-02-10T21:28:26+00:00"
         },
         {
             "name": "psr/http-client",
@@ -2484,8 +2483,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "doctrine/collections": 20,
-        "slick/http": 20,
         "phpspec/phpspec": 20,
         "squizlabs/php_codesniffer": 20
     },

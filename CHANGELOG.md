@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.5.0] 2021-05-02
+### Added
+- Document decoder validator
+### Fixes
+- `composer.json` warnings
+
 ## [v0.4.0] 2021-05-01
 ### Added
 - Document decoder

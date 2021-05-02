@@ -11,10 +11,9 @@ namespace Slick\JSONAPI\Object\SchemaDiscover;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Exception\DocumentEncoderFailure;
-use Slick\JSONAPI\Exception\InvalidResourceDocument;
 use Slick\JSONAPI\Object\ResourceSchema;
+use Slick\JSONAPI\Validator\SchemaDecodeValidator;
 
 /**
  * ArraySchema
@@ -104,14 +103,15 @@ final class ArraySchema implements ResourceSchema
      */
     public function from($resourceObject)
     {
-        // TODO: Implement from() method.
+        // Not applicable
     }
+
 
     /**
      * @inheritDoc
      */
-    public function validate(Document $document): void
+    public function validate($resourceObject, SchemaDecodeValidator $validator): void
     {
-        // TODO: Implement validate() method.
+        // Not applicable
     }
 }

@@ -12,7 +12,7 @@ namespace Slick\JSONAPI\Document\Decoder;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentDecoder;
 use Slick\JSONAPI\Object\SchemaDiscover;
-use Slick\JSONAPI\Validator;
+use Slick\JSONAPI\Validator\SchemaDecodeValidator;
 
 /**
  * DefaultDecoder
@@ -27,7 +27,7 @@ final class DefaultDecoder implements DocumentDecoder
     private $schemaDiscover;
 
     /**
-     * @var Validator
+     * @var SchemaDecodeValidator
      */
     private $validator;
 
@@ -41,9 +41,9 @@ final class DefaultDecoder implements DocumentDecoder
      * Creates a DefaultDecoder
      *
      * @param SchemaDiscover $schemaDiscover
-     * @param Validator $validator
+     * @param SchemaDecodeValidator $validator
      */
-    public function __construct(SchemaDiscover $schemaDiscover, Validator $validator)
+    public function __construct(SchemaDiscover $schemaDiscover, SchemaDecodeValidator $validator)
     {
         $this->schemaDiscover = $schemaDiscover;
         $this->validator = $validator;
@@ -56,7 +56,12 @@ final class DefaultDecoder implements DocumentDecoder
     public function decodeTo(string $objectClassName)
     {
         $schema = $this->schemaDiscover->discover($objectClassName);
-        return $schema->from($this->document->data());
+        $resourceObject = $this->document->data();
+        $schema->validate($resourceObject, $this->validator);
+        if (!$this->validator->isValid($resourceObject)) {
+            throw $this->validator->exception();
+        }
+        return $schema->from($resourceObject);
     }
 
     /**

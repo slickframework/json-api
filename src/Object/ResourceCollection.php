@@ -9,6 +9,8 @@
 
 namespace Slick\JSONAPI\Object;
 
+use ArrayAccess;
+use BadMethodCallException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
@@ -19,7 +21,7 @@ use Slick\JSONAPI\Object\Resource as ResourceObject;
  *
  * @package Slick\JSONAPI\Object
  */
-final class ResourceCollection implements IteratorAggregate, Resource
+final class ResourceCollection implements IteratorAggregate, Resource, ArrayAccess
 {
     /**
      * @var Collection
@@ -98,6 +100,16 @@ final class ResourceCollection implements IteratorAggregate, Resource
     }
 
     /**
+     * first
+     *
+     * @return false|ResourceObject
+     */
+    public function first()
+    {
+        return $this->resources->first();
+    }
+
+    /**
      * @inheritDoc
      */
     public function resourceIdentifier(): ResourceIdentifier
@@ -111,5 +123,43 @@ final class ResourceCollection implements IteratorAggregate, Resource
     public function jsonSerialize()
     {
         return $this->resources->getValues();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetExists($offset)
+    {
+        $this->resources->offsetExists($offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        $this->resources->offsetGet($offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new BadMethodCallException(
+            "The resource collection array access is read only. " .
+            "Used ResourceCollection::add() method instead."
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset($offset)
+    {
+        throw new BadMethodCallException(
+            "The resource collection array access is read only. " .
+            "It cannot remove resource objects from it."
+        );
     }
 }

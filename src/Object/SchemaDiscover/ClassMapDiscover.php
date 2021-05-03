@@ -47,7 +47,7 @@ final class ClassMapDiscover implements SchemaDiscover
             ? get_class($object)
             : (string ) $object;
 
-        if (!$this->map->containsKey($key)) {
+        if (!$this->isConvertible($key)) {
             throw new DocumentEncoderFailure(
                 "Could not create schema for '$key'."
             );
@@ -121,5 +121,17 @@ final class ClassMapDiscover implements SchemaDiscover
         throw new DocumentEncoderFailure(
             "'$className' does not implement ResourceSchema::class. A schema could not be created."
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isConvertible($object): bool
+    {
+        $key = is_object($object)
+            ? get_class($object)
+            : (string ) $object;
+
+        return $this->map->containsKey($key);
     }
 }

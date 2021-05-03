@@ -96,4 +96,21 @@ class ClassMapDiscoverSpec extends ObjectBehavior
         $this->shouldThrow(DocumentEncoderFailure::class)
             ->during('discover', ['other-test']);
     }
+
+    function it_can_check_if_a_document_is_convertible()
+    {
+        $this->map(
+            'test',
+            function ($object) {
+                return [
+                    'type' => 'tests',
+                    'attributes' => [
+                        'result' => $object
+                    ]
+                ];
+            }
+        );
+        $this->isConvertible('test')->shouldBe(true);
+        $this->isConvertible('other')->shouldBe(false);
+    }
 }

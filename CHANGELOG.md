@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `DefaultEncoder::encode()` now adds the JSON:API version, links, link prefixes and
+  metadata if present in the encoder.
+- `SchemaDiscover::isConvertible()` to determine if a given object can be converted to a JSON:API document  
 
 ## [v0.5.0] 2021-05-02
 ### Added

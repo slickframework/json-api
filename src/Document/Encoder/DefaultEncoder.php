@@ -33,10 +33,31 @@ final class DefaultEncoder implements DocumentEncoder
      * @var DocumentFactory
      */
     private $factory;
+
     /**
      * @var DocumentConverter
      */
     private $converter;
+
+    /**
+     * @var JsonApi|null
+     */
+    private $jsonapi = null;
+
+    /**
+     * @var Meta|null
+     */
+    private $meta = null;
+
+    /**
+     * @var Links|null
+     */
+    private $links = null;
+
+    /**
+     * @var string|null
+     */
+    private $linkPrefix = null;
 
 
     /**
@@ -58,7 +79,7 @@ final class DefaultEncoder implements DocumentEncoder
      */
     public function encode($object): string
     {
-        $document = $object instanceof Document ? $object : $this->documentFor($object);
+        $document = $object instanceof Document ? $this->addData($object) : $this->documentFor($object);
         return $this->converter->convert($document);
     }
 
@@ -68,8 +89,7 @@ final class DefaultEncoder implements DocumentEncoder
     public function documentFor($object): Document
     {
         $schema = $this->discoverService->discover($object);
-        $document = $this->factory->createDocument($schema, $object);
-        return $document;
+        return $this->factory->createDocument($schema, $object);
     }
 
     /**
@@ -85,6 +105,7 @@ final class DefaultEncoder implements DocumentEncoder
      */
     public function withJsonapi(JsonApi $jsonApi): DocumentEncoder
     {
+        $this->jsonapi = $jsonApi;
         $this->factory->withJsonapi($jsonApi);
         return $this;
     }
@@ -94,6 +115,7 @@ final class DefaultEncoder implements DocumentEncoder
      */
     public function withMeta(Meta $meta): DocumentEncoder
     {
+        $this->meta = $meta;
         $this->factory->withMeta($meta);
         return $this;
     }
@@ -103,6 +125,7 @@ final class DefaultEncoder implements DocumentEncoder
      */
     public function withLinks(Links $links): DocumentEncoder
     {
+        $this->links = $links;
         $this->factory->withLinks($links);
         return $this;
     }
@@ -112,7 +135,21 @@ final class DefaultEncoder implements DocumentEncoder
      */
     public function withLinkPrefix(string $linkPrefix): DocumentEncoder
     {
+        $this->linkPrefix = $linkPrefix;
         $this->factory->withLinkPrefix($linkPrefix);
         return $this;
+    }
+
+    private function addData(Document $object): Document
+    {
+        $keys = ['jsonapi', 'meta', 'links', 'linkPrefix'];
+        foreach ($keys as $prop) {
+            $value = $this->$prop;
+            if (!$value) {
+                continue;
+            }
+            $object = call_user_func_array([$object, 'with'.ucfirst($prop)], [$value]);
+        }
+        return $object;
     }
 }

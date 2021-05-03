@@ -33,7 +33,7 @@ interface MetaAwareObject
      * maintaining object immutability.
      *
      * @param Meta $meta
-     * @return MetaAwareObject
+     * @return MetaAwareObject|Document
      */
     public function withMeta(Meta $meta): MetaAwareObject;
 

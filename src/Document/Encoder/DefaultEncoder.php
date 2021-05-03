@@ -14,6 +14,7 @@ use Slick\JSONAPI\Document\DocumentConverter;
 use Slick\JSONAPI\Document\DocumentEncoder;
 use Slick\JSONAPI\Document\DocumentFactory;
 use Slick\JSONAPI\JsonApi;
+use Slick\JSONAPI\LinksAwareObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\SchemaDiscover;
@@ -125,8 +126,8 @@ final class DefaultEncoder implements DocumentEncoder
      */
     public function withLinks(Links $links): DocumentEncoder
     {
-        $this->links = $links;
         $this->factory->withLinks($links);
+        $this->links = Links::checkLinks($links, $this->linkPrefix);
         return $this;
     }
 
@@ -142,14 +143,89 @@ final class DefaultEncoder implements DocumentEncoder
 
     private function addData(Document $object): Document
     {
-        $keys = ['jsonapi', 'meta', 'links', 'linkPrefix'];
-        foreach ($keys as $prop) {
-            $value = $this->$prop;
-            if (!$value) {
-                continue;
-            }
-            $object = call_user_func_array([$object, 'with'.ucfirst($prop)], [$value]);
+        $object = $this->addJsonApi($object);
+        $object = $this->addMetaData($object);
+        $object = $this->addLinks($object);
+
+        return $this->checkResourceLinks($object);
+    }
+
+    /**
+     * Adds JSON API version to provided document if it exists
+     *
+     * @param Document $document
+     * @return Document
+     */
+    private function addJsonApi(Document $document): Document
+    {
+        if (!$this->jsonapi) {
+            return $document;
         }
-        return $object;
+
+        return $document->withJsonapi($this->jsonapi);
+    }
+
+    /**
+     * Adds Metadata to provided document if it exists
+     *
+     * @param Document $document
+     * @return Document
+     */
+    private function addMetaData(Document $document): Document
+    {
+        if (!$this->meta) {
+            return $document;
+        }
+
+        return $document->withMeta($this->meta);
+    }
+
+    /**
+     * Adds links with prefix if present
+     *
+     * @param Document $document
+     * @return Document
+     */
+    private function addLinks(Document $document): Document
+    {
+        if (!$this->links) {
+            return $document;
+        }
+
+        foreach ($document->links() as $rel => $link) {
+            $this->links->add($rel, $link->href());
+        }
+
+        return $document->withLinks($this->links);
+    }
+
+    /**
+     * checkResourceLinks
+     *
+     * @param Document $document
+     * @return Document
+     */
+    private function checkResourceLinks(Document $document): Document
+    {
+        if ($this->linkPrefix) {
+            return $document;
+        }
+
+        if (!($document->data() instanceof LinksAwareObject)) {
+            return $document;
+        }
+
+        $links = $document->data()->links();
+        if (!$links) {
+            return $document;
+        }
+
+        $newLinks = new Links($this->linkPrefix);
+        foreach ($links as $rel => $ln) {
+            $newLinks->add($rel, $ln->href());
+        }
+
+        $data = $document->data()->withLinks($newLinks);
+        return $document->withData($data);
     }
 }

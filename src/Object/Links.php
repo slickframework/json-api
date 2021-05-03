@@ -137,4 +137,24 @@ final class Links implements IteratorAggregate, JsonSerializable
         }
         return $data;
     }
+
+    /**
+     * checkLinks
+     *
+     * @param Links $links
+     * @param ?string $linkPrefix
+     * @return Links
+     */
+    public static function checkLinks(Links $links, ?string $linkPrefix = null): Links
+    {
+        if (!$linkPrefix) {
+            return $links;
+        }
+
+        $newLinks = new Links($linkPrefix);
+        foreach ($links as $rel => $link) {
+            $newLinks->add($rel, $link->href());
+        }
+        return $newLinks;
+    }
 }

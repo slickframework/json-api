@@ -38,4 +38,12 @@ interface SchemaDiscover
      * @return SchemaDiscover
      */
     public function map(string $key, $className): SchemaDiscover;
+
+    /**
+     * Check if provided document is convertible to a JSON:API document
+     *
+     * @param mixed $object
+     * @return bool
+     */
+    public function isConvertible($object): bool;
 }

@@ -10,6 +10,7 @@
 namespace spec\Slick\JSONAPI\Document\Encoder;
 
 use Prophecy\Argument;
+use Prophecy\Exception\Prediction\FailedPredictionException;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentConverter;
 use Slick\JSONAPI\Document\DocumentEncoder;
@@ -19,6 +20,7 @@ use PhpSpec\ObjectBehavior;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
+use Slick\JSONAPI\Object\ResourceIdentifier;
 use Slick\JSONAPI\Object\ResourceSchema;
 use Slick\JSONAPI\Object\SchemaDiscover;
 
@@ -104,5 +106,26 @@ class DefaultEncoderSpec extends ObjectBehavior
         $converted = '{"foo": "bar"}';
         $converter->convert($document)->willReturn($converted);
         $this->encode($document)->shouldBe($converted);
+    }
+
+    function it_adds_general_meta_data_from_encoder(DocumentFactory $factory, DocumentConverter $converter)
+    {
+        $jsonApi = new JsonApi(JsonApi::JSON_API_11);
+        $object = new Document\ResourceDocument(new ResourceIdentifier('test', '1'));
+
+        $factory->withJsonapi($jsonApi)->shouldBeCalledOnce();
+        $this->withJsonapi($jsonApi);
+
+        /** @var Document\ResourceDocument $document */
+        $document = Argument::that(function (Document\ResourceDocument $doc) use ($jsonApi) {
+            if ($doc->jsonapi() !== $jsonApi) {
+                throw new FailedPredictionException("Did not change the API version set.");
+            }
+            return true;
+        });
+        $converter->convert($document)->willReturn("");
+
+        $this->encode($object);
+
     }
 }

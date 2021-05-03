@@ -13,6 +13,8 @@ use JsonSerializable;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Resource;
+use Slick\JSONAPI\Object\Resource as JsonApiResource;
+use Slick\JSONAPI\Object\ResourceObject;
 
 /**
  * Document
@@ -58,7 +60,15 @@ interface Document extends MetaAwareObject, LinksAwareObject, JsonSerializable
     /**
      * Resource data member
      *
-     * @return Resource|Resource[]|array|null
+     * @return Resource|Resource[]|array|null|ResourceObject
      */
     public function data();
+
+    /**
+     * Returns a new document with provided resource data
+     *
+     * @param JsonApiResource $resource
+     * @return Document
+     */
+    public function withData(JsonApiResource $resource): Document;
 }

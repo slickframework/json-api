@@ -15,7 +15,7 @@ use Slick\JSONAPI\LinksAwareObject;
 use Slick\JSONAPI\MetaAwareObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
-use Slick\JSONAPI\Object\Resource;
+use Slick\JSONAPI\Object\Resource as JsonApiResource;
 
 /**
  * DocumentMethods trait
@@ -41,12 +41,12 @@ trait DocumentMethods
     protected $links = null;
 
     /**
-     * @var Resource|Resource[]|array|null
+     * @var JsonApiResource|JsonApiResource[]|array|null
      */
     protected $data;
 
     /**
-     * @var Resource[]|null
+     * @var JsonApiResource[]|null
      */
     public $included;
 
@@ -117,6 +117,13 @@ trait DocumentMethods
     {
         $copy = clone $this;
         $copy->links = $links;
+        return $copy;
+    }
+
+    public function withData(JsonApiResource $resource): Document
+    {
+        $copy = clone $this;
+        $copy->data = $resource;
         return $copy;
     }
 }

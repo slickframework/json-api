@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.6.1] 2021-05-03
+### Fixed
+- Error while encoding document to JSON
+
 ## [v0.6.0] 2021-05-03
 ### Added
 - `DefaultEncoder::encode()` now adds the JSON:API version, links, link prefixes and
@@ -45,7 +49,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.6.1...HEAD
+[v0.6.1]: https://github.com/slickframework/json-api/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/slickframework/json-api/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/slickframework/json-api/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/slickframework/json-api/compare/v0.3.0...v0.4.0

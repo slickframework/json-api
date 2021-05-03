@@ -104,6 +104,7 @@ class DefaultEncoderSpec extends ObjectBehavior
         $factory->createDocument(Argument::any(), Argument::any())->shouldNotBeCalled();
         $discoverService->discover(Argument::any())->shouldNotBeCalled();
         $converted = '{"foo": "bar"}';
+        $document->data()->willReturn(new ResourceIdentifier('test', '2'));
         $converter->convert($document)->willReturn($converted);
         $this->encode($document)->shouldBe($converted);
     }

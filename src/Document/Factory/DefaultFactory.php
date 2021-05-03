@@ -106,7 +106,7 @@ final class DefaultFactory implements DocumentFactory
      */
     public function withLinks(Links $links): DocumentFactory
     {
-        $this->links = $this->checkLinks($links);
+        $this->links = Links::checkLinks($links, $this->linkPrefix);
         return $this;
     }
 
@@ -143,21 +143,6 @@ final class DefaultFactory implements DocumentFactory
             $schema->type($object),
             $schema->identifier($object)
         );
-    }
-
-    /**
-     * checkLinks
-     *
-     * @param Links $links
-     * @return Links
-     */
-    private function checkLinks(Links $links): Links
-    {
-        $newLinks = new Links($this->linkPrefix);
-        foreach ($links as $rel => $link) {
-            $newLinks->add($rel, $link->href());
-        }
-        return $newLinks;
     }
 
     /**

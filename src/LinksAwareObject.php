@@ -26,7 +26,7 @@ interface LinksAwareObject
      * maintaining object immutability.
      *
      * @param Links $links
-     * @return LinksAwareObject|self
+     * @return LinksAwareObject|self|Document
      */
     public function withLinks(Links $links): LinksAwareObject;
 

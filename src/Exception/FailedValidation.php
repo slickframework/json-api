@@ -37,6 +37,9 @@ final class FailedValidation extends InvalidArgumentException implements JsonApi
 
     public function addError(ErrorObject $error): self
     {
+        if (!$error->identifier()) {
+            $error = $error->withIdentifier(uniqid());
+        }
         $this->document->errors()->add($error);
         return $this;
     }

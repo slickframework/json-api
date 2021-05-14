@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.6.2] 2021-05-14
+### Added
+- On `FailedValidation` exception, when adding an error if the error has no ID, one is created.
+
 ## [v0.6.1] 2021-05-03
 ### Fixed
 - Error while encoding document to JSON
@@ -49,7 +53,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.6.2...HEAD
+[v0.6.2]: https://github.com/slickframework/json-api/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/slickframework/json-api/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/slickframework/json-api/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/slickframework/json-api/compare/v0.4.0...v0.5.0

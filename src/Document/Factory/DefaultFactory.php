@@ -256,8 +256,7 @@ final class DefaultFactory implements DocumentFactory
     {
         return new ResourceObject(
             $this->createResourceIdentifier($schema, $object),
-            $schema->attributes($object),
-            $this->createRelationships($schema, $object)
+            $schema->attributes($object)
         );
     }
 

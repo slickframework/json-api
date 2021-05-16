@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.7.0] 2021-05-16
+### Added
+- [Sparse fieldsets](https://jsonapi.org/format/1.1/#fetching-sparse-fieldsets) implementation
+
 ## [v0.6.3] 2021-05-15
 ### Fixed
 - Recursive loop error when converting related resources
@@ -57,7 +61,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.6.3...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.7.0...HEAD
+[v0.7.0]: https://github.com/slickframework/json-api/compare/v0.6.3...v0.7.0
 [v0.6.3]: https://github.com/slickframework/json-api/compare/v0.6.2...v0.6.3
 [v0.6.2]: https://github.com/slickframework/json-api/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/slickframework/json-api/compare/v0.6.0...v0.6.1

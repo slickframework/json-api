@@ -21,6 +21,21 @@ use Slick\JSONAPI\Object\ResourceObject;
  */
 final class ResourceCompoundDocument extends ResourceDocument
 {
+
+    private $includedTypes = null;
+
+    /**
+     * Sets the included types
+     *
+     * @param array $types
+     * @return ResourceCompoundDocument
+     */
+    public function withIncludedTypes(?array $types = null): self
+    {
+        $this->includedTypes = $types;
+        return $this;
+    }
+
     /**
      * @inheritDoc
      */
@@ -30,6 +45,10 @@ final class ResourceCompoundDocument extends ResourceDocument
 
         if ($this->data instanceof ResourceCollection) {
             return $this->extractFromCollection();
+        }
+
+        if (!$this->data->relationships()) {
+            return null;
         }
 
         foreach ($this->data->relationships() as $relationship) {
@@ -52,7 +71,10 @@ final class ResourceCompoundDocument extends ResourceDocument
     public function jsonSerialize()
     {
         $data = parent::jsonSerialize();
-        $data['included'] = $this->included();
+        $included = $this->included();
+        if ($included) {
+            $data['included'] = $included;
+        }
         return $data;
     }
 
@@ -60,11 +82,17 @@ final class ResourceCompoundDocument extends ResourceDocument
      * Retrieve resource and includes it in provided data array
      *
      * @param array $data
-     * @param Resource $resource
+     * @param Resource|ResourceObject $resource
      */
     private function retrieveResource(array &$data, Resource $resource)
     {
         $key = $resource->type().$resource->identifier();
+        if ($this->includedTypes && !in_array($resource->type(), $this->includedTypes)) {
+            return;
+        }
+        if (method_exists($resource, 'attributes') && !$resource->attributes()) {
+            return;
+        }
         $data[$key] = $resource;
     }
 

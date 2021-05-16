@@ -9,13 +9,14 @@
 
 namespace Slick\JSONAPI\Document\Factory;
 
+use Psr\Http\Message\ServerRequestInterface;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentFactory;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Relationships;
-use Slick\JSONAPI\Object\Resource as JsonArrayResource;
+use Slick\JSONAPI\Object\Resource as JsonApiResource;
 use Slick\JSONAPI\Object\ResourceCollection;
 use Slick\JSONAPI\Object\ResourceCollectionSchema;
 use Slick\JSONAPI\Object\ResourceIdentifier;
@@ -57,6 +58,11 @@ final class DefaultFactory implements DocumentFactory
     private $discover;
 
     /**
+     * @var ServerRequestInterface
+     */
+    private $request;
+
+    /**
      * Creates a DefaultFactory
      *
      * @param SchemaDiscover|null $discover
@@ -75,6 +81,10 @@ final class DefaultFactory implements DocumentFactory
         $document = $schema->isCompound()
             ? new Document\ResourceCompoundDocument($resourceObject)
             : new Document\ResourceDocument($resourceObject);
+
+        if ($schema->isCompound()) {
+            $document->withIncludedTypes($this->includedTypes());
+        }
 
         $document = $this->jsonapi ? $document->withJsonapi($this->jsonapi) : $document;
         $document = $this->links ? $document->withLinks($this->links) : $document;
@@ -128,7 +138,82 @@ final class DefaultFactory implements DocumentFactory
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function withRequest(ServerRequestInterface $serverRequest): DocumentFactory
+    {
+        $this->request = $serverRequest;
+        return $this;
+    }
+
     // Creation methods
+
+    /**
+     * Checks if HTTP request has fields parameter
+     *
+     * @return bool
+     */
+    private function hasFields(): bool
+    {
+        if (!$this->request) {
+            return false;
+        }
+
+        $query = $this->request->getQueryParams();
+        return array_key_exists('fields', $query);
+    }
+
+    /**
+     * Check if it should include a resource of a given type
+     *
+     * @param string $type
+     * @return bool
+     */
+    private function includeResource(string $type): bool
+    {
+        if (!$this->hasFields()) {
+            return true;
+        }
+
+        return (bool) $this->fieldsFor($type);
+    }
+
+    /**
+     * Returns the fields for a given type
+     *
+     * @param string $type
+     * @return array|null
+     */
+    private function fieldsFor(string $type): ?array
+    {
+        if (!$this->request) {
+            return null;
+        }
+
+        $query = $this->request->getQueryParams();
+        if (!array_key_exists('fields', $query)) {
+            return null;
+        }
+
+        $fields = $query['fields'];
+        if (!array_key_exists($type, $fields)) {
+            return null;
+        }
+
+        return explode(',', trim(str_replace(' ', '', $fields[$type])));
+    }
+
+    private function includeField(string $name, string $type): bool
+    {
+        if (!$this->includeResource($type)) {
+            return false;
+        }
+
+        $fields = $this->fieldsFor($type);
+
+        return in_array($name, $fields);
+    }
 
     /**
      * createResourceIdentifier
@@ -187,6 +272,10 @@ final class DefaultFactory implements DocumentFactory
         $relationships = new Relationships();
         $primaryId = new ResourceIdentifier($schema->type($object), $schema->identifier($object));
         foreach ($relationshipsData as $name => $subject) {
+            if ($this->hasFields() && !$this->includeField($name, $schema->type($object))) {
+                continue;
+            }
+
             if (is_array($subject['data']) || $subject['data'] instanceof Traversable) {
                 $relationships->add($name, $this->createToManyRelation($primaryId, $name, $subject));
                 continue;
@@ -256,7 +345,7 @@ final class DefaultFactory implements DocumentFactory
     {
         return new ResourceObject(
             $this->createResourceIdentifier($schema, $object),
-            $schema->attributes($object)
+            $this->filterFields($schema->type($object), $schema->attributes($object))
         );
     }
 
@@ -325,13 +414,16 @@ final class DefaultFactory implements DocumentFactory
      *
      * @param ResourceSchema $schema
      * @param $object
-     * @return JsonArrayResource
+     * @return JsonApiResource
      */
-    private function createResourceObject(ResourceSchema $schema, $object): JsonArrayResource
+    private function createResourceObject(ResourceSchema $schema, $object): JsonApiResource
     {
         if ($schema instanceof ResourceCollectionSchema) {
             $resource = new ResourceCollection($schema->type($object));
             foreach ($schema->attributes($object) as $data) {
+                if (!$this->includeResource($schema->type($object))) {
+                    continue;
+                }
                 $scm = $this->discover->discover($data);
                 $resource->add($this->createResourceObject($scm, $data));
             }
@@ -340,10 +432,54 @@ final class DefaultFactory implements DocumentFactory
 
         return new ResourceObject(
             $this->createResourceIdentifier($schema, $object),
-            $schema->attributes($object),
+            $this->filterFields($schema->type($object), $schema->attributes($object)),
             $this->createRelationships($schema, $object),
             $this->createResourceLinks($schema, $object),
             is_array($schema->meta($object)) ? new Meta($schema->meta($object)) : null
         );
+    }
+
+    /**
+     * Filters out the attributes that aren't in the fields set in the HTTP request
+     *
+     * @param string $type
+     * @param array|null $attributes
+     * @return array
+     */
+    private function filterFields(string $type, ?array $attributes): array
+    {
+        if (!$this->hasFields()) {
+            return $attributes;
+        }
+
+        $fields = $this->fieldsFor($type);
+        if (!$fields) {
+            return [];
+        }
+
+        $data = [];
+        $keys = array_keys($attributes);
+        foreach ($fields as $field) {
+            if (!in_array($field, $keys)) {
+                continue;
+            }
+
+            $data[$field] = $attributes[$field];
+        }
+
+        return $data;
+    }
+
+    private function includedTypes(): ?array
+    {
+        if (!$this->request) {
+            return null;
+        }
+
+        if (!array_key_exists('include', $this->request->getQueryParams())) {
+            return null;
+        }
+
+        return $this->request->getQueryParams()['include'];
     }
 }

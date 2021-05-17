@@ -81,7 +81,7 @@ final class DefaultFactory implements DocumentFactory
             ? new Document\ResourceCompoundDocument($resourceObject)
             : new Document\ResourceDocument($resourceObject);
 
-        if ($schema->isCompound()) {
+        if ($document instanceof Document\ResourceCompoundDocument) {
             $document->withIncludedTypes($this->sparseFields()->includedTypes());
         }
 

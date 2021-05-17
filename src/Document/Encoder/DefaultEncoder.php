@@ -9,11 +9,11 @@
 
 namespace Slick\JSONAPI\Document\Encoder;
 
-use Psr\Http\Message\ServerRequestInterface;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentConverter;
 use Slick\JSONAPI\Document\DocumentEncoder;
 use Slick\JSONAPI\Document\DocumentFactory;
+use Slick\JSONAPI\Document\Factory\SparseFields;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\LinksAwareObject;
 use Slick\JSONAPI\Object\Links;
@@ -60,12 +60,6 @@ final class DefaultEncoder implements DocumentEncoder
      * @var string|null
      */
     private $linkPrefix = null;
-
-    /**
-     * @var ServerRequestInterface
-     */
-    private $request = null;
-
 
     /**
      * Creates a DefaultEncoder
@@ -150,10 +144,9 @@ final class DefaultEncoder implements DocumentEncoder
     /**
      * @inheritDoc
      */
-    public function withRequest(ServerRequestInterface $serverRequest): DocumentEncoder
+    public function withSparseFields(SparseFields $sparseFields): DocumentEncoder
     {
-        $this->request = $serverRequest;
-        $this->factory->withRequest($serverRequest);
+        $this->factory->withSparseFields($sparseFields);
         return $this;
     }
 

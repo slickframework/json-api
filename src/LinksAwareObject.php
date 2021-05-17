@@ -28,7 +28,7 @@ interface LinksAwareObject
      * @param Links $links
      * @return LinksAwareObject|self|Document
      */
-    public function withLinks(Links $links): LinksAwareObject;
+    public function withLinks(Links $links): self;
 
     /**
      * A links object related to the primary data.

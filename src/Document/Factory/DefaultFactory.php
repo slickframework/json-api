@@ -9,7 +9,6 @@
 
 namespace Slick\JSONAPI\Document\Factory;
 
-use Psr\Http\Message\ServerRequestInterface;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentFactory;
 use Slick\JSONAPI\JsonApi;
@@ -58,9 +57,9 @@ final class DefaultFactory implements DocumentFactory
     private $discover;
 
     /**
-     * @var ServerRequestInterface
+     * @var SparseFields
      */
-    private $request;
+    private $sparseFields;
 
     /**
      * Creates a DefaultFactory
@@ -82,15 +81,13 @@ final class DefaultFactory implements DocumentFactory
             ? new Document\ResourceCompoundDocument($resourceObject)
             : new Document\ResourceDocument($resourceObject);
 
-        if ($schema->isCompound()) {
-            $document->withIncludedTypes($this->includedTypes());
+        if ($document instanceof Document\ResourceCompoundDocument) {
+            $document->withIncludedTypes($this->sparseFields()->includedTypes());
         }
 
         $document = $this->jsonapi ? $document->withJsonapi($this->jsonapi) : $document;
         $document = $this->links ? $document->withLinks($this->links) : $document;
-        $document = $this->meta ? $document->withMeta($this->meta) : $document;
-
-        return $document;
+        return $this->meta ? $document->withMeta($this->meta) : $document;
     }
 
     /**
@@ -141,79 +138,26 @@ final class DefaultFactory implements DocumentFactory
     /**
      * @inheritDoc
      */
-    public function withRequest(ServerRequestInterface $serverRequest): DocumentFactory
+    public function withSparseFields(SparseFields $sparseFields): DocumentFactory
     {
-        $this->request = $serverRequest;
+        $this->sparseFields = $sparseFields;
         return $this;
     }
 
+    /**
+     * sparseFields
+     *
+     * @return SparseFields
+     */
+    public function sparseFields(): SparseFields
+    {
+        if (!$this->sparseFields) {
+            $this->sparseFields = new SparseFields();
+        }
+        return $this->sparseFields;
+    }
+
     // Creation methods
-
-    /**
-     * Checks if HTTP request has fields parameter
-     *
-     * @return bool
-     */
-    private function hasFields(): bool
-    {
-        if (!$this->request) {
-            return false;
-        }
-
-        $query = $this->request->getQueryParams();
-        return array_key_exists('fields', $query);
-    }
-
-    /**
-     * Check if it should include a resource of a given type
-     *
-     * @param string $type
-     * @return bool
-     */
-    private function includeResource(string $type): bool
-    {
-        if (!$this->hasFields()) {
-            return true;
-        }
-
-        return (bool) $this->fieldsFor($type);
-    }
-
-    /**
-     * Returns the fields for a given type
-     *
-     * @param string $type
-     * @return array|null
-     */
-    private function fieldsFor(string $type): ?array
-    {
-        if (!$this->request) {
-            return null;
-        }
-
-        $query = $this->request->getQueryParams();
-        if (!array_key_exists('fields', $query)) {
-            return null;
-        }
-
-        $fields = $query['fields'];
-        if (!array_key_exists($type, $fields)) {
-            return null;
-        }
-
-        return explode(',', trim(str_replace(' ', '', $fields[$type])));
-    }
-
-    private function includeField(string $name, string $type): bool
-    {
-        if (!$this->includeResource($type)) {
-            return false;
-        }
-
-        $fields = $this->fieldsFor($type);
-
-        return in_array($name, $fields);
-    }
 
     /**
      * createResourceIdentifier
@@ -272,7 +216,9 @@ final class DefaultFactory implements DocumentFactory
         $relationships = new Relationships();
         $primaryId = new ResourceIdentifier($schema->type($object), $schema->identifier($object));
         foreach ($relationshipsData as $name => $subject) {
-            if ($this->hasFields() && !$this->includeField($name, $schema->type($object))) {
+            if ($this->sparseFields()->hasFields() &&
+                !$this->sparseFields()->includeField($name, $schema->type($object))
+            ) {
                 continue;
             }
 
@@ -345,7 +291,7 @@ final class DefaultFactory implements DocumentFactory
     {
         return new ResourceObject(
             $this->createResourceIdentifier($schema, $object),
-            $this->filterFields($schema->type($object), $schema->attributes($object))
+            $this->sparseFields()->filterFields($schema->type($object), $schema->attributes($object))
         );
     }
 
@@ -366,12 +312,12 @@ final class DefaultFactory implements DocumentFactory
         $links = new Links($this->linkPrefix);
         foreach ($subject['links'] as $name => $href) {
             if ($name === ResourceSchema::LINK_SELF && $href === true) {
-                $links->add($name, "/{$identifier->type()}/{$identifier->identifier()}/relationships/{$relName}");
+                $links->add($name, "/{$identifier->type()}/{$identifier->identifier()}/relationships/$relName");
                 continue;
             }
 
             if ($name === ResourceSchema::LINK_RELATED && $href === true) {
-                $links->add($name, "/{$identifier->type()}/{$identifier->identifier()}/{$relName}");
+                $links->add($name, "/{$identifier->type()}/{$identifier->identifier()}/$relName");
                 continue;
             }
 
@@ -421,7 +367,7 @@ final class DefaultFactory implements DocumentFactory
         if ($schema instanceof ResourceCollectionSchema) {
             $resource = new ResourceCollection($schema->type($object));
             foreach ($schema->attributes($object) as $data) {
-                if (!$this->includeResource($schema->type($object))) {
+                if (!$this->sparseFields()->includeResource($schema->type($object))) {
                     continue;
                 }
                 $scm = $this->discover->discover($data);
@@ -432,54 +378,10 @@ final class DefaultFactory implements DocumentFactory
 
         return new ResourceObject(
             $this->createResourceIdentifier($schema, $object),
-            $this->filterFields($schema->type($object), $schema->attributes($object)),
+            $this->sparseFields()->filterFields($schema->type($object), $schema->attributes($object)),
             $this->createRelationships($schema, $object),
             $this->createResourceLinks($schema, $object),
             is_array($schema->meta($object)) ? new Meta($schema->meta($object)) : null
         );
-    }
-
-    /**
-     * Filters out the attributes that aren't in the fields set in the HTTP request
-     *
-     * @param string $type
-     * @param array|null $attributes
-     * @return array
-     */
-    private function filterFields(string $type, ?array $attributes): array
-    {
-        if (!$this->hasFields()) {
-            return $attributes;
-        }
-
-        $fields = $this->fieldsFor($type);
-        if (!$fields) {
-            return [];
-        }
-
-        $data = [];
-        $keys = array_keys($attributes);
-        foreach ($fields as $field) {
-            if (!in_array($field, $keys)) {
-                continue;
-            }
-
-            $data[$field] = $attributes[$field];
-        }
-
-        return $data;
-    }
-
-    private function includedTypes(): ?array
-    {
-        if (!$this->request) {
-            return null;
-        }
-
-        if (!array_key_exists('include', $this->request->getQueryParams())) {
-            return null;
-        }
-
-        return $this->request->getQueryParams()['include'];
     }
 }

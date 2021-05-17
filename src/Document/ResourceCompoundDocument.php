@@ -27,7 +27,7 @@ final class ResourceCompoundDocument extends ResourceDocument
     /**
      * Sets the included types
      *
-     * @param array $types
+     * @param array|null $types
      * @return ResourceCompoundDocument
      */
     public function withIncludedTypes(?array $types = null): self
@@ -41,8 +41,6 @@ final class ResourceCompoundDocument extends ResourceDocument
      */
     public function included(): ?array
     {
-        $data = [];
-
         if ($this->data instanceof ResourceCollection) {
             return $this->extractFromCollection();
         }
@@ -51,18 +49,7 @@ final class ResourceCompoundDocument extends ResourceDocument
             return null;
         }
 
-        foreach ($this->data->relationships() as $relationship) {
-            if ($relationship instanceof ToOneRelationship) {
-                $this->retrieveResource($data, $relationship->data());
-                continue;
-            }
-
-            foreach ($relationship->data() as $rel) {
-                $this->retrieveResource($data, $rel);
-            }
-        }
-
-        return array_values($data);
+        return $this->extractIncludedResources();
     }
 
     /**
@@ -96,10 +83,10 @@ final class ResourceCompoundDocument extends ResourceDocument
         $data[$key] = $resource;
     }
 
-    private function extractFromCollection()
+    private function extractFromCollection(): array
     {
         $data = [];
-        /** @var ResourceObject[] $resource */
+        /** @var ResourceObject $resource */
         foreach ($this->data as $resource) {
             foreach ($resource->relationships() as $relationship) {
                 if ($relationship instanceof ToOneRelationship) {
@@ -110,6 +97,28 @@ final class ResourceCompoundDocument extends ResourceDocument
                 foreach ($relationship->data() as $rel) {
                     $this->retrieveResource($data, $rel);
                 }
+            }
+        }
+
+        return array_values($data);
+    }
+
+    /**
+     * extractIncludedResources
+     *
+     * @return array
+     */
+    private function extractIncludedResources(): array
+    {
+        $data = [];
+        foreach ($this->data->relationships() as $relationship) {
+            if ($relationship instanceof ToOneRelationship) {
+                $this->retrieveResource($data, $relationship->data());
+                continue;
+            }
+
+            foreach ($relationship->data() as $rel) {
+                $this->retrieveResource($data, $rel);
             }
         }
 

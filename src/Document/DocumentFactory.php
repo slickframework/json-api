@@ -11,6 +11,7 @@ namespace Slick\JSONAPI\Document;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Slick\JSONAPI\Document;
+use Slick\JSONAPI\Document\Factory\SparseFields;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
@@ -75,10 +76,10 @@ interface DocumentFactory
     public function withLinkPrefix(string $linkPrefix): DocumentFactory;
 
     /**
-     * Sets the request that allows sparse fields, order and pagination
+     * Sets the request wrapper that allows sparse fields
      *
-     * @param ServerRequestInterface $serverRequest
+     * @param SparseFields $sparseFields
      * @return DocumentFactory
      */
-    public function withRequest(ServerRequestInterface $serverRequest): DocumentFactory;
+    public function withSparseFields(SparseFields $sparseFields): DocumentFactory;
 }

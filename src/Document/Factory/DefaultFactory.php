@@ -31,6 +31,9 @@ use Traversable;
  */
 final class DefaultFactory implements DocumentFactory
 {
+    const RELATION_NONE = 'none';
+    const RELATION_TO_ONE = 'toOne';
+    const RELATION_TO_MANY = 'toMany';
     /**
      * @var JsonApi|null
      */
@@ -222,7 +225,11 @@ final class DefaultFactory implements DocumentFactory
                 continue;
             }
 
-            if (is_array($subject['data']) || $subject['data'] instanceof Traversable) {
+            $type = array_key_exists('relationType', $subject) ? $subject['relationType'] : self::RELATION_NONE;
+            $type = in_array($type, [self::RELATION_TO_ONE, self::RELATION_TO_MANY]) ? $type : self::RELATION_NONE;
+            $isTraversable = is_array($subject['data']) || $subject['data'] instanceof Traversable;
+
+            if ($type != self::RELATION_TO_ONE && $isTraversable) {
                 $relationships->add($name, $this->createToManyRelation($primaryId, $name, $subject));
                 continue;
             }

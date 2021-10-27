@@ -12,6 +12,7 @@ namespace Slick\JSONAPI\Document\Factory;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentFactory;
 use Slick\JSONAPI\JsonApi;
+use Slick\JSONAPI\Object\Link\LinkObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Relationships;
@@ -86,6 +87,14 @@ final class DefaultFactory implements DocumentFactory
 
         if ($document instanceof Document\ResourceCompoundDocument) {
             $document->withIncludedTypes($this->sparseFields()->includedTypes());
+        }
+
+        if (!$this->meta) {
+            $this->meta = is_array($schema->meta($object)) ? new Meta($schema->meta($object)) : null;
+        }
+
+        if (!$this->links) {
+            $this->links = is_array($schema->links($object)) ? $this->createResourceLinks($schema, $object): null;
         }
 
         $document = $this->jsonapi ? $document->withJsonapi($this->jsonapi) : $document;

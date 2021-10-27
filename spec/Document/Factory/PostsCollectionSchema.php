@@ -97,7 +97,7 @@ final class PostsCollectionSchema extends AbstractResourceSchema implements Reso
      */
     public function meta($object): ?array
     {
-        return null;
+        return ['foo' => 'bar'];
     }
 
     /**

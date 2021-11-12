@@ -107,7 +107,7 @@ final class SparseFields
     public function filterFields(string $type, ?array $attributes): array
     {
         if (!$this->hasFields()) {
-            return $attributes;
+            return $attributes ?? [];
         }
 
         $fields = $this->fieldsFor($type);

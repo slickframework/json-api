@@ -47,7 +47,7 @@ class ResourceDocument implements Document
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = $this->jsonapi ? ['jsonapi' => $this->jsonapi] : [];
         $data['data'] = $this->data;

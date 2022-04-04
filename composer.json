@@ -23,11 +23,11 @@
         }
     },
     "require-dev": {
-        "phpspec/phpspec": "6.3.x-dev",
+        "phpspec/phpspec": "^7.2",
         "squizlabs/php_codesniffer": "4.0.x-dev"
     },
     "require": {
-        "php": ">=7.2",
+        "php": ">=8.0",
         "ext-json": "*",
         "doctrine/collections": "^1.6",
         "slick/http": "^3.1"

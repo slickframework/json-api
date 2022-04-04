@@ -263,7 +263,7 @@ final class LinkObject implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = ['href' => $this->href];
         $properties = ['title', 'describedBy', 'type', 'hreflang', 'meta'];

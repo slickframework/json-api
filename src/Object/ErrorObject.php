@@ -145,7 +145,7 @@ final class ErrorObject implements Resource
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = $this->identifier ? ['id' => $this->identifier] : [];
         $properties = ['links', 'status', 'code', 'title', 'detail', 'source', 'meta'];

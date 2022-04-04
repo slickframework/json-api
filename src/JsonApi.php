@@ -245,7 +245,7 @@ final class JsonApi implements MetaAwareObject, JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = ['version' => $this->version];
         $this->parseCollection('ext', $this->extensions, $data);

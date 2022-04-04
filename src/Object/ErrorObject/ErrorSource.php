@@ -70,7 +70,7 @@ final class ErrorSource implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = $this->pointer ? ['pointer' => $this->pointer] : [];
         return $this->parameter ? array_merge($data, ['parameter' => $this->parameter]) : $data;

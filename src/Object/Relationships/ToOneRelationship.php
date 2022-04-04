@@ -54,7 +54,7 @@ final class ToOneRelationship implements Relationship
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = $this->links ? ['links' => $this->links] : [];
         $data = $this->resource

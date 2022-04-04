@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
 use JsonSerializable;
 use Slick\JSONAPI\Object\Link\LinkObject;
+use Traversable;
 
 /**
  * Links
@@ -121,7 +122,7 @@ final class Links implements IteratorAggregate, JsonSerializable
     /**
      * @inheritDoc
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return $this->links->getIterator();
     }
@@ -129,7 +130,7 @@ final class Links implements IteratorAggregate, JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = [];
         foreach ($this as $rel => $link) {

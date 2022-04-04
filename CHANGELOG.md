@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.8.0] 2022-04-04
+### Adds
+- Full support for php 8.0.x && 8.0.x
+- PHP 8.x interface implementations
+
 ## [v0.7.4] 2021-11-12
 ### Fixed
 - sparse fields bug when no attributes or fields were sent
@@ -73,7 +78,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.7.4...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.8.0...HEAD
+[v0.8.0]: https://github.com/slickframework/json-api/compare/v0.7.4...v0.8.0
 [v0.7.4]: https://github.com/slickframework/json-api/compare/v0.7.3...v0.7.4
 [v0.7.3]: https://github.com/slickframework/json-api/compare/v0.7.2...v0.7.3
 [v0.7.2]: https://github.com/slickframework/json-api/compare/v0.7.0...v0.7.2

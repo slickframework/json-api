@@ -80,7 +80,7 @@ final class ResourceIdentifier implements Resource
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $key = $this->isLocal ? 'lid' : 'id';
         return [

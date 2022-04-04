@@ -80,7 +80,7 @@ final class Meta implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->data->toArray();
     }

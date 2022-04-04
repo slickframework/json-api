@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
 use Slick\JSONAPI\Object\Resource as ResourceObject;
+use Traversable;
 
 /**
  * ResourceCollection
@@ -68,7 +69,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @inheritDoc
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return $this->resources->getIterator();
     }
@@ -120,7 +121,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->resources->getValues();
     }
@@ -128,7 +129,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @inheritDoc
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         $this->resources->offsetExists($offset);
     }
@@ -136,7 +137,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @inheritDoc
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         $this->resources->offsetGet($offset);
     }
@@ -144,7 +145,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @inheritDoc
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new BadMethodCallException(
             "The resource collection array access is read only. " .
@@ -155,7 +156,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @inheritDoc
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         throw new BadMethodCallException(
             "The resource collection array access is read only. " .

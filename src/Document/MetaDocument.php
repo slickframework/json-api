@@ -40,7 +40,7 @@ final class MetaDocument implements Document
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = $this->jsonapi ? ['jsonapi' => $this->jsonapi] : [];
         $data = array_merge($data, ['meta' => $this->meta]);

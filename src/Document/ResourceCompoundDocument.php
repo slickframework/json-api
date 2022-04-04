@@ -55,7 +55,7 @@ final class ResourceCompoundDocument extends ResourceDocument
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = parent::jsonSerialize();
         $included = $this->included();

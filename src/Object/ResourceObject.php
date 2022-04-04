@@ -135,7 +135,7 @@ class ResourceObject implements Resource, LinksAwareObject, MetaAwareObject
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = [
             'type' => $this->type(),

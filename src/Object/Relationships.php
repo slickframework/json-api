@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
 use JsonSerializable;
+use Traversable;
 
 /**
  * Relationships
@@ -55,7 +56,7 @@ final class Relationships implements IteratorAggregate, JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = [];
         foreach ($this->relationships as $name => $relationship) {
@@ -67,7 +68,7 @@ final class Relationships implements IteratorAggregate, JsonSerializable
     /**
      * @inheritDoc
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return $this->relationships->getIterator();
     }

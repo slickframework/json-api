@@ -103,7 +103,7 @@ final class ErrorDocument implements Document
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = $this->jsonapi ? ['jsonapi' => $this->jsonapi] : [];
         $data['errors'] = $this->errors;

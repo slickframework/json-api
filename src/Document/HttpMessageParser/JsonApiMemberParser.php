@@ -11,7 +11,6 @@ namespace Slick\JSONAPI\Document\HttpMessageParser;
 
 use InvalidArgumentException;
 use Psr\Http\Message\UriInterface;
-use Slick\Http\Message\Uri;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\ResourceDocument;
 use Slick\JSONAPI\Exception\InvalidResourceProperty;

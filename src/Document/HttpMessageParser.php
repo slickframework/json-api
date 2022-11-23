@@ -9,7 +9,7 @@
 
 namespace Slick\JSONAPI\Document;
 
-use Slick\Http\Message\Message;
+use Psr\Http\Message\MessageInterface;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\HttpMessageParser\DocumentParser;
 use Slick\JSONAPI\Document\HttpMessageParser\JsonApiMemberParser;
@@ -28,10 +28,10 @@ final class HttpMessageParser
     /**
      * Parses provided HTTP message into a JSON:API document
      *
-     * @param Message $message
+     * @param MessageInterface $message
      * @return Document
      */
-    public function parse(Message $message): Document
+    public function parse(MessageInterface $message): Document
     {
         $message->getBody()->rewind();
         $json = json_decode($message->getBody()->getContents());
@@ -40,8 +40,6 @@ final class HttpMessageParser
 
         $document = JsonApiMemberParser::parse($json, $document);
         $document = MetaMemberParser::parse($json, $document);
-        $document = LinksMemberParser::parse($json, $document);
-
-        return $document;
+        return LinksMemberParser::parse($json, $document);
     }
 }

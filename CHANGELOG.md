@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.9.0] 2022-23-11
+### Changed
+- Slick `Message` and `Uri` usage changed to PSR-7 interfaces counterparts
+### Removed
+- `slick/http` dependency. Moved to composer `dev` section as it is used on tests
+ 
 ## [v0.8.0] 2022-04-04
-### Adds
+### Added
 - Full support for php 8.0.x && 8.0.x
 - PHP 8.x interface implementations
 
@@ -49,7 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.5.0] 2021-05-02
 ### Added
 - Document decoder validator
-### Fixes
+### Fixed
 - `composer.json` warnings
 
 ## [v0.4.0] 2021-05-01
@@ -78,7 +84,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.9.0...HEAD
+[v0.9.0]: https://github.com/slickframework/json-api/compare/v0.8.0...v0.9.0
 [v0.8.0]: https://github.com/slickframework/json-api/compare/v0.7.4...v0.8.0
 [v0.7.4]: https://github.com/slickframework/json-api/compare/v0.7.3...v0.7.4
 [v0.7.3]: https://github.com/slickframework/json-api/compare/v0.7.2...v0.7.3

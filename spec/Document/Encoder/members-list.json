@@ -1,0 +1,36 @@
+{
+    "data": [
+        {
+            "type": "members",
+            "id": "639fa6f600928",
+            "attributes": {
+                "name": "John Doe",
+                "age": 45
+            },
+            "relationships": {
+                "group": {
+                    "data": {
+                        "type": "groups",
+                        "id": "639fa6f600925"
+                    }
+                }
+            }
+        },
+        {
+            "type": "members",
+            "id": "639fa6f600928",
+            "attributes": {
+                "name": "Jane Doe",
+                "age": 43
+            },
+            "relationships": {
+                "group": {
+                    "data": {
+                        "type": "groups",
+                        "id": "639fa6f600925"
+                    }
+                }
+            }
+        }
+    ]
+}

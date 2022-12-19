@@ -89,13 +89,13 @@ final class DefaultFactory implements DocumentFactory
             $document->withIncludedTypes($this->sparseFields()->includedTypes());
         }
 
-        if (!$this->meta) {
+        /*if (!$this->meta) {
             $this->meta = is_array($schema->meta($object)) ? new Meta($schema->meta($object)) : null;
         }
 
         if (!$this->links) {
             $this->links = is_array($schema->links($object)) ? $this->createResourceLinks($schema, $object): null;
-        }
+        }*/
 
         $document = $this->jsonapi ? $document->withJsonapi($this->jsonapi) : $document;
         $document = $this->links ? $document->withLinks($this->links) : $document;

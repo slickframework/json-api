@@ -140,9 +140,7 @@ class DefaultFactorySpec extends ObjectBehavior
             ->withLinkPrefix('https://www.example.com/');
         $document = $this->createDocument($discover->discover('posts'), false);
         $document->shouldBeAnInstanceOf(ResourceCompoundDocument::class);
-        $document->meta()->get('foo')->shouldBe('bar');
-        $converter = new PHPJson();
-        //echo $converter->convert($document->getWrappedObject());
+        $document->meta()->shouldBe(null);
     }
 
     /**

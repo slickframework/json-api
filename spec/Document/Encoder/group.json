@@ -1,0 +1,42 @@
+{
+    "data": {
+        "type": "groups",
+        "id": "639fa6f600925",
+        "attributes": {
+            "name": "Test group"
+        },
+        "links": {
+            "self": "/groups/639fa6f600925"
+        },
+        "relationships": {
+            "members": {
+                "links": {
+                    "self": "/groups/639fa6f600925/relationships/members",
+                    "related": "/groups/639fa6f600925/members"
+                },
+                "data": [
+                    {
+                        "type": "members",
+                        "id": "639fa6f600928"
+                    }
+                ],
+                "meta": {
+                    "description": "A group can have many members."
+                }
+            }
+        },
+        "meta": {
+            "description": "a group of members"
+        }
+    },
+    "included": [
+        {
+            "type": "members",
+            "id": "639fa6f600928",
+            "attributes": {
+                "name": "John Doe",
+                "age": 45
+            }
+        }
+    ]
+}

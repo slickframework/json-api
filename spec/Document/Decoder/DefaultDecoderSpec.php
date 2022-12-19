@@ -20,6 +20,8 @@ use Slick\JSONAPI\Object\SchemaDiscover;
 use Slick\JSONAPI\Validator;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\CreatePersonCommand;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\CreatePersonCommandSchema;
+use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Group;
+use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Member;
 
 /**
  * DefaultDecoderSpec specs
@@ -68,5 +70,19 @@ class DefaultDecoderSpec extends ObjectBehavior
 
         $this->shouldThrow(FailedValidation::class)
             ->during('decodeTo', [CreatePersonCommand::class]);
+    }
+
+    function it_can_decode_an_object_with_attributes(Validator\SchemaDecodeValidator $validator)
+    {
+        $discover = new SchemaDiscover\AttributeSchemaDiscover();
+        $this->beConstructedWith($discover, $validator);
+
+        $json = dirname(__DIR__) . '/Encoder/member.json';
+        $resourceData = json_decode(file_get_contents($json));
+        $resourceObjectParser = new Document\HttpMessageParser\ResourceObjectParser($resourceData->data);
+        $data = $resourceObjectParser->parse();
+        $this->setRequestedDocument(new Document\ResourceDocument($data));
+        $member = $this->decodeTo(Member::class);
+        $member->name()->shouldBe($resourceData->data->attributes->name);
     }
 }

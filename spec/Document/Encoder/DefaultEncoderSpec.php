@@ -23,6 +23,13 @@ use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\ResourceIdentifier;
 use Slick\JSONAPI\Object\ResourceSchema;
 use Slick\JSONAPI\Object\SchemaDiscover;
+use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Group;
+use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Member;
+use function Composer\Autoload\includeFile;
+
+includeFile(dirname(__DIR__).'/Decoder/Fixtures/Group.php');
+includeFile(dirname(__DIR__).'/Decoder/Fixtures/Member.php');
+includeFile(__DIR__.'/MembersList.php');
 
 /**
  * DefaultEncoderSpec specs
@@ -128,5 +135,28 @@ class DefaultEncoderSpec extends ObjectBehavior
 
         $this->encode($object);
 
+    }
+
+    function it_can_encode_an_object_with_attributes()
+    {
+        $discover = new SchemaDiscover\AttributeSchemaDiscover();
+        $factory = new Document\Factory\DefaultFactory($discover);
+        $converter = new Document\Converter\PHPJson();
+        $this->beConstructedWith($discover, $factory, $converter);
+
+        $group = new Group('Test group');
+        $member = new Member($group, 'John Doe', 45);
+
+        $result = $this->encode($member);
+        $result->shouldBeLike(file_get_contents(__DIR__.'/member.json'));
+
+        $result = $this->encode($group);
+        $result->shouldBeLike(file_get_contents(__DIR__.'/group.json'));
+
+        $member2 = new Member($group, 'Jane Doe', 43);
+        $membersList = new MembersList([$member, $member2]);
+
+        $result = $this->encode($membersList);
+        $result->shouldBeLike(file_get_contents(__DIR__.'/members-list.json'));
     }
 }

@@ -1,0 +1,27 @@
+{
+    "data": {
+        "type": "members",
+        "id": "639fa6f600928",
+        "attributes": {
+            "name": "John Doe",
+            "age": 45
+        },
+        "relationships": {
+            "group": {
+                "data": {
+                    "type": "groups",
+                    "id": "639fa6f600925"
+                }
+            }
+        }
+    },
+    "included": [
+        {
+            "type": "groups",
+            "id": "639fa6f600925",
+            "attributes": {
+                "name": "Test group"
+            }
+        }
+    ]
+}

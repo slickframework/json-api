@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v0.9.0] 2022-23-11
+## [v0.10.0] 2022-12-19
+### Added
+- Attributes to generate schema from/to entities
+### Fixes
+- Removed the duplication on `meta` and `links` on resource objects and resource documents
+
+## [v0.9.0] 2022-11-23
 ### Changed
 - Slick `Message` and `Uri` usage changed to PSR-7 interfaces counterparts
 ### Removed
@@ -84,7 +90,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.10.0...HEAD
+[v0.10.0]: https://github.com/slickframework/json-api/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/slickframework/json-api/compare/v0.8.0...v0.9.0
 [v0.8.0]: https://github.com/slickframework/json-api/compare/v0.7.4...v0.8.0
 [v0.7.4]: https://github.com/slickframework/json-api/compare/v0.7.3...v0.7.4

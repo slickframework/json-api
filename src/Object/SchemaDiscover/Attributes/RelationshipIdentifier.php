@@ -44,6 +44,7 @@ class RelationshipIdentifier implements DecodableAttribute
         private string  $name,
         private ?string $className = null,
         private ?string $type = null,
+        private bool    $required = false
     ) {
     }
 
@@ -83,7 +84,11 @@ class RelationshipIdentifier implements DecodableAttribute
      */
     public function assignValue(object $decodedObject, ResourceObject $resourceObject): void
     {
-        $rawValue = $resourceObject->relationships()->get($this->name)->data()->identifier();
+        $relationship = $resourceObject->relationships()->get($this->name);
+        if (!$relationship) {
+            return;
+        }
+        $rawValue = $relationship->data()->identifier();
         $className = $this->className;
         $value = $className ? new $className($rawValue) : $rawValue;
         $this->assignPropertyValue($decodedObject, $value);
@@ -158,7 +163,7 @@ class RelationshipIdentifier implements DecodableAttribute
         SchemaDecodeValidator $validator
     ): ?JSONAPIRelationship {
         $relationShip = $resourceObject->relationships()->get($name);
-        if (!$relationShip) {
+        if (!$relationShip && $this->required) {
             $validator->add(
                 title: "Missing '$name' relationship",
                 detail: "Relationship '$name' is mandatory, but it isn't present in the requested resource object.",

@@ -16,12 +16,11 @@ use spec\Slick\JSONAPI\Object\SchemaDiscover\Attributes\Comment;
 use spec\Slick\JSONAPI\Object\SchemaDiscover\Attributes\Post;
 use spec\Slick\JSONAPI\Object\SchemaDiscover\Attributes\PostList;
 use spec\Slick\JSONAPI\Object\SchemaDiscover\Attributes\User;
-use function Composer\Autoload\includeFile;
 
-includeFile(__DIR__.'/Attributes/User.php');
-includeFile(__DIR__.'/Attributes/Post.php');
-includeFile(__DIR__.'/Attributes/PostList.php');
-includeFile(__DIR__.'/Attributes/Comment.php');
+include(__DIR__.'/Attributes/User.php');
+include(__DIR__.'/Attributes/Post.php');
+include(__DIR__.'/Attributes/PostList.php');
+include(__DIR__.'/Attributes/Comment.php');
 
 /**
  * AttributeSchemaDiscoverSpec specs

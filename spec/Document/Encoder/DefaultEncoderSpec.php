@@ -9,6 +9,7 @@
 
 namespace spec\Slick\JSONAPI\Document\Encoder;
 
+use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Prophecy\Exception\Prediction\FailedPredictionException;
 use Slick\JSONAPI\Document;
@@ -16,7 +17,6 @@ use Slick\JSONAPI\Document\DocumentConverter;
 use Slick\JSONAPI\Document\DocumentEncoder;
 use Slick\JSONAPI\Document\DocumentFactory;
 use Slick\JSONAPI\Document\Encoder\DefaultEncoder;
-use PhpSpec\ObjectBehavior;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
@@ -25,11 +25,10 @@ use Slick\JSONAPI\Object\ResourceSchema;
 use Slick\JSONAPI\Object\SchemaDiscover;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Group;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Member;
-use function Composer\Autoload\includeFile;
 
-includeFile(dirname(__DIR__).'/Decoder/Fixtures/Group.php');
-includeFile(dirname(__DIR__).'/Decoder/Fixtures/Member.php');
-includeFile(__DIR__.'/MembersList.php');
+include(dirname(__DIR__).'/Decoder/Fixtures/Group.php');
+include(dirname(__DIR__).'/Decoder/Fixtures/Member.php');
+include(__DIR__.'/MembersList.php');
 
 /**
  * DefaultEncoderSpec specs

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Slick\JSONAPI\Object\SchemaDiscover\Attributes;
 
 use Doctrine\Common\Collections\Collection;
+use JsonSerializable;
 use ReflectionException;
 use ReflectionMethod;
 use Reflector;
@@ -92,6 +93,10 @@ trait DiscoverAttributesMethods
 
         if (is_scalar($value) || is_array($value) || is_null($value)) {
             return $value;
+        }
+
+        if ($value instanceof JsonSerializable) {
+            return $value->jsonSerialize();
         }
 
         if ($value instanceof Stringable) {

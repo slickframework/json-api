@@ -635,16 +635,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.15.2",
+            "version": "1.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "5941477f100993652218928039d530b75a13a9ca"
+                "reference": "61800f71a5526081d1b5633766aa88341f1ade76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/5941477f100993652218928039d530b75a13a9ca",
-                "reference": "5941477f100993652218928039d530b75a13a9ca",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/61800f71a5526081d1b5633766aa88341f1ade76",
+                "reference": "61800f71a5526081d1b5633766aa88341f1ade76",
                 "shasum": ""
             },
             "require": {
@@ -674,9 +674,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.15.2"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.15.3"
             },
-            "time": "2022-12-16T06:42:48+00:00"
+            "time": "2022-12-20T20:56:55+00:00"
         },
         {
             "name": "psr/container",
@@ -1365,12 +1365,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "be294423f337dda97c810733138c0caec1bb0575"
+                "reference": "9050b8c4af5f035e57576288b150ccdf87492ae1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/be294423f337dda97c810733138c0caec1bb0575",
-                "reference": "be294423f337dda97c810733138c0caec1bb0575",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9050b8c4af5f035e57576288b150ccdf87492ae1",
+                "reference": "9050b8c4af5f035e57576288b150ccdf87492ae1",
                 "shasum": ""
             },
             "require": {
@@ -1452,7 +1452,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-25T18:58:46+00:00"
+            "time": "2022-12-20T16:40:04+00:00"
         },
         {
             "name": "symfony/event-dispatcher",

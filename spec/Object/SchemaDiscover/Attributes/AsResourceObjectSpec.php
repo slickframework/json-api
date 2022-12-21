@@ -12,9 +12,9 @@ namespace spec\Slick\JSONAPI\Object\SchemaDiscover\Attributes;
 use Slick\JSONAPI\Exception\DocumentEncoderFailure;
 use Slick\JSONAPI\Object\SchemaDiscover\Attributes\AsResourceObject;
 use PhpSpec\ObjectBehavior;
-use function Composer\Autoload\includeFile;
 
-includeFile(__DIR__.'/ExampleResource.php');
+
+include(__DIR__.'/ExampleResource.php');
 
 /**
  * AsResourceObjectSpec specs

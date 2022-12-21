@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v0.10.2] 2022-12-21
+## [v0.10.3] 2022-12-21
 ### Adds
 - Optional required validation on `RelationshipIdentifier` attribute
 - The ability do decode a `JsonSerializable` objects
+### Fixes
+- Composer removed `includeFile()` function witch breaks some tests.
+  More at [composer site](https://getcomposer.org/changelog/2.5.0)
 
 ## [v0.10.0] 2022-12-19
 ### Added
@@ -95,8 +98,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.10.2...HEAD
-[v0.10.2]: https://github.com/slickframework/json-api/compare/v0.10.0...v0.10.2
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.10.3...HEAD
+[v0.10.3]: https://github.com/slickframework/json-api/compare/v0.10.0...v0.10.3
 [v0.10.0]: https://github.com/slickframework/json-api/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/slickframework/json-api/compare/v0.8.0...v0.9.0
 [v0.8.0]: https://github.com/slickframework/json-api/compare/v0.7.4...v0.8.0

@@ -17,9 +17,8 @@ use Slick\JSONAPI\Object\ResourceObject;
 use Slick\JSONAPI\Object\SchemaDiscover\Attributes\ResourceAttribute;
 use PhpSpec\ObjectBehavior;
 use Slick\JSONAPI\Validator\SchemaDecodeValidator;
-use function Composer\Autoload\includeFile;
 
-includeFile(__DIR__.'/ValueObject.php');
+include(__DIR__.'/ValueObject.php');
 
 /**
  * ResourceAttributeSpec specs

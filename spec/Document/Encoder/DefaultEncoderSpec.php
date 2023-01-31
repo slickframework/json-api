@@ -149,6 +149,7 @@ class DefaultEncoderSpec extends ObjectBehavior
         $result = $this->encode($member);
         $result->shouldBeLike(file_get_contents(__DIR__.'/member.json'));
 
+
         $result = $this->encode($group);
         $result->shouldBeLike(file_get_contents(__DIR__.'/group.json'));
 

@@ -27,16 +27,16 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @var Collection
      */
-    private $resources;
+    private Collection $resources;
     /**
      * @var string
      */
-    private $type;
+    private string $type;
 
     /**
      * @var ResourceIdentifier
      */
-    private $resourceIdentifier;
+    private ResourceIdentifier $resourceIdentifier;
 
     /**
      * Creates a ResourceCollection
@@ -105,7 +105,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
      *
      * @return false|ResourceObject
      */
-    public function first()
+    public function first(): bool|Resource
     {
         return $this->resources->first();
     }
@@ -121,7 +121,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return $this->resources->getValues();
     }
@@ -131,7 +131,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
      */
     public function offsetExists(mixed $offset): bool
     {
-        $this->resources->offsetExists($offset);
+        return $this->resources->offsetExists($offset);
     }
 
     /**
@@ -139,7 +139,7 @@ final class ResourceCollection implements IteratorAggregate, Resource, ArrayAcce
      */
     public function offsetGet(mixed $offset): mixed
     {
-        $this->resources->offsetGet($offset);
+        return $this->resources->offsetGet($offset);
     }
 
     /**

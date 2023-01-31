@@ -140,7 +140,7 @@ class DefaultFactorySpec extends ObjectBehavior
             ->withLinkPrefix('https://www.example.com/');
         $document = $this->createDocument($discover->discover('posts'), false);
         $document->shouldBeAnInstanceOf(ResourceCompoundDocument::class);
-        $document->meta()->shouldBe(null);
+        $document->meta()->shouldBeAnInstanceOf(Meta::class);
     }
 
     /**

@@ -31,7 +31,7 @@ final class MembersList implements \IteratorAggregate
     /**
      * @inheritDoc
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayCollection($this->members);
     }

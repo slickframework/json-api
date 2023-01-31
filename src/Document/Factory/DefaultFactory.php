@@ -12,7 +12,6 @@ namespace Slick\JSONAPI\Document\Factory;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentFactory;
 use Slick\JSONAPI\JsonApi;
-use Slick\JSONAPI\Object\Link\LinkObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Relationships;
@@ -38,32 +37,32 @@ final class DefaultFactory implements DocumentFactory
     /**
      * @var JsonApi|null
      */
-    private $jsonapi;
+    private ?JsonApi $jsonapi = null;
 
     /**
      * @var Links|null
      */
-    private $links;
+    private ?Links $links = null;
 
     /**
      * @var string|null
      */
-    private $linkPrefix;
+    private ?string $linkPrefix = null;
 
     /**
      * @var Meta|null
      */
-    private $meta;
+    private ?Meta $meta = null;
 
     /**
-     * @var SchemaDiscover
+     * @var SchemaDiscover|null
      */
-    private $discover;
+    private ?SchemaDiscover $discover;
 
     /**
-     * @var SparseFields
+     * @var SparseFields|null
      */
-    private $sparseFields;
+    private ?SparseFields $sparseFields = null;
 
     /**
      * Creates a DefaultFactory
@@ -89,13 +88,13 @@ final class DefaultFactory implements DocumentFactory
             $document->withIncludedTypes($this->sparseFields()->includedTypes());
         }
 
-        /*if (!$this->meta) {
+        if (!$this->meta) {
             $this->meta = is_array($schema->meta($object)) ? new Meta($schema->meta($object)) : null;
         }
 
         if (!$this->links) {
             $this->links = is_array($schema->links($object)) ? $this->createResourceLinks($schema, $object): null;
-        }*/
+        }
 
         $document = $this->jsonapi ? $document->withJsonapi($this->jsonapi) : $document;
         $document = $this->links ? $document->withLinks($this->links) : $document;

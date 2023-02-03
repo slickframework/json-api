@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [v0.11.0] 2023-02-03
 ### Adds
 - In `AsResourceObject` attribute meta and links can hold method names
 
@@ -106,7 +108,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.10.4...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.11.0...HEAD
+[v0.11.0]: https://github.com/slickframework/json-api/compare/v0.10.4...v0.11.0
 [v0.10.4]: https://github.com/slickframework/json-api/compare/v0.10.3...v0.10.4
 [v0.10.3]: https://github.com/slickframework/json-api/compare/v0.10.0...v0.10.3
 [v0.10.0]: https://github.com/slickframework/json-api/compare/v0.9.0...v0.10.0

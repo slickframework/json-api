@@ -25,9 +25,11 @@ use Slick\JSONAPI\Object\ResourceSchema;
 use Slick\JSONAPI\Object\SchemaDiscover;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Group;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Member;
+use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Post;
 
 include(dirname(__DIR__).'/Decoder/Fixtures/Group.php');
 include(dirname(__DIR__).'/Decoder/Fixtures/Member.php');
+include(dirname(__DIR__).'/Decoder/Fixtures/Post.php');
 include(__DIR__.'/MembersList.php');
 
 /**
@@ -158,5 +160,17 @@ class DefaultEncoderSpec extends ObjectBehavior
 
         $result = $this->encode($membersList);
         $result->shouldBeLike(file_get_contents(__DIR__.'/members-list.json'));
+    }
+
+    function it_can_run_a_class_method_for_meta_and_links()
+    {
+        $discover = new SchemaDiscover\AttributeSchemaDiscover();
+        $factory = new Document\Factory\DefaultFactory($discover);
+        $converter = new Document\Converter\PHPJson();
+
+        $this->beConstructedWith($discover, $factory, $converter);
+        $post = new Post("123", 'Test', 'body');
+        $result = $this->encode($post);
+        $result->shouldBeLike(file_get_contents(__DIR__ . '/post.json'));
     }
 }

@@ -105,6 +105,9 @@ final class AttributeSchemaDiscover implements SchemaDiscover
         /** @var AsResourceObject $asResourceObject */
         $asResourceObject = $attributes[0]->newInstance();
         $asResourceObject->withClass($class);
+        if (is_object($object)) {
+            $asResourceObject->withInstance($object);
+        }
 
         return $asResourceObject instanceof AsResourceCollection
             ? new AttributeResourceCollectionSchema($asResourceObject)

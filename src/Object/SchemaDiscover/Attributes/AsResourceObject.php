@@ -33,6 +33,8 @@ class AsResourceObject
 
     private ?ReflectionClass $class = null;
 
+    private ?object $instance = null;
+
     /**
      * Creates a AsResourceObject
      *
@@ -44,8 +46,8 @@ class AsResourceObject
      */
     public function __construct(
         private ?string $type = null,
-        private ?array  $meta = null,
-        private ?array  $links = null,
+        private array|string|null  $meta = null,
+        private array|string|null  $links = null,
         private ?string $schemaClass = null,
         private bool    $isCompound = false,
         private bool    $generateIdentifier = true
@@ -105,7 +107,9 @@ class AsResourceObject
                 "Couldn't create an instance, missing reflection class."
             );
         }
-        return $this->class->newInstanceWithoutConstructor();
+        $newInstanceWithoutConstructor = $this->class->newInstanceWithoutConstructor();
+        $this->withInstance($newInstanceWithoutConstructor);
+        return $newInstanceWithoutConstructor;
     }
 
     /**
@@ -115,7 +119,14 @@ class AsResourceObject
      */
     public function meta(): ?array
     {
-        return $this->meta;
+        $meta = $this->meta;
+        if (is_string($meta)) {
+            if (!$this->instance()) {
+                return null;
+            }
+            return $this->instance()->$meta();
+        }
+        return $meta;
     }
 
     /**
@@ -146,5 +157,20 @@ class AsResourceObject
     public function generateIdentifier(): bool
     {
         return $this->generateIdentifier;
+    }
+
+    public function withInstance(object $instance): self
+    {
+        $this->instance = $instance;
+        return $this;
+    }
+
+    /**
+     * AsResourceObject's instance
+     * @return object|null
+     */
+    public function instance(): ?object
+    {
+        return $this->instance;
     }
 }

@@ -1,0 +1,22 @@
+{
+    "data": {
+        "type": "posts",
+        "id": "123",
+        "attributes": {
+            "title": "Test",
+            "body": "body"
+        },
+        "links": {
+            "status": "/some/link"
+        },
+        "meta": {
+            "foo": "bar"
+        }
+    },
+    "links": {
+        "status": "/some/link"
+    },
+    "meta": {
+        "foo": "bar"
+    }
+}

@@ -35,13 +35,21 @@ trait DiscoverAttributesMethods
      */
     public function links(): ?array
     {
-        if (!is_iterable($this->links)) {
+        $definedLinks = $this->links;
+        if (is_string($definedLinks)) {
+            if (!$this->instance()) {
+                return null;
+            }
+            return $this->instance()->$definedLinks();
+        }
+
+        if (!is_iterable($definedLinks)) {
             return null;
         }
 
         $links = [];
         $known = [self::LINK_SELF, self::LINK_RELATED];
-        foreach ($this->links as $key => $link) {
+        foreach ($definedLinks as $key => $link) {
             if (in_array($link, $known)) {
                 $links[$link] = true;
                 continue;

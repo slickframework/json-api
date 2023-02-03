@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.11.0] 2023-02-03
+### Adds
+- In `AsResourceObject` attribute meta and links can hold method names
+
 ## [v0.10.4] 2023-01-31
 ### Fixes
 - `DafaultFactory` wasn't adding meta and links on collection location
@@ -104,7 +108,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.10.4...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.11.0...HEAD
+[v0.11.0]: https://github.com/slickframework/json-api/compare/v0.10.4...v0.11.0
 [v0.10.4]: https://github.com/slickframework/json-api/compare/v0.10.3...v0.10.4
 [v0.10.3]: https://github.com/slickframework/json-api/compare/v0.10.0...v0.10.3
 [v0.10.0]: https://github.com/slickframework/json-api/compare/v0.9.0...v0.10.0

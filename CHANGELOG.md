@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.11.1] 2023-03-20
+### Fixes
+- Bug when using not required resource identifier, and there was defined a class for 
+  value object, the valur was generated passing null to the constructor argument.
+
 ## [v0.11.0] 2023-02-03
 ### Adds
 - In `AsResourceObject` attribute meta and links can hold method names
@@ -108,7 +113,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.11.1...HEAD
+[v0.11.1]: https://github.com/slickframework/json-api/compare/v0.11.0...v0.11.1
 [v0.11.0]: https://github.com/slickframework/json-api/compare/v0.10.4...v0.11.0
 [v0.10.4]: https://github.com/slickframework/json-api/compare/v0.10.3...v0.10.4
 [v0.10.3]: https://github.com/slickframework/json-api/compare/v0.10.0...v0.10.3

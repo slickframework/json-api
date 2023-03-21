@@ -78,6 +78,11 @@ class ResourceIdentifier implements EncodableAttribute, DecodableAttribute
     {
         $identifier = $resourceObject->resourceIdentifier()->identifier();
 
+        if (!$this->required && is_null($identifier)) {
+            $this->assignPropertyValue($decodedObject, null);
+            return;
+        }
+
         $className = $this->className;
         $value = $className ? new $className($identifier) : $identifier;
 

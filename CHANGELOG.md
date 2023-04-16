@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.11.2] 2023-03-20
+### Fixes
+- psr/http-message composer require version
+
 ## [v0.11.1] 2023-03-20
 ### Fixes
 - Bug when using not required resource identifier, and there was defined a class for 
@@ -113,7 +117,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.11.1...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v0.11.2...HEAD
+[v0.11.2]: https://github.com/slickframework/json-api/compare/v0.11.1...v0.11.2
 [v0.11.1]: https://github.com/slickframework/json-api/compare/v0.11.0...v0.11.1
 [v0.11.0]: https://github.com/slickframework/json-api/compare/v0.10.4...v0.11.0
 [v0.10.4]: https://github.com/slickframework/json-api/compare/v0.10.3...v0.10.4

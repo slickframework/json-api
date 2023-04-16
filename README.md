@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/github/release/slickframework/json-api.svg?style=flat-square)](https://github.com/slickframework/json-api/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Continuous Integration](https://github.com/slickframework/json-api/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/slickframework/json-api/actions/workflows/continuous-integration.yml)[![Quality Score](https://img.shields.io/scrutinizer/g/slickframework/json-api/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/slickframework/json-api?branch=master)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/slickframework/json-api/continuous-integration.yml?style=flat-square)](https://github.com/slickframework/jso-api/actions/workflows/continuous-integration.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/slick/json-api.svg?style=flat-square)](https://packagist.org/packages/slick/json-api)
 
 ``slick/json-api`` is an implementation of [JSON:API specification](https://jsonapi.org/) library

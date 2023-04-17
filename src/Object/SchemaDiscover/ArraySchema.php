@@ -82,6 +82,8 @@ final class ArraySchema implements ResourceSchema
         return $this->data->get('links');
     }
 
+
+
     /**
      * @inheritDoc
      */
@@ -113,5 +115,21 @@ final class ArraySchema implements ResourceSchema
     public function validate($resourceObject, SchemaDecodeValidator $validator): void
     {
         // Not applicable
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function documentLinks($object): ?array
+    {
+        return $this->data->get('documentLinks');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function documentMeta($object): ?array
+    {
+        return $this->data->get('documentMeta');
     }
 }

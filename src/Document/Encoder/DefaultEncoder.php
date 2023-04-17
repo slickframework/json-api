@@ -27,39 +27,12 @@ use Slick\JSONAPI\Object\SchemaDiscover;
  */
 final class DefaultEncoder implements DocumentEncoder
 {
-    /**
-     * @var SchemaDiscover
-     */
-    private $discoverService;
-    /**
-     * @var DocumentFactory
-     */
-    private $factory;
-
-    /**
-     * @var DocumentConverter
-     */
-    private $converter;
-
-    /**
-     * @var JsonApi|null
-     */
-    private $jsonapi = null;
-
-    /**
-     * @var Meta|null
-     */
-    private $meta = null;
-
-    /**
-     * @var Links|null
-     */
-    private $links = null;
-
-    /**
-     * @var string|null
-     */
-    private $linkPrefix = null;
+    private ?JsonApi $jsonapi = null;
+    private ?Meta $meta = null;
+    private ?Meta $documentMeta = null;
+    private ?Links $links = null;
+    private ?Links $documentLinks = null;
+    private ?string $linkPrefix = null;
 
     /**
      * Creates a DefaultEncoder
@@ -68,11 +41,11 @@ final class DefaultEncoder implements DocumentEncoder
      * @param DocumentFactory $factory
      * @param DocumentConverter $converter
      */
-    public function __construct(SchemaDiscover $discoverService, DocumentFactory $factory, DocumentConverter $converter)
-    {
-        $this->discoverService = $discoverService;
-        $this->factory = $factory;
-        $this->converter = $converter;
+    public function __construct(
+        private SchemaDiscover $discoverService,
+        private DocumentFactory $factory,
+        private DocumentConverter $converter
+    ) {
     }
 
     /**
@@ -236,5 +209,19 @@ final class DefaultEncoder implements DocumentEncoder
 
         $data = $document->data()->withLinks($newLinks);
         return $document->withData($data);
+    }
+
+    public function withDocumentLinks(Links $links): DocumentEncoder
+    {
+        $this->documentLinks = $links;
+        $this->factory->withDocumentLinks($links);
+        return $this;
+    }
+
+    public function withDocumentMeta(Meta $meta): DocumentEncoder
+    {
+        $this->documentMeta = $meta;
+        $this->factory->withDocumentMeta($meta);
+        return $this;
     }
 }

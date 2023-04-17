@@ -87,4 +87,8 @@ interface DocumentEncoder
      * @return DocumentEncoder
      */
     public function withSparseFields(SparseFields $sparseFields): DocumentEncoder;
+
+    public function withDocumentLinks(Links $links): DocumentEncoder;
+
+    public function withDocumentMeta(Meta $meta): DocumentEncoder;
 }

@@ -70,6 +70,16 @@ abstract class AbstractResourceSchema implements ResourceSchema
         return null;
     }
 
+    public function documentLinks($object): ?array
+    {
+        return null;
+    }
+
+    public function documentMeta($object): ?array
+    {
+        return null;
+    }
+
     /**
      * @inheritDoc
      *

@@ -29,12 +29,6 @@
             "description": "a group of members"
         }
     },
-    "links": {
-        "self": "/groups/639fa6f600925"
-    },
-    "meta": {
-        "description": "a group of members"
-    },
     "included": [
         {
             "type": "members",

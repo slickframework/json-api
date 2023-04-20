@@ -198,4 +198,20 @@ class AttributeSchema implements ResourceSchema
 
         $array[$key] = $value;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function documentLinks($object): ?array
+    {
+        return $this->asResourceObject->documentLinks();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function documentMeta($object): ?array
+    {
+        return $this->asResourceObject->documentMeta();
+    }
 }

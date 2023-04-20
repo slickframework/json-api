@@ -90,6 +90,27 @@ interface ResourceSchema
     public function meta($object): ?array;
 
     /**
+     * JsonAPI document links
+     *
+     * This is an key/value pair of links related to the resource object. As a
+     * special case you can set self::LINK_SELF => true/false or
+     * self::LINK_RELATED => true/false to have links be generated for current
+     * document.
+     *
+     * @param mixed $object
+     * @return array|null
+     */
+    public function documentLinks($object): ?array;
+
+    /**
+     * JsonAPI document  meta information
+     *
+     * @param mixed $object
+     * @return array|null
+     */
+    public function documentMeta($object): ?array;
+
+    /**
      * Creates a resource from provided JSON:API document
      *
      * @param ResourceObject|ResourceObject[]|array|null $resourceObject

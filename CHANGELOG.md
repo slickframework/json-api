@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.0.0-RC] 2023-04-17
+### Adds
+- First release condidate
+
+### Fixes
+- Resource links appearing duplicated in data and document sections.
+- Resource meta appearing duplicated in data and document sections.
+- Links can have names other then rel by passing a `LinkObject` to the collection.
+
 ## [v0.11.2] 2023-03-20
 ### Fixes
 - psr/http-message composer require version
@@ -117,7 +126,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v0.11.2...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.0.0-RC...HEAD
+[v1.0.0-RC]: https://github.com/slickframework/json-api/compare/v0.11.2...v1.0.0-RC
 [v0.11.2]: https://github.com/slickframework/json-api/compare/v0.11.1...v0.11.2
 [v0.11.1]: https://github.com/slickframework/json-api/compare/v0.11.0...v0.11.1
 [v0.11.0]: https://github.com/slickframework/json-api/compare/v0.10.4...v0.11.0

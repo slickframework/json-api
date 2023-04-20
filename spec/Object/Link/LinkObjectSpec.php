@@ -33,7 +33,7 @@ class LinkObjectSpec extends ObjectBehavior
         $this->href = '/users/2';
         $this->title = 'title';
         $this->describedBy = 'describedBy';
-        $this->beConstructedWith($this->rel, $this->href, $this->title, $this->describedBy);
+        $this->beConstructedWith($this->href, $this->rel, $this->title, $this->describedBy);
     }
 
     function it_is_initializable()
@@ -148,6 +148,7 @@ class LinkObjectSpec extends ObjectBehavior
     {
         $this->shouldBeAnInstanceOf(\JsonSerializable::class);
         $this->jsonSerialize()->shouldBe([
+            'rel' => $this->rel,
             'href' => $this->href,
             'title' => $this->title,
             'describedBy' => $this->describedBy
@@ -156,7 +157,7 @@ class LinkObjectSpec extends ObjectBehavior
 
     function it_only_return_href_on_json_fot_href_only_links()
     {
-        $this->beConstructedWith($this->rel, $this->href);
+        $this->beConstructedWith($this->href, $this->rel);
         $this->jsonSerialize()->shouldBe($this->href);
     }
 }

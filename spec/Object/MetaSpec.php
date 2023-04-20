@@ -85,4 +85,9 @@ class MetaSpec extends ObjectBehavior
         $this->shouldThrow(InvalidMemberName::class)
             ->during('with', ['some:bad%name', 'test']);
     }
+
+    function it_can_be_converted_to_array()
+    {
+        $this->toArray()->shouldBe(['foo' => 'bar']);
+    }
 }

@@ -178,4 +178,13 @@ final class Links implements IteratorAggregate, JsonSerializable
         }
         return $newLinks;
     }
+
+    /**
+     * @return array<string, LinkObject>
+     */
+    public function toArray(): array
+    {
+        return $this->links->toArray();
+    }
+
 }

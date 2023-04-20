@@ -79,7 +79,7 @@ class MetaDocumentSpec extends ObjectBehavior
         $copy->shouldBeAnInstanceOf(Document::class);
         $copy->shouldNotBe($this->getWrappedObject());
         $this->meta()->shouldBe($this->meta);
-        $copy->meta()->shouldBe($meta);
+        $copy->meta()->shouldBeLike($meta);
     }
 
     function it_can_change_its_links_object()
@@ -89,7 +89,7 @@ class MetaDocumentSpec extends ObjectBehavior
         $copy->shouldBeAnInstanceOf(Document::class);
         $copy->shouldNotBe($this->getWrappedObject());
         $this->links()->shouldBe(null);
-        $copy->links()->shouldBe($links);
+        $copy->links()->shouldBeLike($links);
     }
 
     function it_can_change_its_jsonapi_object()

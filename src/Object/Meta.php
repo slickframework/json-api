@@ -99,4 +99,12 @@ final class Meta implements JsonSerializable
         }
         return $memberName;
     }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function toArray(): array
+    {
+        return $this->data->toArray();
+    }
 }

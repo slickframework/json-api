@@ -110,6 +110,7 @@ final class DefaultFactory implements DocumentFactory
             $document = $this->meta ? $document->withMeta($this->meta) : $document;
         }
 
+
         return $this->addDocumentMeta(
             $schema,
             $object,

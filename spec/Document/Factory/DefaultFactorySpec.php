@@ -103,7 +103,7 @@ class DefaultFactorySpec extends ObjectBehavior
         $meta = new Meta(['baz' => 'bar']);
         $this->withDocumentMeta($meta)->shouldBe($this->getWrappedObject());
         $document = $this->createDocument($this->createArraySchema(), 'test');
-        $document->meta()->shouldBe($meta);
+        $document->meta()->shouldBeLike($meta);
     }
 
     function it_can_create_resource_meta()

@@ -117,4 +117,11 @@ class LinksSpec extends ObjectBehavior
             Links::LINK_RELATED => $linkObject
         ]);
     }
+
+    function it_can_be_converted_to_array()
+    {
+        $value = new LinkObject('/home', 'index');
+        $this->add($value);
+        $this->toArray()->shouldHaveKeyWithValue('index', $value);
+    }
 }

@@ -105,6 +105,10 @@ trait DocumentMethods
      */
     public function withMeta(Meta $meta): MetaAwareObject
     {
+        $existent = $this->meta ? $this->meta->toArray() : [];
+        $metaSource = array_merge($existent, $meta->toArray());
+        $meta = new Meta($metaSource);
+
         $copy = clone $this;
         $copy->meta = $meta;
         return $copy;
@@ -115,6 +119,14 @@ trait DocumentMethods
      */
     public function withLinks(Links $links): LinksAwareObject
     {
+        $existent = $this->links ? $this->links->toArray() : [];
+        $sourceLinks = array_merge($existent, $links->toArray());
+        $links = new Links();
+
+        foreach ($sourceLinks as $name => $sourceLink) {
+            $links->add($name, $sourceLink);
+        }
+
         $copy = clone $this;
         $copy->links = $links;
         return $copy;

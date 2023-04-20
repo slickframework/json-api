@@ -29,12 +29,12 @@ final class Links implements IteratorAggregate, JsonSerializable
     /**
      * @var string|null
      */
-    private $linkPrefix;
+    private ?string $linkPrefix;
 
     /**
-     * @var Collection
+     * @var Collection<string, LinkObject>|ArrayCollection<string, LinkObject>
      */
-    private $links;
+    private Collection|ArrayCollection $links;
 
     /**
      * Creates a Links
@@ -50,15 +50,23 @@ final class Links implements IteratorAggregate, JsonSerializable
     /**
      * Add a link to the links collection
      *
-     * @param string|LinkObject $rel
-     * @param string|null       $href
+     * @param string|LinkObject $relOrName
+     * @param string|LinkObject|null $href
      *
      * @return Links
      */
-    public function add($rel, ?string $href = null): Links
+    public function add(string|LinkObject $relOrName, string|LinkObject|null $href = null): Links
     {
-        $link = is_a($rel, LinkObject::class) ? $this->verifyLink($rel) : $this->createLinkObject($rel, $href);
-        $this->links->set($link->rel(), $link);
+        if (is_a($relOrName, LinkObject::class)) {
+            $this->links->set($relOrName->rel(), $this->verifyLink($relOrName));
+            return $this;
+        }
+
+        $link = is_a($href, LinkObject::class)
+            ? $this->verifyLink($href)
+            : $this->createLinkObject($relOrName, $href);
+
+        $this->links->set($relOrName, $link);
         return $this;
     }
 
@@ -94,11 +102,11 @@ final class Links implements IteratorAggregate, JsonSerializable
      */
     private function createLinkObject(string $rel, string $href): LinkObject
     {
-        $validUrl = (bool)filter_var($href, FILTER_VALIDATE_URL);
+        $validUrl = (bool) filter_var($href, FILTER_VALIDATE_URL);
         if ($this->linkPrefix && !$validUrl) {
             $href = rtrim($this->linkPrefix, ' /').$href;
         }
-        return new LinkObject($rel, $href);
+        return new LinkObject($href, $rel);
     }
 
     /**
@@ -111,12 +119,24 @@ final class Links implements IteratorAggregate, JsonSerializable
      */
     private function verifyLink(LinkObject $linkObject): LinkObject
     {
-        $validUrl = (bool)filter_var($linkObject->href(), FILTER_VALIDATE_URL);
+        $validUrl = (bool) filter_var($linkObject->href(), FILTER_VALIDATE_URL);
         if (!$this->linkPrefix || $validUrl) {
-            return $linkObject;
+            return $this->verifyDescribedBy($linkObject);
         }
 
-        return $linkObject->withHref(rtrim($this->linkPrefix, ' /').$linkObject->href());
+        return $this->verifyDescribedBy(
+            $linkObject->withHref(rtrim($this->linkPrefix, ' /').$linkObject->href())
+        );
+    }
+
+    private function verifyDescribedBy(LinkObject $object): LinkObject
+    {
+        $validUrl = (bool) filter_var($object->describedBy(), FILTER_VALIDATE_URL);
+        if (!$object->describedBy() || $validUrl) {
+            return $object;
+        }
+
+        return $object->withDescribedBy(rtrim($this->linkPrefix, ' /').$object->describedBy());
     }
 
     /**
@@ -130,7 +150,7 @@ final class Links implements IteratorAggregate, JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         $data = [];
         foreach ($this as $rel => $link) {
@@ -158,4 +178,13 @@ final class Links implements IteratorAggregate, JsonSerializable
         }
         return $newLinks;
     }
+
+    /**
+     * @return array<string, LinkObject>
+     */
+    public function toArray(): array
+    {
+        return $this->links->toArray();
+    }
+
 }

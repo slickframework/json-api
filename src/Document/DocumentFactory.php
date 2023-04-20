@@ -82,4 +82,20 @@ interface DocumentFactory
      * @return DocumentFactory
      */
     public function withSparseFields(SparseFields $sparseFields): DocumentFactory;
+
+    /**
+     * Sets the Meta object of the documents created by this factory
+     *
+     * @param Meta $meta
+     * @return DocumentFactory
+     */
+    public function withDocumentMeta(Meta $meta): DocumentFactory;
+
+    /**
+     * Sets the top level links of the documents created by this factory
+     *
+     * @param Links $links
+     * @return DocumentFactory
+     */
+    public function withDocumentLinks(Links $links): DocumentFactory;
 }

@@ -40,7 +40,7 @@ class LinksSpec extends ObjectBehavior
 
     function it_can_add_a_constructed_link()
     {
-        $link = new LinkObject(Links::LINK_RELATED, '/post/4/author', 'Author relation');
+        $link = new LinkObject('/post/4/author', Links::LINK_RELATED, 'Author relation');
         $this->add($link)->shouldBe($this->getWrappedObject());
         $this->get(Links::LINK_RELATED)->shouldBe($link);
     }
@@ -67,7 +67,7 @@ class LinksSpec extends ObjectBehavior
         $prefix = 'https://api.sd.co/';
         $this->beConstructedWith($prefix);
         $path = '/user/32';
-        $linkObject = new LinkObject(Links::LINK_SELF, $path);
+        $linkObject = new LinkObject($path, Links::LINK_SELF);
         $this->add($linkObject);
         $this->get(Links::LINK_SELF)->href()->shouldBe(rtrim($prefix, ' /').$path);
     }
@@ -83,17 +83,29 @@ class LinksSpec extends ObjectBehavior
         $this->get(Links::LINK_SELF)->href()->shouldBe($hrefSelf);
 
         $hrefRel = 'https://some.api.pt/user/1/address';
-        $linkObject = new LinkObject(Links::LINK_RELATED, $hrefRel);
+        $linkObject = new LinkObject($hrefRel, Links::LINK_RELATED);
 
         $this->add($linkObject);
         $this->get(Links::LINK_RELATED)->href()->shouldBe($hrefRel);
+    }
+
+    function it_chanages_described_by_url_prefix_when_present()
+    {
+        $prefix = 'https://api.sd.co/';
+        $this->beConstructedWith($prefix);
+        $href = '/test';
+        $describedBy = '/docs';
+        $linkObject = (new LinkObject($href))->withDescribedBy($describedBy);
+        $this->add('test', $linkObject);
+        $link = $this->get('test');
+        $link->describedBy()->shouldBe($prefix. ltrim($describedBy, '/'));
     }
 
     function it_can_be_converted_to_json()
     {
         $hrefSelf = 'https://some.api.pt/user/1';
         $hrefRel = 'https://some.api.pt/user/1/address';
-        $linkObject = new LinkObject(Links::LINK_RELATED, $hrefRel);
+        $linkObject = new LinkObject($hrefRel, Links::LINK_RELATED);
 
         $this
             ->add(Links::LINK_SELF, $hrefSelf)
@@ -104,5 +116,12 @@ class LinksSpec extends ObjectBehavior
             Links::LINK_SELF => $this->get(Links::LINK_SELF),
             Links::LINK_RELATED => $linkObject
         ]);
+    }
+
+    function it_can_be_converted_to_array()
+    {
+        $value = new LinkObject('/home', 'index');
+        $this->add($value);
+        $this->toArray()->shouldHaveKeyWithValue('index', $value);
     }
 }

@@ -106,4 +106,20 @@ final class CommentSchema implements ResourceSchema
     {
         // Not applicable
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function documentLinks($object): ?array
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function documentMeta($object): ?array
+    {
+        return null;
+    }
 }

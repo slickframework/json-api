@@ -15,7 +15,6 @@ use ReflectionException;
 use RuntimeException;
 use Slick\JSONAPI\Exception\DocumentEncoderFailure;
 use Slick\JSONAPI\Object\ResourceSchema;
-use Slick\JSONAPI\Object\SchemaDiscover\Attributes\DiscoverAttributesMethods;
 
 /**
  * AsResourceObject
@@ -39,18 +38,23 @@ class AsResourceObject
      * Creates a AsResourceObject
      *
      * @param string|null $type
-     * @param array|null $meta
-     * @param array|null $links
+     * @param array|string|null $meta
+     * @param array|string|null $links
      * @param string|null $schemaClass
      * @param bool $isCompound
+     * @param bool $generateIdentifier
+     * @param array|string|null $documentMeta
+     * @param array|string|null $documentLinks
      */
     public function __construct(
-        private ?string $type = null,
+        private ?string            $type = null,
         private array|string|null  $meta = null,
         private array|string|null  $links = null,
-        private ?string $schemaClass = null,
-        private bool    $isCompound = false,
-        private bool    $generateIdentifier = true
+        private ?string            $schemaClass = null,
+        private bool               $isCompound = false,
+        private bool               $generateIdentifier = true,
+        private array|string|null  $documentMeta = null,
+        private array|string|null  $documentLinks = null,
     ) {
     }
 
@@ -115,18 +119,30 @@ class AsResourceObject
     /**
      * meta
      *
+     * @param array|string|null $meta
      * @return array|null
      */
-    public function meta(): ?array
+    public function meta(null|array|string $meta = null): ?array
     {
-        $meta = $this->meta;
-        if (is_string($meta)) {
-            if (!$this->instance()) {
+        if ($meta === null) {
+            if (!$this->meta) {
                 return null;
             }
-            return $this->instance()->$meta();
+            return $this->meta($this->meta);
+        }
+
+        if (is_string($meta)) {
+            return $this->instance()?->$meta();
         }
         return $meta;
+    }
+
+    public function documentMeta(): ?array
+    {
+        if (!$this->documentMeta) {
+            return $this->documentMeta;
+        }
+        return $this->meta($this->documentMeta);
     }
 
     /**

@@ -64,6 +64,9 @@ final class DefaultFactory implements DocumentFactory
      */
     private ?SparseFields $sparseFields = null;
 
+    private ?Meta $documentMeta = null;
+    private ?Links $documentLinks = null;
+
     /**
      * Creates a DefaultFactory
      *
@@ -79,15 +82,6 @@ final class DefaultFactory implements DocumentFactory
      */
     public function createDocument(ResourceSchema $schema, $object): Document
     {
-        $resourceObject = $this->createResourceObject($schema, $object);
-        $document = $schema->isCompound()
-            ? new Document\ResourceCompoundDocument($resourceObject)
-            : new Document\ResourceDocument($resourceObject);
-
-        if ($document instanceof Document\ResourceCompoundDocument) {
-            $document->withIncludedTypes($this->sparseFields()->includedTypes());
-        }
-
         if (!$this->meta) {
             $this->meta = is_array($schema->meta($object)) ? new Meta($schema->meta($object)) : null;
         }
@@ -96,9 +90,32 @@ final class DefaultFactory implements DocumentFactory
             $this->links = is_array($schema->links($object)) ? $this->createResourceLinks($schema, $object): null;
         }
 
+        $resourceObject = $this->createResourceObject($schema, $object);
+        if ($resourceObject instanceof ResourceObject) {
+            $resourceObject = $this->links ? $resourceObject->withLinks($this->links) : $resourceObject;
+            $resourceObject = $this->meta ? $resourceObject->withMeta($this->meta) : $resourceObject;
+        }
+
+        $document = $schema->isCompound()
+            ? new Document\ResourceCompoundDocument($resourceObject)
+            : new Document\ResourceDocument($resourceObject);
+
+        if ($document instanceof Document\ResourceCompoundDocument) {
+            $document->withIncludedTypes($this->sparseFields()->includedTypes());
+        }
+
         $document = $this->jsonapi ? $document->withJsonapi($this->jsonapi) : $document;
-        $document = $this->links ? $document->withLinks($this->links) : $document;
-        return $this->meta ? $document->withMeta($this->meta) : $document;
+        if ($resourceObject instanceof ResourceCollection) {
+            $document = $this->links ? $document->withLinks($this->links) : $document;
+            $document = $this->meta ? $document->withMeta($this->meta) : $document;
+        }
+
+
+        return $this->addDocumentMeta(
+            $schema,
+            $object,
+            $this->addDocumentLinks($schema, $object, $document)
+        );
     }
 
     /**
@@ -119,12 +136,24 @@ final class DefaultFactory implements DocumentFactory
         return $this;
     }
 
+    public function withDocumentMeta(Meta $meta): DocumentFactory
+    {
+        $this->documentMeta = $meta;
+        return $this;
+    }
+
     /**
      * @inheritDoc
      */
     public function withLinks(Links $links): DocumentFactory
     {
         $this->links = Links::checkLinks($links, $this->linkPrefix);
+        return $this;
+    }
+
+    public function withDocumentLinks(Links $links): DocumentFactory
+    {
+        $this->documentLinks = Links::checkLinks($links, $this->linkPrefix);
         return $this;
     }
 
@@ -198,10 +227,16 @@ final class DefaultFactory implements DocumentFactory
             return null;
         }
 
+        return $this->createLinkList($schema->links($object), $schema, $object);
+    }
+
+    private function createLinkList(array $linksSource, ResourceSchema $schema, $object): ?Links
+    {
         $links = new Links($this->linkPrefix);
-        foreach ($schema->links($object) as $rel => $href) {
-            if ($rel === ResourceSchema::LINK_SELF && $href === true) {
-                $links->add($rel, "/{$schema->type($object)}/{$schema->identifier($object)}");
+        foreach ($linksSource as $rel => $href) {
+            if ($rel === ResourceSchema::LINK_SELF || $href === ResourceSchema::LINK_SELF) {
+                $linkHref = $href === true ? "/{$schema->type($object)}/{$schema->identifier($object)}" : $href;
+                $links->add(ResourceSchema::LINK_SELF, rtrim($linkHref, '/'));
                 continue;
             }
 
@@ -326,13 +361,17 @@ final class DefaultFactory implements DocumentFactory
 
         $links = new Links($this->linkPrefix);
         foreach ($subject['links'] as $name => $href) {
-            if ($name === ResourceSchema::LINK_SELF && $href === true) {
-                $links->add($name, "/{$identifier->type()}/{$identifier->identifier()}/relationships/$relName");
+            if ($name === ResourceSchema::LINK_SELF || $href === ResourceSchema::LINK_SELF) {
+                $linkHref = "/{$identifier->type()}/{$identifier->identifier()}/relationships/$relName";
+                $links->add(ResourceSchema::LINK_SELF, $linkHref);
                 continue;
             }
 
-            if ($name === ResourceSchema::LINK_RELATED && $href === true) {
-                $links->add($name, "/{$identifier->type()}/{$identifier->identifier()}/$relName");
+            if ($name === ResourceSchema::LINK_RELATED || $href === ResourceSchema::LINK_RELATED) {
+                $links->add(
+                    ResourceSchema::LINK_RELATED,
+                    "/{$identifier->type()}/{$identifier->identifier()}/$relName"
+                );
                 continue;
             }
 
@@ -398,5 +437,39 @@ final class DefaultFactory implements DocumentFactory
             $this->createResourceLinks($schema, $object),
             is_array($schema->meta($object)) ? new Meta($schema->meta($object)) : null
         );
+    }
+
+    /**
+     * @param ResourceSchema $schema
+     * @param mixed $object
+     * @param mixed $document
+     * @return mixed
+     */
+    public function addDocumentLinks(ResourceSchema $schema, mixed $object, Document $document): mixed
+    {
+        if ($this->documentLinks) {
+            return $document->withLinks($this->documentLinks);
+        }
+
+        $documentLinks = $schema->documentLinks($object);
+        return is_array($documentLinks)
+            ? $document->withLinks($this->createLinkList($documentLinks, $schema, $object))
+            : $document;
+    }
+
+    /**
+     * @param ResourceSchema $schema
+     * @param mixed $object
+     * @param mixed $document
+     * @return mixed
+     */
+    public function addDocumentMeta(ResourceSchema $schema, mixed $object, Document $document): mixed
+    {
+        if ($this->documentMeta) {
+            return $document->withMeta($this->documentMeta);
+        }
+
+        $documentMeta = $schema->documentMeta($object);
+        return is_array($documentMeta) ? $document->withMeta(new Meta($documentMeta)) : $document;
     }
 }

@@ -28,14 +28,29 @@ use Stringable;
 trait DiscoverAttributesMethods
 {
 
+    public function documentLinks(): ?array
+    {
+        if ($this->documentLinks === null) {
+            return $this->documentLinks;
+        }
+
+        return $this->links($this->documentLinks);
+    }
+
     /**
      * links
      *
      * @return array|null
      */
-    public function links(): ?array
+    public function links(string|iterable|null $definedLinks = null): ?array
     {
-        $definedLinks = $this->links;
+        if (!$definedLinks) {
+            if (!$this->links) {
+                return null;
+            }
+            return $this->links($this->links);
+        }
+
         if (is_string($definedLinks)) {
             if (!$this->instance()) {
                 return null;

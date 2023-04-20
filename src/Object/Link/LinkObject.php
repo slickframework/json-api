@@ -22,61 +22,39 @@ use Slick\JSONAPI\Validator\JsonApiValidator;
 final class LinkObject implements JsonSerializable
 {
     /**
-     * @var string
-     */
-    private $rel;
-
-    /**
-     * @var string
-     */
-    private $href;
-
-    /**
      * @var string|null
      */
-    private $title;
+    private ?string $type = null;
 
     /**
-     * @var string|null
+     * @var string|array<string>|null
      */
-    private $describedBy;
-
-    /**
-     * @var string|null
-     */
-    private $type = null;
-
-    /**
-     * @var string|null
-     */
-    private $hreflang = null;
+    private string|array|null $hreflang = null;
 
     /**
      * @var Meta|null
      */
-    private $meta = null;
+    private ?Meta $meta = null;
 
     /**
      * Creates a LinkObject
      *
-     * @param string $rel
      * @param string $href
+     * @param string|null $rel
      * @param string|null $title
      * @param string|null $describedBy
-     * @throws FailedValidation for invalid or unknown link relation types
      */
-    public function __construct(string $rel, string $href, ?string $title = null, ?string $describedBy = null)
-    {
-        if (!JsonApiValidator::instance()->isValid($rel, JsonApiValidator::VALIDATE_LINK_REL)) {
+    public function __construct(
+        private string $href,
+        private ?string $rel = null,
+        private ?string $title = null,
+        private ?string $describedBy = null
+    ) {
+        if ($rel && !JsonApiValidator::instance()->isValid($rel, JsonApiValidator::VALIDATE_LINK_REL)) {
             throw new FailedValidation(
                 "'$rel' is not a valid or known RFC8288 link relation type."
             );
         }
-
-        $this->rel = $rel;
-        $this->href = $href;
-        $this->title = $title;
-        $this->describedBy = $describedBy;
     }
 
     /**
@@ -196,9 +174,9 @@ final class LinkObject implements JsonSerializable
     /**
      * A string or an array of strings indicating the language(s) of the link’s target.
      *
-     * @return string|null
+     * @return string|array<string>|null
      */
-    public function hreflang()
+    public function hreflang(): array|string|null
     {
         return $this->hreflang;
     }
@@ -217,7 +195,7 @@ final class LinkObject implements JsonSerializable
     {
         if (!is_string($hreflang) && !is_array($hreflang)) {
             throw new FailedValidation(
-                "Link's 'hreflang' should be a string or and array of string containing ".
+                "Link's 'hreflang' should be a string or and array of strings containing ".
                 "available link target languages."
             );
         }
@@ -235,7 +213,7 @@ final class LinkObject implements JsonSerializable
     }
 
     /**
-     * A meta object containing non-standard meta-information about the link
+     * A META object containing non-standard meta-information about the link
      *
      * @return Meta|null
      */
@@ -245,7 +223,7 @@ final class LinkObject implements JsonSerializable
     }
 
     /**
-     * Returns a link with a new meta object
+     * Returns a link with a new META object
      *
      * This method will ALWAYS return a new copy (clone) of the Link object
      * maintaining object immutability.
@@ -263,7 +241,7 @@ final class LinkObject implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): string|array
     {
         $data = ['href' => $this->href];
         $properties = ['title', 'describedBy', 'type', 'hreflang', 'meta'];
@@ -271,6 +249,10 @@ final class LinkObject implements JsonSerializable
             if ($this->$property) {
                 $data[$property] = $this->$property;
             }
+        }
+
+        if (count($data) > 1 && $this->rel) {
+            $data = array_merge(['rel' => $this->rel], $data);
         }
 
         return count($data) === 1 ? $this->href : $data;

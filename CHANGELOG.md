@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v1.0.0-RC] 2023-04-17
+## [v1.0.1] 2023-04-21
+### Fixes
+- Links and meta not showing in includes of a compound document.
+
+## [v1.0.0] 2023-04-17
 ### Adds
-- First release condidate
+- First full/complete functionality version
 
 ### Fixes
 - Resource links appearing duplicated in data and document sections.
@@ -126,8 +130,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.0.0-RC...HEAD
-[v1.0.0-RC]: https://github.com/slickframework/json-api/compare/v0.11.2...v1.0.0-RC
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.0.1...HEAD
+[v1.0.1]: https://github.com/slickframework/json-api/compare/v1.0.0...v1.0.1
+[v1.0.0]: https://github.com/slickframework/json-api/compare/v0.11.2...v1.0.0
 [v0.11.2]: https://github.com/slickframework/json-api/compare/v0.11.1...v0.11.2
 [v0.11.1]: https://github.com/slickframework/json-api/compare/v0.11.0...v0.11.1
 [v0.11.0]: https://github.com/slickframework/json-api/compare/v0.10.4...v0.11.0

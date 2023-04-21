@@ -482,16 +482,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "ea698535b15fbb1740ad3da52929f0dc2bee819e"
+                "reference": "d382a8490563ce643d55416c3c7ee0381bcc3122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/ea698535b15fbb1740ad3da52929f0dc2bee819e",
-                "reference": "ea698535b15fbb1740ad3da52929f0dc2bee819e",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/d382a8490563ce643d55416c3c7ee0381bcc3122",
+                "reference": "d382a8490563ce643d55416c3c7ee0381bcc3122",
                 "shasum": ""
             },
             "require": {
-                "doctrine/instantiator": "^1.0.5",
+                "doctrine/instantiator": "^1.0.5 || ^2",
                 "ext-tokenizer": "*",
                 "php": "^7.3 || 8.0.* || 8.1.* || 8.2.*",
                 "phpspec/php-diff": "^1.0.0",
@@ -508,7 +508,7 @@
             },
             "require-dev": {
                 "behat/behat": "^3.3",
-                "phpunit/phpunit": "^8.0 || ^9.0",
+                "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0",
                 "symfony/filesystem": "^3.4 || ^4.0 || ^5.0 || ^6.0",
                 "vimeo/psalm": "^4.3 || ^5.2"
             },
@@ -564,7 +564,7 @@
                 "issues": "https://github.com/phpspec/phpspec/issues",
                 "source": "https://github.com/phpspec/phpspec/tree/main"
             },
-            "time": "2023-04-05T12:03:18+00:00"
+            "time": "2023-04-21T11:28:28+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -637,16 +637,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.19.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "178b33aa1c8b8d7725f0abee618ef47337e607ce"
+                "reference": "10553ab3f0337ff1a71433c3417d7eb2a3eec1fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/178b33aa1c8b8d7725f0abee618ef47337e607ce",
-                "reference": "178b33aa1c8b8d7725f0abee618ef47337e607ce",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/10553ab3f0337ff1a71433c3417d7eb2a3eec1fd",
+                "reference": "10553ab3f0337ff1a71433c3417d7eb2a3eec1fd",
                 "shasum": ""
             },
             "require": {
@@ -676,9 +676,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.19.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.20.0"
             },
-            "time": "2023-04-17T13:16:52+00:00"
+            "time": "2023-04-20T11:18:07+00:00"
         },
         {
             "name": "psr/container",

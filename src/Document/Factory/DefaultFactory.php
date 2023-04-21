@@ -340,8 +340,10 @@ final class DefaultFactory implements DocumentFactory
     private function createRelatedResource(ResourceSchema $schema, $object): ResourceObject
     {
         return new ResourceObject(
-            $this->createResourceIdentifier($schema, $object),
-            $this->sparseFields()->filterFields($schema->type($object), $schema->attributes($object))
+            resourceIdentifier: $this->createResourceIdentifier($schema, $object),
+            attributes: $this->sparseFields()->filterFields($schema->type($object), $schema->attributes($object)),
+            links: $this->createResourceLinks($schema, $object),
+            meta: $this->createRelatedMeta(["data" => $schema->meta($object)])
         );
     }
 

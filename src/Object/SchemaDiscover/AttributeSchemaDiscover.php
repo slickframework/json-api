@@ -88,7 +88,6 @@ final class AttributeSchemaDiscover implements SchemaDiscover
      */
     private function createAttributeSchemaFor(mixed $object): ResourceSchema
     {
-        $key = is_string($object) ? $object : get_class($object);
         $class = new ReflectionClass($object);
         $attributes = array_merge(
             $class->getAttributes(AsResourceObject::class),
@@ -96,22 +95,60 @@ final class AttributeSchemaDiscover implements SchemaDiscover
         );
 
         if (empty($attributes)) {
-            throw new DocumentEncoderFailure(
-                "Couldn't create a resource schema of the resource '$key'. " .
-                "Try to add the attribute 'AsResourceObject' or 'AsResourceCollection' to the '$key' class."
-            );
+            list($attributes, $class) = $this->tryParentClass($object);
         }
 
         /** @var AsResourceObject $asResourceObject */
         $asResourceObject = $attributes[0]->newInstance();
         $asResourceObject->withClass($class);
+
         if (is_object($object)) {
             $asResourceObject->withInstance($object);
+        }
+
+        if ($asResourceObject->schemaClass()) {
+            $schemaClass = $asResourceObject->schemaClass();
+            return new $schemaClass();
         }
 
         return $asResourceObject instanceof AsResourceCollection
             ? new AttributeResourceCollectionSchema($asResourceObject)
             : $this->createAttributeSchema($asResourceObject);
+    }
+
+    /**
+     * Tries to read atributes from parent class of a given object, if exists
+     *
+     * @param object $object
+     * @return array<mixed>
+     */
+    private function tryParentClass(object $object): array
+    {
+        $key = get_class($object);
+        $class = get_parent_class($object);
+
+        $documentEncoderFailure = new DocumentEncoderFailure(
+            "Couldn't create a resource schema of the resource '$key'. " .
+            "Try to add the attribute 'AsResourceObject' or 'AsResourceCollection' to the '$key' class."
+        );
+
+        if ($class === false) {
+            throw $documentEncoderFailure;
+        }
+
+        $reflection = new ReflectionClass($class);
+
+
+        $attributes = array_merge(
+            $reflection->getAttributes(AsResourceObject::class),
+            $reflection->getAttributes(AsResourceCollection::class)
+        );
+
+        if (empty($attributes)) {
+            throw $documentEncoderFailure;
+        }
+
+        return [$attributes, $reflection];
     }
 
     /**

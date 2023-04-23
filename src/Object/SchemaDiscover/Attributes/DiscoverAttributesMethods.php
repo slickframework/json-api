@@ -165,7 +165,7 @@ trait DiscoverAttributesMethods
     {
         $this->property->setAccessible(true);
         $value = ($this->property instanceof ReflectionMethod)
-            ? $this->property->invoke($object)
+            ? call_user_func([$object, $this->property->getName()])
             : $this->property->getValue($object);
 
         if ($this->property->isPrivate() || $this->property->isProtected()) {

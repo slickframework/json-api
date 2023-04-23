@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.1.0] 2023-04-23
+### Adds
+- Verify if parent class (if exists) has schema attributes solving issues with proxy classes
+  like doctrine/orm proxies.
+
 ## [v1.0.1] 2023-04-21
 ### Fixes
 - Links and meta not showing in includes of a compound document.
@@ -130,7 +135,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.1.0...HEAD
+[v1.1.0]: https://github.com/slickframework/json-api/compare/v1.0.1...v1.1.0
 [v1.0.1]: https://github.com/slickframework/json-api/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/slickframework/json-api/compare/v0.11.2...v1.0.0
 [v0.11.2]: https://github.com/slickframework/json-api/compare/v0.11.1...v0.11.2

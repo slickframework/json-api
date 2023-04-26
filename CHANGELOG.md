@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v1.1.1] 2023-04-26
+## [v1.1.2] 2023-04-26
 ### Fixes
 - Resource schema document links where not used if there was links previously defined
 - Resource schema document meta where not used if there was meta previously defined
+- Document decoder fails on optional relationship parsing if relationship entry was not
+  present on request JSONAPI object.
 
 ## [v1.1.0] 2023-04-23
 ### Adds
@@ -140,8 +142,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.1.1...HEAD
-[v1.1.1]: https://github.com/slickframework/json-api/compare/v1.1.0...v1.1.1
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.1.2...HEAD
+[v1.1.2]: https://github.com/slickframework/json-api/compare/v1.1.0...v1.1.2
 [v1.1.0]: https://github.com/slickframework/json-api/compare/v1.0.1...v1.1.0
 [v1.0.1]: https://github.com/slickframework/json-api/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/slickframework/json-api/compare/v0.11.2...v1.0.0

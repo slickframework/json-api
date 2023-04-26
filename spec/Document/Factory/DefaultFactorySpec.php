@@ -71,7 +71,7 @@ class DefaultFactorySpec extends ObjectBehavior
         $links->add('about', $href);
         $this->withDocumentLinks($links)->shouldBe($this->getWrappedObject());
         $document = $this->createDocument($this->createArraySchema(), 'test');
-        $document->links()->get('about')->href()->shouldBe($href);
+        $document->links()->get('about')->href()->shouldBe("/about");
     }
 
     function it_can_add_link_prefix_to_the_document_links()
@@ -84,7 +84,7 @@ class DefaultFactorySpec extends ObjectBehavior
             ->withLinkPrefix($prefix)
             ->withDocumentLinks($links);
         $document = $this->createDocument($this->createArraySchema(), 'test');
-        $document->links()->get('about')->href()->shouldBe($prefix.$href);
+        $document->links()->get('about')->href()->shouldBe($prefix.'/about');
     }
 
     function it_can_construct_resource_links()
@@ -103,7 +103,7 @@ class DefaultFactorySpec extends ObjectBehavior
         $meta = new Meta(['baz' => 'bar']);
         $this->withDocumentMeta($meta)->shouldBe($this->getWrappedObject());
         $document = $this->createDocument($this->createArraySchema(), 'test');
-        $document->meta()->shouldBeLike($meta);
+        $document->meta()->shouldBeLike(new Meta(['baz' => 'bar', 'bar' => 'foo']));
     }
 
     function it_can_create_resource_meta()

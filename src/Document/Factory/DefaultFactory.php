@@ -12,6 +12,7 @@ namespace Slick\JSONAPI\Document\Factory;
 use Slick\JSONAPI\Document;
 use Slick\JSONAPI\Document\DocumentFactory;
 use Slick\JSONAPI\JsonApi;
+use Slick\JSONAPI\Object\Link\LinkObject;
 use Slick\JSONAPI\Object\Links;
 use Slick\JSONAPI\Object\Meta;
 use Slick\JSONAPI\Object\Relationships;
@@ -234,7 +235,8 @@ final class DefaultFactory implements DocumentFactory
     {
         $links = new Links($this->linkPrefix);
         foreach ($linksSource as $rel => $href) {
-            if ($rel === ResourceSchema::LINK_SELF || $href === ResourceSchema::LINK_SELF) {
+            $isLinkObject = $href instanceof LinkObject;
+            if (!$isLinkObject && ($rel === ResourceSchema::LINK_SELF || $href === ResourceSchema::LINK_SELF)) {
                 $linkHref = $href === true ? "/{$schema->type($object)}/{$schema->identifier($object)}" : $href;
                 $links->add(ResourceSchema::LINK_SELF, rtrim($linkHref, '/'));
                 continue;
@@ -449,14 +451,17 @@ final class DefaultFactory implements DocumentFactory
      */
     public function addDocumentLinks(ResourceSchema $schema, mixed $object, Document $document): mixed
     {
-        if ($this->documentLinks) {
-            return $document->withLinks($this->documentLinks);
+        $localLinks = $this->documentLinks ? $this->documentLinks->toArray() : [];
+        $documentLinks = $schema->documentLinks($object)
+            ? $this->createLinkList($schema->documentLinks($object), $schema, $object)->toArray()
+            : [];
+
+        $linkObjects = array_merge($localLinks, $documentLinks);
+        if (empty($linkObjects)) {
+            return $document;
         }
 
-        $documentLinks = $schema->documentLinks($object);
-        return is_array($documentLinks)
-            ? $document->withLinks($this->createLinkList($documentLinks, $schema, $object))
-            : $document;
+        return $document->withLinks(new Links(links: $linkObjects));
     }
 
     /**
@@ -467,11 +472,15 @@ final class DefaultFactory implements DocumentFactory
      */
     public function addDocumentMeta(ResourceSchema $schema, mixed $object, Document $document): mixed
     {
-        if ($this->documentMeta) {
-            return $document->withMeta($this->documentMeta);
+        $localMeta = $this->documentMeta ? $this->documentMeta->toArray() : [];
+        $documentMeta = $schema->documentMeta($object) ?? [];
+
+        $finalData = array_merge($localMeta, $documentMeta);
+
+        if (empty($finalData)) {
+            return $document;
         }
 
-        $documentMeta = $schema->documentMeta($object);
-        return is_array($documentMeta) ? $document->withMeta(new Meta($documentMeta)) : $document;
+        return $document->withMeta(new Meta($finalData));
     }
 }

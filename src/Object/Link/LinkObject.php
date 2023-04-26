@@ -60,9 +60,9 @@ final class LinkObject implements JsonSerializable
     /**
      * rel
      *
-     * @return string
+     * @return null|string
      */
-    public function rel(): string
+    public function rel(): ?string
     {
         return $this->rel;
     }

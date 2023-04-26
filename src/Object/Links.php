@@ -40,11 +40,24 @@ final class Links implements IteratorAggregate, JsonSerializable
      * Creates a Links
      *
      * @param string|null $linkPrefix
+     * @param array|null $links
      */
-    public function __construct(?string $linkPrefix = null)
+    public function __construct(?string $linkPrefix = null, ?array $links = [])
     {
         $this->linkPrefix = $linkPrefix;
         $this->links = new ArrayCollection();
+        if (!is_array($links)) {
+            return;
+        }
+
+        foreach ($links as $name => $link) {
+            if (is_string($name)) {
+                $this->add($name, $link);
+                continue;
+            }
+
+            $this->add($link);
+        }
     }
 
     /**

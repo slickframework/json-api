@@ -74,7 +74,7 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
 
         $rawValue = $attributes[$name];
         $className = $this->className;
-        $value = $className ? new $className($rawValue) : $rawValue;
+        $value = $className && $rawValue ? new $className($rawValue) : $rawValue;
 
         $this->assignPropertyValue($decodedObject, $value);
     }
@@ -94,7 +94,7 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
             return;
         }
 
-        if (!$this->className) {
+        if (!$this->className || !$resourceObject->attributes()[$name]) {
             return;
         }
 

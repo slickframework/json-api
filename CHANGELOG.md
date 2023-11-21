@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.2.0] 2023-11-21
+### Adds
+- Support for enums on attribute schema discovery
+- `ResourceAttribute::$factory` can be used to set a factory method when decoding
+  a JSON API request object
+- `ResourceAttribute::$getter` can be used to specify a getter method on a non
+  `Stringable` object
+### Changes
+- composer dependencies versions to be more compatible with other projects
+### Removes
+- Support for PHP < 8.1
+
 ## [v1.1.3] 2023-10-27
 ### Fixes
 - Null value assignment to properties that uses classNames (such as value objects).
@@ -146,7 +158,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.1.3...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.2.0...HEAD
+[v1.2.0]: https://github.com/slickframework/json-api/compare/v1.1.3...v1.2.0
 [v1.1.3]: https://github.com/slickframework/json-api/compare/v1.1.2...v1.1.3
 [v1.1.2]: https://github.com/slickframework/json-api/compare/v1.1.0...v1.1.2
 [v1.1.0]: https://github.com/slickframework/json-api/compare/v1.0.1...v1.1.0

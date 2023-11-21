@@ -114,8 +114,17 @@ trait DiscoverAttributesMethods
     {
         $value = $this->extractPropertyValue($object);
 
+        $getter = $this->getter;
+        if ($getter) {
+            $value = $value->$getter();
+        }
+
         if (is_scalar($value) || is_array($value) || is_null($value)) {
             return $value;
+        }
+        
+        if ($value instanceof \UnitEnum) {
+            return $value->value;
         }
 
         if ($value instanceof JsonSerializable) {
@@ -128,6 +137,7 @@ trait DiscoverAttributesMethods
 
         $className = $this->property->getDeclaringClass()->getName();
         $name = $this->property->getName();
+
         $valueClass = $this->property->getType()->getName();
 
         throw new DocumentEncoderFailure(

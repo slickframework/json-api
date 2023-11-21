@@ -32,6 +32,8 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
 {
     use DiscoverAttributesMethods;
 
+    private array $instances = [];
+
     private Reflector|ReflectionProperty|null $property = null;
 
     /**
@@ -44,7 +46,9 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
     public function __construct(
         private ?string $name = null,
         private ?string $className = null,
-        private bool $required = false
+        private bool $required = false,
+        private ?string $factory = null,
+        private ?string $getter = null
     ) {
     }
 
@@ -74,7 +78,7 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
 
         $rawValue = $attributes[$name];
         $className = $this->className;
-        $value = $className && $rawValue ? new $className($rawValue) : $rawValue;
+        $value = $className && $rawValue ? $this->createObject($className, $rawValue, $name) : $rawValue;
 
         $this->assignPropertyValue($decodedObject, $value);
     }
@@ -174,7 +178,7 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
         SchemaDecodeValidator $validator
     ): void {
         try {
-            new ($this->className)($this->attribute($name, $resourceObject));
+            $this->createObject($this->className, $this->attribute($name, $resourceObject), $name);
         } catch (InvalidArgumentException $e) {
             $validator->add(
                 title: "Attribute '$name' is invalid",
@@ -191,5 +195,71 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
                 status: "500"
             );
         }
+    }
+
+    private function createObject(string $className, mixed $value, string $attribute): object
+    {
+        $key = "$className::$attribute";
+        if (array_key_exists($key, $this->instances)) {
+            return $this->instances[$key];
+        }
+
+        if ($this->factory) {
+            return $this->createFromFactory($key, $className, $value);
+        }
+
+        if (enum_exists($className)) {
+            return $this->createEnum($key, $className, $value);
+        }
+
+        return $this->createObjectInstance($key, $className, $value);
+    }
+
+    /**
+     * Creates an object from a factory method
+     *
+     * @param string $key
+     * @param string $className
+     * @param mixed $value
+     * @return object
+     */
+    private function createFromFactory(string $key, string $className, mixed $value): object
+    {
+        $object = call_user_func_array([$className, $this->factory], [$value]);
+        $this->instances[$key] = $object;
+        return $object;
+    }
+
+    /**
+     * Creates an object instance
+     *
+     * @param string $key
+     * @param string $className
+     * @param mixed $value
+     * @return mixed
+     */
+    private function createObjectInstance(string $key, string $className, mixed $value): object
+    {
+        $object = new ($className)($value);
+        $this->instances[$key] = $object;
+        return $object;
+    }
+
+    /**
+     * Creates an enum with provided value
+     *
+     * @param string $key
+     * @param string $className
+     * @param mixed $value
+     * @return \BackedEnum
+     */
+    private function createEnum(string $key, string $className, mixed $value): \BackedEnum
+    {
+        $enum = ($className)::tryFrom($value);
+        if (!$enum) {
+            throw new InvalidArgumentException("Unkown value for $value");
+        }
+        $this->instances[$key] = $enum;
+        return $enum;
     }
 }

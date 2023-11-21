@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Adds
+- Support for enums on attribute schema discovery
+- `ResourceAttribute::$factory` can be used to set a factory method when decoding
+  a JSON API request object
+- `ResourceAttribute::$getter` can be used to specify a getter method on a non
+  `Stringable` object
+### Changes
+- composer dependencies versions to be more compatible with other projects
+### Removes
+- Support for PHP < 8.1
 
 ## [v1.1.3] 2023-10-27
 ### Fixes

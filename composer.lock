@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc94b48f100b573d4e401be385eb9dc6",
+    "content-hash": "59f310383ef574e8ea32dba10485f503",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -197,32 +197,31 @@
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
-            "version": "2.0.x-dev",
+            "version": "1.5.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f49f6a836a816609c853718ba2ea422dc18a8e4a"
+                "reference": "0a0fa9780f5d4e507415a065172d26a98d02047b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f49f6a836a816609c853718ba2ea422dc18a8e4a",
-                "reference": "f49f6a836a816609c853718ba2ea422dc18a8e4a",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/0a0fa9780f5d4e507415a065172d26a98d02047b",
+                "reference": "0a0fa9780f5d4e507415a065172d26a98d02047b",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.1"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^11",
+                "doctrine/coding-standard": "^9 || ^11",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^1.2",
-                "phpstan/phpstan": "^1.9.4",
-                "phpstan/phpstan-phpunit": "^1.3",
-                "phpunit/phpunit": "^10.1.0",
-                "vimeo/psalm": "^5.4"
+                "phpbench/phpbench": "^0.16 || ^1",
+                "phpstan/phpstan": "^1.4",
+                "phpstan/phpstan-phpunit": "^1",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "vimeo/psalm": "^4.30 || ^5.4"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -248,7 +247,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/instantiator/issues",
-                "source": "https://github.com/doctrine/instantiator/tree/2.0.x"
+                "source": "https://github.com/doctrine/instantiator/tree/1.5.0"
             },
             "funding": [
                 {
@@ -264,7 +263,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-24T20:23:35+00:00"
+            "time": "2022-12-30T00:15:36+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -485,51 +484,48 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "dev-main",
+            "version": "dev-next",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "28faa87d1151a15848166226f33de61cb7107d0d"
+                "reference": "5b9a876f3652a5b5efc596a7fee229c84098ed80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/28faa87d1151a15848166226f33de61cb7107d0d",
-                "reference": "28faa87d1151a15848166226f33de61cb7107d0d",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/5b9a876f3652a5b5efc596a7fee229c84098ed80",
+                "reference": "5b9a876f3652a5b5efc596a7fee229c84098ed80",
                 "shasum": ""
             },
             "require": {
-                "doctrine/instantiator": "^1.0.5 || ^2",
+                "doctrine/instantiator": "^1.3",
                 "ext-tokenizer": "*",
-                "php": "^7.3 || 8.0.* || 8.1.* || 8.2.*",
-                "phpspec/php-diff": "^1.0.0",
-                "phpspec/prophecy": "^1.9",
-                "sebastian/exporter": "^3.0 || ^4.0 || ^5.0",
-                "symfony/console": "^3.4 || ^4.4 || ^5.0 || ^6.0",
-                "symfony/event-dispatcher": "^3.4 || ^4.4 || ^5.0 || ^6.0",
-                "symfony/finder": "^3.4 || ^4.4 || ^5.0 || ^6.0",
-                "symfony/process": "^3.4 || ^4.4 || ^5.0 || ^6.0",
-                "symfony/yaml": "^3.4 || ^4.4 || ^5.0 || ^6.0"
-            },
-            "conflict": {
-                "sebastian/comparator": "<1.2.4"
+                "php": "8.1.* || 8.2.*",
+                "phpspec/php-diff": "^1.1",
+                "phpspec/prophecy": "^1.14",
+                "sebastian/exporter": "^4.0",
+                "symfony/console": "^5.4 || ^6.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.0",
+                "symfony/finder": "^5.4 || ^6.0",
+                "symfony/process": "^5.4 || ^6.0",
+                "symfony/yaml": "^5.4 || ^6.0"
             },
             "require-dev": {
-                "behat/behat": "^3.3",
-                "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0",
-                "symfony/filesystem": "^3.4 || ^4.0 || ^5.0 || ^6.0",
+                "behat/behat": "^3.10",
+                "phpunit/phpunit": "^9.0",
+                "rector/rector": "^0.12.17",
+                "symfony/filesystem": "^5.4 || ^6.0",
                 "vimeo/psalm": "^4.3 || ^5.2"
             },
             "suggest": {
                 "phpspec/nyan-formatters": "Adds Nyan formatters"
             },
-            "default-branch": true,
             "bin": [
                 "bin/phpspec"
             ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "7.4.x-dev"
+                    "dev-next": "8.0.x-dev"
                 }
             },
             "autoload": {
@@ -569,9 +565,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpspec/phpspec/issues",
-                "source": "https://github.com/phpspec/phpspec/tree/7.4.0"
+                "source": "https://github.com/phpspec/phpspec/tree/next"
             },
-            "time": "2023-04-21T13:17:48+00:00"
+            "time": "2023-04-21T11:25:49+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -967,33 +963,30 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "dev-main",
+            "version": "4.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "b196ae9ce2e50f5224196f1b390a084ad89e223a"
+                "reference": "b247957a1c8dc81a671770f74b479c0a78a818f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/b196ae9ce2e50f5224196f1b390a084ad89e223a",
-                "reference": "b196ae9ce2e50f5224196f1b390a084ad89e223a",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/b247957a1c8dc81a671770f74b479c0a78a818f1",
+                "reference": "b247957a1c8dc81a671770f74b479c0a78a818f1",
                 "shasum": ""
             },
             "require": {
-                "ext-dom": "*",
-                "ext-mbstring": "*",
-                "php": ">=8.1",
-                "sebastian/diff": "^5.0",
-                "sebastian/exporter": "^5.0"
+                "php": ">=7.3",
+                "sebastian/diff": "^4.0",
+                "sebastian/exporter": "^4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.4"
+                "phpunit/phpunit": "^9.3"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "5.0-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -1032,8 +1025,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
-                "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/main"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/4.0"
             },
             "funding": [
                 {
@@ -1041,34 +1033,33 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-09T06:58:43+00:00"
+            "time": "2022-09-14T12:46:14+00:00"
         },
         {
             "name": "sebastian/diff",
-            "version": "dev-main",
+            "version": "4.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "1343d8c08e8cf0843d8c764ed40006d6c358b69a"
+                "reference": "74be17022044ebaaecfdf0c5cd504fc9cd5a7131"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/1343d8c08e8cf0843d8c764ed40006d6c358b69a",
-                "reference": "1343d8c08e8cf0843d8c764ed40006d6c358b69a",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/74be17022044ebaaecfdf0c5cd504fc9cd5a7131",
+                "reference": "74be17022044ebaaecfdf0c5cd504fc9cd5a7131",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.0",
+                "phpunit/phpunit": "^9.3",
                 "symfony/process": "^4.2 || ^5"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "5.1-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -1100,8 +1091,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/diff/issues",
-                "security": "https://github.com/sebastianbergmann/diff/security/policy",
-                "source": "https://github.com/sebastianbergmann/diff/tree/main"
+                "source": "https://github.com/sebastianbergmann/diff/tree/4.0"
             },
             "funding": [
                 {
@@ -1109,35 +1099,34 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-09T06:59:03+00:00"
+            "time": "2023-05-07T05:35:17+00:00"
         },
         {
             "name": "sebastian/exporter",
-            "version": "dev-main",
+            "version": "4.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "7d54c2772847eb6740bdd625bc96781cf0aadc6d"
+                "reference": "ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/7d54c2772847eb6740bdd625bc96781cf0aadc6d",
-                "reference": "7d54c2772847eb6740bdd625bc96781cf0aadc6d",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d",
+                "reference": "ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
-                "php": ">=8.1",
-                "sebastian/recursion-context": "^5.0"
+                "php": ">=7.3",
+                "sebastian/recursion-context": "^4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.0"
+                "ext-mbstring": "*",
+                "phpunit/phpunit": "^9.3"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "5.1-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -1179,8 +1168,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
-                "security": "https://github.com/sebastianbergmann/exporter/security/policy",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/main"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/4.0"
             },
             "funding": [
                 {
@@ -1188,33 +1176,32 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-09T06:59:22+00:00"
+            "time": "2022-09-14T06:03:37+00:00"
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "dev-main",
+            "version": "4.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "4a740b724dc95820883733074ef3bf0a9dc7b3b0"
+                "reference": "e75bd0f07204fec2a0af9b0f3cfe97d05f92efc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/4a740b724dc95820883733074ef3bf0a9dc7b3b0",
-                "reference": "4a740b724dc95820883733074ef3bf0a9dc7b3b0",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/e75bd0f07204fec2a0af9b0f3cfe97d05f92efc1",
+                "reference": "e75bd0f07204fec2a0af9b0f3cfe97d05f92efc1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.0"
+                "phpunit/phpunit": "^9.3"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "5.0-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -1244,8 +1231,7 @@
             "homepage": "https://github.com/sebastianbergmann/recursion-context",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
-                "security": "https://github.com/sebastianbergmann/recursion-context/security/policy",
-                "source": "https://github.com/sebastianbergmann/recursion-context/tree/main"
+                "source": "https://github.com/sebastianbergmann/recursion-context/tree/4.0.5"
             },
             "funding": [
                 {
@@ -1253,7 +1239,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-09T07:00:49+00:00"
+            "time": "2023-02-03T06:07:39+00:00"
         },
         {
             "name": "slick/http",
@@ -2461,9 +2447,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "squizlabs/php_codesniffer": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

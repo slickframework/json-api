@@ -14,6 +14,7 @@ use Slick\Http\Message\Request;
 use Slick\Http\Message\Stream\FileStream;
 use Slick\JSONAPI\Document\HttpMessageParser;
 use PhpSpec\ObjectBehavior;
+use Slick\JSONAPI\Document\HttpMessageParserInterface;
 use Slick\JSONAPI\Document\ResourceDocument;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\Links;
@@ -39,6 +40,11 @@ class HttpMessageParserSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType(HttpMessageParser::class);
+    }
+
+    function its_a_message_parser()
+    {
+        $this->shouldBeAnInstanceOf(HttpMessageParserInterface::class);
     }
 
     function it_can_parse_json_api()

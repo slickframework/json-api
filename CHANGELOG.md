@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.2.1] 2023-11-22
+### Adds
+- `HttpMessageParserInterface` for better framework (PHPUnit) test integrations
+
 ## [v1.2.0] 2023-11-21
 ### Adds
 - Support for enums on attribute schema discovery
@@ -158,7 +162,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.2.1...HEAD
+[v1.2.1]: https://github.com/slickframework/json-api/compare/v1.2.0...v1.2.1
 [v1.2.0]: https://github.com/slickframework/json-api/compare/v1.1.3...v1.2.0
 [v1.1.3]: https://github.com/slickframework/json-api/compare/v1.1.2...v1.1.3
 [v1.1.2]: https://github.com/slickframework/json-api/compare/v1.1.0...v1.1.2

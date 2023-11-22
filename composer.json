@@ -22,11 +22,6 @@
             "spec\\Slick\\JSONAPI\\": "spec"
         }
     },
-    "require-dev": {
-        "phpspec/phpspec": "^7.2",
-        "squizlabs/php_codesniffer": "4.0.x-dev",
-        "slick/http": "^3.1"
-    },
     "require": {
         "php": ">=8.1",
         "ext-json": "*",
@@ -50,5 +45,10 @@
         },
         "sort-packages": true,
         "optimize-autoloader": true
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^8.0@dev",
+        "slick/http": "^3.1@dev",
+        "squizlabs/php_codesniffer": "4.0.x-dev"
     }
 }

@@ -22,7 +22,7 @@ use Slick\JSONAPI\Document\HttpMessageParser\ResourceObjectParser;
  *
  * @package Slick\JSONAPI\Document
  */
-final class HttpMessageParser
+final class HttpMessageParser implements HttpMessageParserInterface
 {
 
     /**

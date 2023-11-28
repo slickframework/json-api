@@ -114,15 +114,15 @@ trait DiscoverAttributesMethods
     {
         $value = $this->extractPropertyValue($object);
 
+        if (is_scalar($value) || is_array($value) || is_null($value)) {
+            return $value;
+        }
+
         $getter = $this->getter;
         if ($getter) {
             $value = $value->$getter();
         }
 
-        if (is_scalar($value) || is_array($value) || is_null($value)) {
-            return $value;
-        }
-        
         if ($value instanceof \UnitEnum) {
             return $value->value;
         }

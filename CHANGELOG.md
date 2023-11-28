@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.2.2] 2023-11-22
+### Fix
+- When using a getter, attribute retrieve value doesn't verify if user is scalar
+  resulting in an error when trying to call the method (getter)
+
 ## [v1.2.1] 2023-11-22
 ### Adds
 - `HttpMessageParserInterface` for better framework (PHPUnit) test integrations
@@ -162,7 +167,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.2.2...HEAD
+[v1.2.2]: https://github.com/slickframework/json-api/compare/v1.2.1...v1.2.2
 [v1.2.1]: https://github.com/slickframework/json-api/compare/v1.2.0...v1.2.1
 [v1.2.0]: https://github.com/slickframework/json-api/compare/v1.1.3...v1.2.0
 [v1.1.3]: https://github.com/slickframework/json-api/compare/v1.1.2...v1.1.3

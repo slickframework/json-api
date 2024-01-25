@@ -48,7 +48,8 @@ class ResourceAttribute implements DecodableAttribute, EncodableAttribute
         private ?string $className = null,
         private bool $required = false,
         private ?string $factory = null,
-        private ?string $getter = null
+        private ?string $getter = null,
+        private ?string $format = null
     ) {
     }
 

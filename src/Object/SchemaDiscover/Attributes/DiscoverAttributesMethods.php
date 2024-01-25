@@ -120,7 +120,12 @@ trait DiscoverAttributesMethods
 
         $getter = $this->getter;
         if ($getter) {
-            $value = $value->$getter();
+            return $value->$getter();
+        }
+        
+        $format = $this->format;
+        if ($format && method_exists($value, 'format')) {
+            return $value->format($format);
         }
 
         if ($value instanceof \UnitEnum) {

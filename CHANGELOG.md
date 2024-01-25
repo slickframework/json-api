@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.3.0] 2024-01-25
+### Adds
+- a formatter expression that can be used when encoding objects that have a
+  `Object::format()` method
+  
 ## [v1.2.2] 2023-11-22
 ### Fix
 - When using a getter, attribute retrieve value doesn't verify if user is scalar

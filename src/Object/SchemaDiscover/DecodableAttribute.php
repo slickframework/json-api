@@ -37,5 +37,4 @@ interface DecodableAttribute extends ReflectorAwareAttribute
      * @param SchemaDecodeValidator $validator
      */
     public function validate(ResourceObject $resourceObject, SchemaDecodeValidator $validator): void;
-
 }

@@ -36,6 +36,4 @@ interface MetaAwareObject
      * @return MetaAwareObject|Document
      */
     public function withMeta(Meta $meta): MetaAwareObject;
-
-
 }

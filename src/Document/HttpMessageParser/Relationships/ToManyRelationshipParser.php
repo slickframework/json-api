@@ -61,6 +61,4 @@ final class ToManyRelationshipParser
 
         return $relationship;
     }
-
-
 }

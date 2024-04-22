@@ -15,12 +15,13 @@ use Slick\JSONAPI\Document\Decoder\DefaultDecoder;
 use PhpSpec\ObjectBehavior;
 use Slick\JSONAPI\Document\DocumentDecoder;
 use Slick\JSONAPI\Exception\FailedValidation;
+use Slick\JSONAPI\Object\ResourceIdentifier;
 use Slick\JSONAPI\Object\ResourceObject;
 use Slick\JSONAPI\Object\SchemaDiscover;
 use Slick\JSONAPI\Validator;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\CreatePersonCommand;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\CreatePersonCommandSchema;
-use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Group;
+use spec\Slick\JSONAPI\Document\Decoder\Fixtures\User;
 use spec\Slick\JSONAPI\Document\Decoder\Fixtures\Member;
 
 /**
@@ -84,5 +85,25 @@ class DefaultDecoderSpec extends ObjectBehavior
         $this->setRequestedDocument(new Document\ResourceDocument($data));
         $member = $this->decodeTo(Member::class);
         $member->name()->shouldBe($resourceData->data->attributes->name);
+    }
+
+    function it_can_decode_an_object_when_parent_class_has_attributes_set(
+        Document $document,
+        ResourceObject $resource,
+        SchemaDiscover $schemaDiscover
+    ) {
+
+        $resource = new ResourceObject(
+            resourceIdentifier: new ResourceIdentifier('users', '2'),
+            attributes: ['name' => 'John Doe', 'email' => 'john.doe@example.com']
+        );
+
+        $document->data()->willReturn($resource);
+        $this->setRequestedDocument($document);
+        $resourceSchema = (new SchemaDiscover\AttributeSchemaDiscover())->discover(User::class);
+        $schemaDiscover->discover(User::class)->willReturn($resourceSchema);
+        $user = $this->decodeTo(User::class);
+        $user->name()->shouldBe('John Doe');
+        $user->email()->shouldBe('john.doe@example.com');
     }
 }

@@ -3,6 +3,7 @@
     "description": "JSON:API specification library, providing content negotiation, error handling and pagination, as well as fetching, creation, updating and deleting resources",
     "type": "library",
     "license": "MIT",
+    "version": "v1.3.2",
     "minimum-stability": "dev",
     "homepage": "https://github.com/slickframework/json-api",
     "authors": [
@@ -47,7 +48,7 @@
         "optimize-autoloader": true
     },
     "require-dev": {
-        "phpspec/phpspec": "^8.0@dev",
+        "phpspec/phpspec": "^7",
         "slick/http": "^3.1@dev",
         "squizlabs/php_codesniffer": "4.0.x-dev"
     }

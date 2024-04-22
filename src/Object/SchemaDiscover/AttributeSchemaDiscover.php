@@ -95,7 +95,7 @@ final class AttributeSchemaDiscover implements SchemaDiscover
         );
 
         if (empty($attributes)) {
-            list($attributes, $class) = $this->tryParentClass($object);
+            list($attributes) = $this->tryParentClass($object);
         }
 
         /** @var AsResourceObject $asResourceObject */
@@ -117,14 +117,14 @@ final class AttributeSchemaDiscover implements SchemaDiscover
     }
 
     /**
-     * Tries to read atributes from parent class of a given object, if exists
+     * Tries to read attributes from parent class of a given object, if exists
      *
      * @param object $object
      * @return array<mixed>
      */
-    private function tryParentClass(object $object): array
+    private function tryParentClass(object|string $object): array
     {
-        $key = get_class($object);
+        $key = is_object($object) ? get_class($object) : $object;
         $class = get_parent_class($object);
 
         $documentEncoderFailure = new DocumentEncoderFailure(

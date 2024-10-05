@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.4.0] 2024-10-05
+### Adds
+- `slick/module-api` implementation
+- PSR-15 middleware that parses JSON:API document and feeds document decoder.
+
 ## [v1.3.2] 2024-04-22
 ### Fix
 - when trying to decode to a class that extends one already defined, it was
@@ -183,7 +188,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.3.2...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.4.0...HEAD
+[v1.4.0]: https://github.com/slickframework/json-api/compare/v1.3.2...v1.4.0
 [v1.3.2]: https://github.com/slickframework/json-api/compare/v1.3.1...v1.3.2
 [v1.3.1]: https://github.com/slickframework/json-api/compare/v1.3.0...v1.3.1
 [v1.3.0]: https://github.com/slickframework/json-api/compare/v1.2.2...v1.3.0

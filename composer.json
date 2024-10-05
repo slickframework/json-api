@@ -28,6 +28,7 @@
         "ext-json": "*",
         "doctrine/collections": "^1.6|^2.1|^3.0",
         "psr/http-message": "^1.0|^2.0",
+        "psr/http-server-middleware": ">=1.0.0",
         "slick/configuration": ">=v2.1.0",
         "slick/module-api": ">=v0.4.0"
     },

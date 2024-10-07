@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "462c24f2ed2664a5f4494d275668211d",
+    "content-hash": "e445ef6d9e0ab11625889d5b903b96c3",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -629,6 +629,67 @@
             "time": "2024-08-15T21:29:15+00:00"
         },
         {
+            "name": "slick/error-handler",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/slickframework/error-handler.git",
+                "reference": "6a754432b1837d4c4daafb3d45b96687755890d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/slickframework/error-handler/zipball/6a754432b1837d4c4daafb3d45b96687755890d9",
+                "reference": "6a754432b1837d4c4daafb3d45b96687755890d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "dev-master",
+                "phpspec/prophecy": "1.x-dev",
+                "phpspec/prophecy-phpunit": "^2.0@dev",
+                "phpstan/phpstan": "2.0.x-dev",
+                "phpunit/phpunit": "11.4.x-dev",
+                "squizlabs/php_codesniffer": "4.0.x-dev",
+                "twig/twig": "^3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.4-dev",
+                    "dev-develop": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Slick\\ErrorHandler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Silva",
+                    "email": "silvam.filipe@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Error Handler module that captures and displays all throwable errors in a given format, making debugging easier and more efficient",
+            "keywords": [
+                "error handler",
+                "slick-php"
+            ],
+            "support": {
+                "issues": "https://github.com/slickframework/error-handler/issues",
+                "source": "https://github.com/slickframework/error-handler/tree/v0.5.0"
+            },
+            "time": "2024-09-11T00:02:13+00:00"
+        },
+        {
             "name": "slick/fswatch",
             "version": "dev-main",
             "source": {
@@ -749,12 +810,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "270fd988c707d8d3aeae056de564130d3cd1b2ec"
+                "reference": "23a1a633e4ee488f843cfac61de2f90f0d764c82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/270fd988c707d8d3aeae056de564130d3cd1b2ec",
-                "reference": "270fd988c707d8d3aeae056de564130d3cd1b2ec",
+                "url": "https://api.github.com/repos/symfony/console/zipball/23a1a633e4ee488f843cfac61de2f90f0d764c82",
+                "reference": "23a1a633e4ee488f843cfac61de2f90f0d764c82",
                 "shasum": ""
             },
             "require": {
@@ -834,7 +895,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-04T09:00:10+00:00"
+            "time": "2024-10-06T09:25:06+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -2528,12 +2589,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "f4873fff9d7b0f6ec263d9f49df899b48cbe25d1"
+                "reference": "01b2110c2026b5d716253fde1cb338279eac26b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/f4873fff9d7b0f6ec263d9f49df899b48cbe25d1",
-                "reference": "f4873fff9d7b0f6ec263d9f49df899b48cbe25d1",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/01b2110c2026b5d716253fde1cb338279eac26b1",
+                "reference": "01b2110c2026b5d716253fde1cb338279eac26b1",
                 "shasum": ""
             },
             "require": {
@@ -2600,7 +2661,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-10-03T18:55:23+00:00"
+            "time": "2024-10-07T06:43:46+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3018,6 +3079,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "slick/error-handler": 20,
         "slick/http": 20,
         "squizlabs/php_codesniffer": 20
     },

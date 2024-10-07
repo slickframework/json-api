@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v1.4.1] 2024-10-07
+## [v1.4.2] 2024-10-07
 ### Adds
 - Error handler to display errors as JSON:API specification
 ### Fixes
 - Scrutinizer broken pipeline
+- Missing `json:api.schema.decode.validator` dependency
 
 ## [v1.4.0] 2024-10-05
 ### Adds
@@ -194,8 +195,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.4.1...HEAD
-[v1.4.1]: https://github.com/slickframework/json-api/compare/v1.4.0...v1.4.1
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.4.2...HEAD
+[v1.4.2]: https://github.com/slickframework/json-api/compare/v1.4.0...v1.4.2
 [v1.4.0]: https://github.com/slickframework/json-api/compare/v1.3.2...v1.4.0
 [v1.3.2]: https://github.com/slickframework/json-api/compare/v1.3.1...v1.3.2
 [v1.3.1]: https://github.com/slickframework/json-api/compare/v1.3.0...v1.3.1

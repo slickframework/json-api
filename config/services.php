@@ -25,6 +25,7 @@ use Slick\JSONAPI\Document\HttpMessageParser;
 use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\JsonApiParserMiddleware;
 use Slick\JSONAPI\Object\SchemaDiscover;
+use Slick\JSONAPI\Validator\SchemaValidator;
 
 $discover = '@json:api.schema.discover';
 $services = [];
@@ -41,7 +42,7 @@ $services['json:api.document.encoder'] = function (Container $container) {
     return $encoder
         ->withJsonapi(new JsonApi(JsonApi::JSON_API_11))
         ->withLinkPrefix($server)
-    ;
+        ;
 };
 
 // -- Document decoder
@@ -73,6 +74,9 @@ $services['sparse.fields'] = ObjectDefinition::create(SparseFields::class)
 $services[SchemaDiscover::class] = $discover;
 $services['json:api.schema.discover'] = ObjectDefinition
     ::create(SchemaDiscover\AttributeSchemaDiscover::class);
+
+$services['json:api.schema.decode.validator'] = ObjectDefinition
+    ::create(SchemaValidator::class);
 
 // -- Document converter
 $services[DocumentConverter::class] = '@json:api.document.converter';

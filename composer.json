@@ -3,7 +3,7 @@
     "description": "JSON:API specification library, providing content negotiation, error handling and pagination, as well as fetching, creation, updating and deleting resources",
     "type": "library",
     "license": "MIT",
-    "version": "v1.4.1",
+    "version": "v1.4.2",
     "minimum-stability": "dev",
     "homepage": "https://github.com/slickframework/json-api",
     "authors": [

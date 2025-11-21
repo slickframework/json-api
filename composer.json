@@ -30,7 +30,8 @@
         "psr/http-message": "^1.0|^2.0",
         "psr/http-server-middleware": ">=1.0.0",
         "slick/configuration": ">=v2.1.0",
-        "slick/error-handler": "^0.4.0@dev",
+        "slick/di": ">=v2.10.0",
+        "slick/error-handler": ">=v0.4.0",
         "slick/module-api": ">=v0.4.0"
     },
     "scripts": {

@@ -160,13 +160,9 @@ trait DiscoverAttributesMethods
      */
     private function assignPropertyValue(object $decodedObject, mixed $value): void
     {
-        $this->property->setAccessible(true);
         $this->property instanceof ReflectionMethod
             ? $this->property->invoke($decodedObject, $value)
             : $this->property->setValue($decodedObject, $value);
-        if ($this->property->isProtected() || $this->property->isPrivate()) {
-            $this->property->setAccessible(false);
-        }
     }
 
     /**
@@ -178,14 +174,9 @@ trait DiscoverAttributesMethods
      */
     private function extractPropertyValue(object $object): mixed
     {
-        $this->property->setAccessible(true);
         $value = ($this->property instanceof ReflectionMethod)
             ? call_user_func([$object, $this->property->getName()])
             : $this->property->getValue($object);
-
-        if ($this->property->isPrivate() || $this->property->isProtected()) {
-            $this->property->setAccessible(false);
-        }
         return $value;
     }
 

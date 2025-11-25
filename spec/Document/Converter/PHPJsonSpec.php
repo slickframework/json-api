@@ -46,10 +46,13 @@ class PHPJsonSpec extends ObjectBehavior
     function it_can_convert_meta_documents()
     {
         $expected = file_get_contents(__DIR__.'/meta-document.json');
+        $meta = $this->meta();
+        $jsonapi = $this->jsonApi();
+        $links = $this->documentLinks();
         $doc = new MetaDocument(
-            $this->meta(),
-            $this->jsonApi(),
-            $this->documentLinks()
+            $meta,
+            $jsonapi,
+            $links
         );
         $this->convert($doc)->shouldBe($expected);
     }
@@ -153,7 +156,10 @@ class PHPJsonSpec extends ObjectBehavior
      */
     private function documentLinks(): Links
     {
-        return (new Links())->add('about', '/about');
+        $links = new Links();
+
+        $links = $links->add('about', '/about');
+        return $links;
     }
 
     /**

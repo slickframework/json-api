@@ -14,30 +14,32 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.2"
           - "8.3"
+          - "8.4"
         dependencies: [ highest ]
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2"
+      - uses: actions/checkout@v4
+        name: "Checkout"
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
-          extensions: ext-json
+          extensions: json
 
       - name: Get composer cache directory
         id: composercache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composercache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: "Install latest dependencies"

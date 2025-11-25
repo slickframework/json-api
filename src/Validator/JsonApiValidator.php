@@ -61,7 +61,7 @@ final class JsonApiValidator implements Validator
     /**
      * @inheritDoc
      */
-    public function isValid($subject, $context = null): bool
+    public function isValid(mixed $subject, mixed $context = null): bool
     {
         $validator = $this->validator($context);
         return $validator->isValid($subject, $context);

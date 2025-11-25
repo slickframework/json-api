@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.5.0] - 2025-11-25
+### Added
+- Added PHP 8.4 to the CI matrix and updated the base Docker image to ensure 
+  compatibility with PHP 8.4.
+
+### Changed
+- Updated project dependencies to their latest compatible versions.
+- Increased the minimum required PHP version in `composer.json` to **8.3**.
+
+### Notes
+- This release ensures the project can leverage the latest PHP language features
+  and improvements provided by updated dependencies.
+
+
 ## [v1.4.2] 2024-10-07
 ### Adds
 - Error handler to display errors as JSON:API specification
@@ -195,7 +209,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.4.2...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.5.0...HEAD
+[v1.5.0]: https://github.com/slickframework/json-api/compare/v1.4.2...v1.5.0
 [v1.4.2]: https://github.com/slickframework/json-api/compare/v1.4.0...v1.4.2
 [v1.4.0]: https://github.com/slickframework/json-api/compare/v1.3.2...v1.4.0
 [v1.3.2]: https://github.com/slickframework/json-api/compare/v1.3.1...v1.3.2

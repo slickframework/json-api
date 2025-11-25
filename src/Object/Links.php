@@ -72,8 +72,10 @@ final class Links implements IteratorAggregate, JsonSerializable
     {
         if (is_a($relOrName, LinkObject::class)) {
             $this->links->set($relOrName->rel(), $this->verifyLink($relOrName));
+
             return $this;
         }
+
 
         $link = is_a($href, LinkObject::class)
             ? $this->verifyLink($href)

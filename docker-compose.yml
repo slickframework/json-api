@@ -1,6 +1,6 @@
 services:
   php:
-    image: fsilva/php:8.3-cli
+    image: fsilva/php:8.4-cli
     volumes:
       - ./:/usr/src/app
     working_dir: /usr/src/app

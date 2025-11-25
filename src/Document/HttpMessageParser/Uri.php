@@ -159,9 +159,9 @@ final class Uri implements UriInterface
      * @see https://tools.ietf.org/html/rfc3986#section-3.3
      * @return string|null The URI path.
      */
-    public function getPath(): ?string
+    public function getPath(): string
     {
-        return $this->path;
+        return $this->path ?: '';
     }
 
     /**
@@ -171,9 +171,9 @@ final class Uri implements UriInterface
      * @see https://tools.ietf.org/html/rfc3986#section-3.4
      * @return string|null The URI query string.
      */
-    public function getQuery(): ?string
+    public function getQuery(): string
     {
-        return $this->query;
+        return $this->query ?: '';
     }
 
     /**
@@ -183,7 +183,7 @@ final class Uri implements UriInterface
      * @see https://tools.ietf.org/html/rfc3986#section-3.5
      * @return string|null The URI fragment.
      */
-    public function getFragment(): ?string
+    public function getFragment(): string
     {
         return $this->fragment ?: '';
     }
@@ -301,7 +301,7 @@ final class Uri implements UriInterface
      * @see http://tools.ietf.org/html/rfc3986#section-4.1
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $text  = $this->scheme ? "{$this->getScheme()}:" : '';
         $text .= $this->getAuthority() !== ''

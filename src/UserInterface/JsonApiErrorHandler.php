@@ -9,11 +9,12 @@
 
 declare(strict_types=1);
 
-namespace Slick\JSONAPI;
+namespace Slick\JSONAPI\UserInterface;
 
 use Slick\ErrorHandler\Exception\ExceptionInspector;
 use Slick\ErrorHandler\Handler\HandlerInterface;
 use Slick\ErrorHandler\RunnerInterface;
+use Slick\JSONAPI\JsonApi;
 use Slick\JSONAPI\Object\ErrorObject;
 use Throwable;
 

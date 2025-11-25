@@ -38,9 +38,10 @@ $services['json:api.document.encoder'] = function (Container $container) {
         $container->get('json:api.document.factory'),
         $container->get('json:api.document.converted')
     );
-    $server = $container->get(ConfigurationInterface::class)->get('server', 'http://localhost');
+    $settings = $container->get(ConfigurationInterface::class);
+    $server = $settings->get('server', 'http://localhost');
     return $encoder
-        ->withJsonapi(new JsonApi(JsonApi::JSON_API_11))
+        ->withJsonapi(new JsonApi($settings->get('jsonapi.version', JsonApi::JSON_API_11)))
         ->withLinkPrefix($server)
         ;
 };

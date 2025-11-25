@@ -28,8 +28,11 @@ final class LinkRelation implements Validator
     /**
      * @inheritDoc
      */
-    public function isValid($subject, $context = null): bool
+    public function isValid(mixed $subject, $context = null): bool
     {
+        if (!is_string($subject)) {
+            return true;
+        }
         return $this->data()->containsKey($subject);
     }
 
@@ -58,7 +61,7 @@ final class LinkRelation implements Validator
 
         $headers = [];
         $count = 0;
-        while (($data = fgetcsv($handle, 1000)) !== false) {
+        while ($data = fgetcsv(stream: $handle, length: 1000, escape: "\\")) {
             if ($count++ === 0) {
                 $headers = $data;
                 continue;

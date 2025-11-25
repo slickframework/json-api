@@ -20,9 +20,9 @@ interface Validator
     /**
      * Check if provided subject is valid for this validator
      *
-     * @param $subject
-     * @param mixed|null $context
+     * @param mixed $subject
+     * @param mixed $context
      * @return bool
      */
-    public function isValid($subject, $context = null): bool;
+    public function isValid(mixed $subject, $context = null): bool;
 }

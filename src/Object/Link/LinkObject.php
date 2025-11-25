@@ -50,7 +50,9 @@ final class LinkObject implements JsonSerializable
         private ?string $title = null,
         private ?string $describedBy = null
     ) {
-        if ($rel && !JsonApiValidator::instance()->isValid($rel, JsonApiValidator::VALIDATE_LINK_REL)) {
+        $jsonApiValidator = JsonApiValidator::instance();
+        $isValid = $jsonApiValidator->isValid($rel, JsonApiValidator::VALIDATE_LINK_REL);
+        if ($rel && !$isValid) {
             throw new FailedValidation(
                 "'$rel' is not a valid or known RFC8288 link relation type."
             );

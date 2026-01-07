@@ -73,8 +73,8 @@ $services['sparse.fields'] = ObjectDefinition::create(SparseFields::class)
 
 // -- Schema discover
 $services[SchemaDiscover::class] = $discover;
-$services['json:api.schema.discover'] = ObjectDefinition
-    ::create(SchemaDiscover\AttributeSchemaDiscover::class);
+$services['json:api.schema.discover'] = fn(Container $container)
+    => $container->get(SchemaDiscover\AttributeSchemaDiscover::class);
 
 $services['json:api.schema.decode.validator'] = ObjectDefinition
     ::create(SchemaValidator::class);

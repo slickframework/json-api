@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v1.5.1] - 2026-01-07
+### Changed
+- Adds DI container to schema discover.
+
 ## [v1.5.0] - 2025-11-25
 ### Added
 - Added PHP 8.4 to the CI matrix and updated the base Docker image to ensure 

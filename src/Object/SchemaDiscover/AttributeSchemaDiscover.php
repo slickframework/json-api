@@ -13,6 +13,9 @@ use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use Reflector;
+use Slick\Di\ContainerAwareInterface;
+use Slick\Di\ContainerInterface;
+use Slick\Di\Definition\Attributes\Autowire;
 use Slick\JSONAPI\Exception\DocumentEncoderFailure;
 use Slick\JSONAPI\Object\ResourceSchema;
 use Slick\JSONAPI\Object\SchemaDiscover;
@@ -32,6 +35,9 @@ final class AttributeSchemaDiscover implements SchemaDiscover
 {
     /** @var array<string, ResourceSchema> */
     public array $map = [];
+
+    private ?ContainerInterface $container = null;
+
 
     /**
      * @inheritDoc
@@ -108,7 +114,7 @@ final class AttributeSchemaDiscover implements SchemaDiscover
 
         if ($asResourceObject->schemaClass()) {
             $schemaClass = $asResourceObject->schemaClass();
-            return new $schemaClass();
+            return $this->container ? $this->container->get($schemaClass) : new $schemaClass();
         }
 
         return $asResourceObject instanceof AsResourceCollection
@@ -222,5 +228,12 @@ final class AttributeSchemaDiscover implements SchemaDiscover
         }
 
         return $result;
+    }
+
+    #[Autowire]
+    public function setContainer(ContainerInterface $container): self
+    {
+        $this->container = $container;
+        return $this;
     }
 }

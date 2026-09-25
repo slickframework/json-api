@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [v1.5.1] - 2026-01-07
+## [v1.5.1] - 2026-09-25
 ### Changed
 - Adds DI container to schema discover.
+- Updates `doctrine/collections` constraint to `^2.2 || ^3.0` and refreshes related dependencies.
 
 ## [v1.5.0] - 2025-11-25
 ### Added
@@ -213,7 +214,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsonApi Object
 - Meta's information object
 
-[Unreleased]: https://github.com/slickframework/json-api/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/slickframework/json-api/compare/v1.5.1...HEAD
+[v1.5.1]: https://github.com/slickframework/json-api/compare/v1.5.0...v1.5.1
 [v1.5.0]: https://github.com/slickframework/json-api/compare/v1.4.2...v1.5.0
 [v1.4.2]: https://github.com/slickframework/json-api/compare/v1.4.0...v1.4.2
 [v1.4.0]: https://github.com/slickframework/json-api/compare/v1.3.2...v1.4.0
